@@ -43,7 +43,6 @@ namespace Bilverkstad.Datalager
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        public T FirstOrDefault(Func<T, bool> predicate) //Hello
         {
             return table.FirstOrDefault(predicate);
         }
