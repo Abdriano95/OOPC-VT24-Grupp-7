@@ -1,5 +1,7 @@
 ﻿
 
+using Bilverkstad.Entitetlagret;
+
 public class Fordon
 {
 	private string registreringsnummer {  get; set; }	
@@ -17,5 +19,10 @@ public class Fordon
 	{ 
 		return BokadKund.kundnummer;
 	}
+
+    public override string ToString()
+    {
+        return String.Concat(registreringsnummer, bilmärke, BokadKund);
+    }
 
 }

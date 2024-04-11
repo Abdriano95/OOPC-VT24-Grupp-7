@@ -11,10 +11,6 @@ public class Bokning
 	private string syfteMedBesök;
 	public Mekaniker BokadMekaniker { get; private set; }
 
-
-
-
-
 	public Bokning(int bokningsNr,Kund BokadKund)
 	{
 		this.bokningsNr = bokningsNr;
@@ -30,5 +26,9 @@ public class Bokning
 	{
 		return BokadMekaniker.anställningNr;
 
+    }
+    public override string ToString()
+    {
+        return String.Concat(bokningsNr, BokadKund);
     }
 }
