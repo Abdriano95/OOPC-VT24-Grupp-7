@@ -23,7 +23,11 @@
             this.efternamn = efternamn;
             this._specialisering = _specialisering;
 
+        }
 
+        public override string ToString()
+        {
+            return String.Concat(anställningNr,förnamn,efternamn,_specialisering);
         }
 
     }
