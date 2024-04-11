@@ -1,6 +1,9 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 public class Kund
 {
+    
     public int kundnummer {  get; set; }  
     private string förnamn {  get; set; }  
     private string efternamn {  get; set; }    
@@ -14,11 +17,16 @@ public class Kund
 
     public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
     {
-        kundnummer = this.kundnummer;
-        förnamn = this.förnamn ;
-        efternamn = this.efternamn;
-        personnummer = this.personnummer;
-    }  
+        this.kundnummer = kundnummer;
+        this.förnamn = förnamn;
+        this.efternamn = efternamn;
+        this.personnummer = personnummer;
+    }
+
+    public override string ToString()
+    {
+        return String.Concat(kundnummer,förnamn,efternamn,personnummer);
+    }
 }
 
 
