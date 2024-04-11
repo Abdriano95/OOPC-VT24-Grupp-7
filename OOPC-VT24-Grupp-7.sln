@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bilverkstad.Datalager", "Bilverkstad.Datalager\Bilverkstad.Datalager.csproj", "{91B0C668-4D0A-48AD-A9C1-5BDF1027C98E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bilverkstad.Datalager", "Bilverkstad.Datalager\Bilverkstad.Datalager.csproj", "{91B0C668-4D0A-48AD-A9C1-5BDF1027C98E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bilverkstad.Affärslager", "Bilverkstad.Affärslager\Bilverkstad.Affärslager.csproj", "{F83C0603-4967-4868-B59B-9266F75CC9F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bilverkstad.Affärslager", "Bilverkstad.Affärslager\Bilverkstad.Affärslager.csproj", "{F83C0603-4967-4868-B59B-9266F75CC9F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bilverkstad.Entitetlagret", "Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj", "{B3081762-9DC6-417C-9D09-FCF6D9D64CBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bilverkstad.Entitetlagret", "Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj", "{B3081762-9DC6-417C-9D09-FCF6D9D64CBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bilverkstad.Presentationslager", "Bilverkstad.Presentationslager\Bilverkstad.Presentationslager.csproj", "{5D6FFA85-AFB6-40DE-94EF-FEEAB11D02D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bilverkstad.Presentationslager", "Bilverkstad.Presentationslager\Bilverkstad.Presentationslager.csproj", "{5D6FFA85-AFB6-40DE-94EF-FEEAB11D02D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testlager", "Testlager\Testlager.csproj", "{8A407275-E13F-4227-8EDA-DE0E368DC0F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5D6FFA85-AFB6-40DE-94EF-FEEAB11D02D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D6FFA85-AFB6-40DE-94EF-FEEAB11D02D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D6FFA85-AFB6-40DE-94EF-FEEAB11D02D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A407275-E13F-4227-8EDA-DE0E368DC0F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A407275-E13F-4227-8EDA-DE0E368DC0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A407275-E13F-4227-8EDA-DE0E368DC0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A407275-E13F-4227-8EDA-DE0E368DC0F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
