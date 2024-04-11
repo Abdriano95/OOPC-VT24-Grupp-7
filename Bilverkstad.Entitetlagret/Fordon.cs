@@ -1,5 +1,7 @@
 ﻿
 
+using Bilverkstad.Entitetlagret;
+
 public class Fordon
 {
 	private string registreringsnummer {  get; set; }	
