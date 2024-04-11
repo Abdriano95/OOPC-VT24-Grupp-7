@@ -18,4 +18,9 @@ public class Fordon
 		return BokadKund.kundnummer;
 	}
 
+    public override string ToString()
+    {
+        return String.Concat(registreringsnummer, bilmärke, BokadKund);
+    }
+
 }
