@@ -1,4 +1,4 @@
-﻿
+﻿namespace Bilverkstad.Entitetlagret;
 
 using Bilverkstad.Entitetlagret;
 
