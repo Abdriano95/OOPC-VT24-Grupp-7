@@ -1,12 +1,12 @@
-﻿using Bilverkstad.Entitetslagret;
+﻿
 
 public class Fordon
 {
-	private string registreringsnummer; {  get; set; }	
-	private string bilmärke; {  get; set; }	
-	public Kund BokadKund; {  get; private set; }	
+	private string registreringsnummer {  get; set; }	
+	private string bilmärke {  get; set; }	
+	public Kund BokadKund {  get; private set; }	
 	 
-	public Fordon(string registreringsnummer, string bilmärke, BokadKund)
+	public Fordon(string registreringsnummer, string bilmärke, Kund BokadKund)
 	{
 		this.registreringsnummer = registreringsnummer;
 		this.bilmärke = bilmärke;

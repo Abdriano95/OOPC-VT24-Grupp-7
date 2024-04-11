@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using Bilverkstad.Entitetlagret;
 
 public class Bokning
 {
@@ -8,13 +9,13 @@ public class Bokning
 	private DateTime inlämningsDatum;
 	private DateTime utlämningsDatum;
 	private string syfteMedBesök;
-	public Mekaniker BokadMekaniker { get;private set }
+	public Mekaniker BokadMekaniker { get; private set; }
 
 
 
 
 
-	public Bokning(int bokningsNr, BokadKund)
+	public Bokning(int bokningsNr,Kund BokadKund)
 	{
 		this.bokningsNr = bokningsNr;
 		this.BokadKund = BokadKund;
