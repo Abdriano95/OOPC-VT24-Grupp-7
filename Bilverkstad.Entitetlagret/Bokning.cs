@@ -10,6 +10,7 @@ public class Bokning
 	private DateTime utlämningsDatum;
 	private string syfteMedBesök;
 	public Mekaniker BokadMekaniker { get; private set; }
+	public Reservdel BokadDel { get; private set; }
 
 	public Bokning(int bokningsNr,Kund BokadKund)
 	{
@@ -27,7 +28,12 @@ public class Bokning
 		return BokadMekaniker.anställningNr;
 
     }
-    public override string ToString()
+
+	public string HämtaReservdel()
+	{
+		return BokadDel.reservdelsnummer;
+	}
+	public override string ToString()
     {
         return String.Concat(bokningsNr, BokadKund);
     }
