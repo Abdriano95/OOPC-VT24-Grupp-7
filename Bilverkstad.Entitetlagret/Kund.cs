@@ -25,9 +25,12 @@ public class Kund
 
     public override string ToString()
     {
+
         return String.Concat(kundnummer,förnamn,efternamn,personnummer);
+
     }
 }
+
 
 
 
