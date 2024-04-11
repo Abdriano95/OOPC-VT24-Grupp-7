@@ -1,4 +1,4 @@
-﻿
+﻿namespace Bilverkstad.Entitetlagret;
 
 public class Fordon
 {
