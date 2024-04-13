@@ -4,7 +4,7 @@ namespace Bilverkstad.Entitetlagret
 {
     public class Kund
     {
-
+        [Key]  
         public int kundnummer { get; set; }
         private string förnamn { get; set; }
         private string efternamn { get; set; }
@@ -16,13 +16,13 @@ namespace Bilverkstad.Entitetlagret
         private string epost { get; set; }
 
 
-        public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
-        {
-            this.kundnummer = kundnummer;
-            this.förnamn = förnamn;
-            this.efternamn = efternamn;
-            this.personnummer = personnummer;
-        }
+        //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
+        //{
+        //    this.kundnummer = kundnummer;
+        //    this.förnamn = förnamn;
+        //    this.efternamn = efternamn;
+        //    this.personnummer = personnummer;
+        //}
 
         public override string ToString()
         {
