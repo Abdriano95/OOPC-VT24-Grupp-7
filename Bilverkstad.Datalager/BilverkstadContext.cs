@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bilverkstad.Entitetlagret;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,8 @@ namespace Bilverkstad.Datalager
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Bilverkstad;Integrated Security=True");
             base.OnConfiguring(optionsBuilder);
         }
+
+        public DbSet<Kund> Kund { get; set; }
+
     }
 }
