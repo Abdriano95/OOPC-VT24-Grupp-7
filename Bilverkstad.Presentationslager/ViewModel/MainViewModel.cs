@@ -1,14 +1,20 @@
 ﻿using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.Data;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 
 namespace Bilverkstad.Presentationslager.ViewModel
 {
-    public class MainViewModel
+    public class MainViewModel:INotifyPropertyChanged
     {
         private IKundDataService _kundDataService;
         private Kund _selectedKund;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         public MainViewModel(IKundDataService kundDataService)
         {
             Kunder = new ObservableCollection<Kund>();
@@ -30,8 +36,20 @@ namespace Bilverkstad.Presentationslager.ViewModel
         public Kund SelectedKund
         {
             get { return _selectedKund; }
-            set { _selectedKund = value; }
+            set { _selectedKund = value;
+                OnPropertyChanged();
+            }
         }
 
+        
+
+        public class ViewModelBase : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler? PropertyChanged;
+            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }
