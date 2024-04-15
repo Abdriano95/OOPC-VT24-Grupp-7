@@ -1,5 +1,6 @@
 ﻿
 using Bilverkstad.Datalager;
+using Bilverkstad.Datalager.BilverkstadSeed.cs;
 using Bilverkstad.Entitetlagret;
 
 namespace Testlager
@@ -13,7 +14,7 @@ namespace Testlager
 
             bilverkstad.Database.EnsureDeleted();
             bilverkstad.Database.EnsureCreated();
-
+            BilverkstadSeed.Populate(bilverkstad);  
             Console.ReadLine();
         }
 
