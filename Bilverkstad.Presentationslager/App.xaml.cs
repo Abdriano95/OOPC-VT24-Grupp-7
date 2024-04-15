@@ -1,4 +1,6 @@
-﻿using Bilverkstad.Presentationslager.Data;
+﻿using Autofac;
+using Bilverkstad.Presentationslager.Data;
+using Bilverkstad.Presentationslager.Startup;
 using Bilverkstad.Presentationslager.ViewModel;
 using System.Configuration;
 using System.Data;
@@ -13,9 +15,9 @@ namespace Bilverkstad.Presentationslager
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var mainWindow = new MainWindow(
-                new MainViewModel(
-                    new KundDataService()));
+            var bootstraper = new Bootstraper();
+            var container = bootstraper.Bootstrap();
+            var mainWindow = container.Resolve<MainWindow>();   
             mainWindow.Show();
         }
     }
