@@ -4,16 +4,16 @@ namespace Bilverkstad.Entitetlagret
 {
     public class Kund
     {
-        [Key]  
-        public int kundnummer { get; set; }
-        public string förnamn { get; set; }
-        public string efternamn { get; set; }
-        public string personnummer { get; set; }
-        public string gatuadress { get; set; }
-        public int postnummer { get; set; }
-        public string ort { get; set; }
-        public string telnr { get; set; }
-        public string epost { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+        public string Personnummer { get; set; }
+        public string Gatuadress { get; set; }
+        public int Postnummer { get; set; }
+        public string Ort { get; set; }
+        public string Telefonnummer { get; set; }
+        public string Epost { get; set; }
 
 
         //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
@@ -27,7 +27,7 @@ namespace Bilverkstad.Entitetlagret
         public override string ToString()
         {
 
-            return string.Concat(kundnummer, förnamn, efternamn, personnummer);
+            return string.Concat(Id, Förnamn, Efternamn, Personnummer);
 
         }
     }

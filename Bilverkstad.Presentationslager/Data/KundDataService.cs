@@ -8,8 +8,8 @@ namespace Bilverkstad.Presentationslager.Data
         //TODO: Load data from real database
         public IEnumerable<Kund> GetAll()
         {
-            yield return new Kund { förnamn = "Jocke", efternamn = "Olsson" };
-            yield return new Kund { förnamn = "Abbe", efternamn = "Mehdi" };
+            yield return new Kund { Förnamn = "Jocke", Efternamn = "Olsson" };
+            yield return new Kund { Förnamn = "Abbe", Efternamn = "Mehdi" };
         }
     }
 }
