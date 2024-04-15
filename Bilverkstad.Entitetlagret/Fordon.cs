@@ -15,7 +15,7 @@ public class Fordon
 			
 	public int HämtaKundNr()
 	{ 
-		return BokadKund.kundnummer;
+		return BokadKund.Id;
 	}
 
     public override string ToString()
