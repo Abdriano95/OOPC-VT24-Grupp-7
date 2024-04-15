@@ -20,7 +20,7 @@ public class Bokning
 
 	public int HämtaKund() 
 	{
-		return BokadKund.kundnummer;
+		return BokadKund.Id;
 	}
 
 	public int HämtaAnställningNr()

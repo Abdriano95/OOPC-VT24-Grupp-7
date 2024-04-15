@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bilverkstad.Datalager\Bilverkstad.Datalager.csproj" />
     <ProjectReference Include="..\Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj" />
   </ItemGroup>
 
