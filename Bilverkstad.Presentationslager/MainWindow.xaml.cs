@@ -29,9 +29,15 @@ namespace Bilverkstad.Presentationslager
             _viewModel.Load();
         }
 
-        public void ButtonClicked (object sender, RoutedEventArgs e) 
+        public void VisaKund_Clicked (object sender, RoutedEventArgs e) 
         {
-            
+            VisaKunderWindow visaKunderWindow = new VisaKunderWindow();
+            visaKunderWindow.Show();
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
