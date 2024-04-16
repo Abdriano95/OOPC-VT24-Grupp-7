@@ -28,5 +28,10 @@ namespace Bilverkstad.Presentationslager
         {
             _viewModel.Load();
         }
+
+        public void ButtonClicked (object sender, RoutedEventArgs e) 
+        {
+            
+        }
     }
 }
