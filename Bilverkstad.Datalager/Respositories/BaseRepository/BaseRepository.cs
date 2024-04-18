@@ -41,7 +41,7 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
         }
         public virtual void DeleteRange(IEnumerable<T> entities) => Table.RemoveRange(entities);
 
-        // Update
+        //Update
         public virtual void Update(T entity) => Table.Update(entity);
         public virtual T Update(T oldEntity, T newEntity)
         {
@@ -49,6 +49,12 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
             Table.Update(oldEntity);
             return oldEntity;
         }
+
+        //public virtual void Update(T entity)
+        //{
+        //    Context.Attach(entity);
+        //    Context.Entry(entity).State |= EntityState.Modified;
+        //}
         public virtual void UpdateRange(IEnumerable<T> entities) => Table.UpdateRange(entities);
 
         // Read

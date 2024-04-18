@@ -19,8 +19,16 @@ namespace Bilverkstad.Affärslager
             {
                return (IList<Kund>)unitOfWork.Kund.GetAll().ToList();
             }
-                
-        } 
+            
+        }
+
+        //public Kund GetOneKund() 
+        //{
+        //    using (UnitOfWork unitOfWork = new UnitOfWork()) 
+        //    {
+        //        return (unitOfWork.Kund.Get());
+        //    }
+        //}
 
         public void AddKund(Kund kund)
         {
@@ -31,22 +39,24 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        public void DeleteKund(Kund kund) 
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                Kund gammalKund = uow.Kund.Find(kund.Id);
+                uow.Kund.Delete(gammalKund);
+                uow.SaveChanges(); 
+            }
+        }
         public void UpdateKund(Kund kund) 
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Kund emptyKund = uow.Kund.Find(kund.Id);
-                emptyKund.Förnamn = kund.Förnamn;
-                emptyKund.Efternamn = kund.Efternamn;
-                emptyKund.Personnummer = kund.Personnummer;
-                emptyKund.Gatuadress = kund.Gatuadress;
-                emptyKund.Postnummer = kund.Postnummer;
-                emptyKund.Ort = kund.Ort; 
-                emptyKund.Telefonnummer = kund.Telefonnummer;
-                emptyKund.Epost = kund.Epost;
-                uow.Kund.Update(emptyKund);
+                Kund benfintligKund = uow.Kund.Find(kund.Id);
+                uow.Kund.Update(benfintligKund,kund);
                 uow.SaveChanges();
             }
         }
+
     }
 }
