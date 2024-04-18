@@ -1,6 +1,4 @@
 ﻿using Bilverkstad.Affärslager;
-using Bilverkstad.Datalager;
-using Bilverkstad.Presentationslager.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
