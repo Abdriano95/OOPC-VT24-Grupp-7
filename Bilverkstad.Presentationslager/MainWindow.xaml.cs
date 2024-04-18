@@ -33,6 +33,12 @@ namespace Bilverkstad.Presentationslager
         //    skapaKunderWindow.AddKund();
         //}
 
+        public void LäggTillKund_Clicked(object sender, RoutedEventArgs e) 
+        {
+           SkapaKundWindow skapaKundWindow = new SkapaKundWindow();
+           skapaKundWindow.Show();
+        }
+
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

@@ -1,4 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,28 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class SkapaKundWindow : Window
     {
+        KundContoller kundContoller = new KundContoller();
         public SkapaKundWindow()
         {
             InitializeComponent();
-            KundContoller kundcontroller = new KundContoller();
+            
+        }
+
+        public void AddKund_Click(object sender, RoutedEventArgs e)
+        {
+            var kund = new Kund {
+                Personnummer = txtPersonnummer.Text,
+                Förnamn = txtFörnamn.Text,
+                Efternamn = txtEfternamn.Text,
+                Gatuadress = txtGatuadress.Text,
+                Postnummer = txtPostnummer.Text,
+                Ort = txtOrt.Text,
+                Telefonnummer = txtTelefonnummer.Text,
+                Epost = txtEpost.Text
+            };
+
+            kundContoller.AddKund(kund);
+
         }
     }
 }
