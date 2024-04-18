@@ -39,6 +39,12 @@ namespace Bilverkstad.Presentationslager
            skapaKundWindow.Show();
         }
 
+        public void TaBortKund_Clicked(object sender, RoutedEventArgs e)
+        {
+            TaBortKund tabortkund = new TaBortKund();
+            tabortkund.Show();
+        }
+
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
