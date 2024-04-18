@@ -18,18 +18,38 @@ namespace Bilverkstad.Affärslager
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
                return (IList<Kund>)unitOfWork.Kund.GetAll().ToList();
-                //return (IList<Kund>)unitOfWork.Kund.Query(q => q.Include(k => k.Id)
-                //.Include(k => k.Förnamn)
-                //.Include(k => k.Efternamn)
-                //.Include(k => k.Personnummer)
-                //.Include(k => k.Gatuadress)
-                //.Include(k => k.Postnummer)
-                //.Include(k => k.Ort)
-                //.Include(k => k.Telefonnummer)
-                //.Include(k => k.Epost));
-                // ThenInclude <Fordon> 
             }
                 
         } 
+
+        public Kund AddKund(Kund kund)
+        {
+            Kund newKund = null!;
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                newKund = new Kund();
+                uow.Kund.Add(newKund);
+                uow.SaveChanges();
+            }
+            return newKund;
+        }
+
+        public void UpdateKund(Kund kund) 
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                Kund emptyKund = uow.Kund.Find(kund.Id);
+                emptyKund.Förnamn = kund.Förnamn;
+                emptyKund.Efternamn = kund.Efternamn;
+                emptyKund.Personnummer = kund.Personnummer;
+                emptyKund.Gatuadress = kund.Gatuadress;
+                emptyKund.Postnummer = kund.Postnummer;
+                emptyKund.Ort = kund.Ort; 
+                emptyKund.Telefonnummer = kund.Telefonnummer;
+                emptyKund.Epost = kund.Epost;
+                uow.Kund.Update(emptyKund);
+                uow.SaveChanges();
+            }
+        }
     }
 }

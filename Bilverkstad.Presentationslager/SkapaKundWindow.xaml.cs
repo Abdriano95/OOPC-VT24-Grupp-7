@@ -16,18 +16,14 @@ using System.Windows.Shapes;
 namespace Bilverkstad.Presentationslager
 {
     /// <summary>
-    /// Interaction logic for VisaKunderWindow.xaml
+    /// Interaction logic for SkapaKundWindow.xaml
     /// </summary>
-    public partial class VisaKunderWindow : Window
+    public partial class SkapaKundWindow : Window
     {
-        public VisaKunderWindow()
+        public SkapaKundWindow()
         {
             InitializeComponent();
-            KundContoller kundContoller = new KundContoller();
-            Kunder.ItemsSource = kundContoller.GetKund();
+            KundContoller kundcontroller = new KundContoller();
         }
-
-         
-
     }
 }
