@@ -15,12 +15,14 @@
 Background="LightGreen" Margin="10,10,10,10">
             <TextBlock Text="Kundhantering" FontSize="14" FontWeight="Bold" 
 HorizontalAlignment="Center" />
-            <Button x:Name="VisaKund" Content="Visa Kunder" FontSize="14" Width="100"
+            <Button x:Name="VisaKund" Content="Visa Kunder" FontSize="14" Width="110"
 Margin="10,10,10,5" Click="VisaKund_Clicked" />
-            <Button x:Name="LäggTillKund" Content="Lägg till Kund" FontSize="14" Width="100"
+            <Button x:Name="LäggTillKund" Content="Lägg till Kund" FontSize="14" Width="110"
 Margin="10,10,10,5" Click="LäggTillKund_Clicked" />
-            <Button x:Name="TaBortKund" Content="Ta bort Kund" FontSize="14" Width="100"
+            <Button x:Name="TaBortKund" Content="Ta bort Kund" FontSize="14" Width="110"
 Margin="10,10,10,5" Click="TaBortKund_Clicked" />
+            <Button x:Name="UppdateraKund" Content="Uppdatera Kund" FontSize="14" Width="110"
+Margin="10,10,10,5" Click="UppdateraKund_Clicked" />
 
         </StackPanel>
         <!-- DockPanel Right -->

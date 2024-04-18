@@ -17,23 +17,23 @@ using System.Windows.Shapes;
 namespace Bilverkstad.Presentationslager
 {
     /// <summary>
-    /// Interaction logic for TaBortKund.xaml
+    /// Interaction logic for UppdateraKundWindow.xaml
     /// </summary>
-    public partial class TaBortKund : Window
+    public partial class UppdateraKundWindow : Window
     {
         KundContoller controller = new KundContoller();
-        
-        public TaBortKund()
+        public UppdateraKundWindow()
         {
             InitializeComponent();
             Kunder.ItemsSource = controller.GetKund();
         }
-        public void TaBortKund_Click(object sender, RoutedEventArgs e)
+        public void UppdateraKund_Click(object sender, RoutedEventArgs e)
         {
-            string inmatning = inputtxt.Text;
             Kund befintligKund = new Kund();
-            befintligKund.Id = int.Parse(inmatning);            
-            controller.DeleteKund(befintligKund);
+            string inmatning = inputtxt.Text;
+            befintligKund.Id = int.Parse(inmatning);
+            KundFormulär kundFormulär = new KundFormulär();
+            kundFormulär.Show();
         }
     }
 }
