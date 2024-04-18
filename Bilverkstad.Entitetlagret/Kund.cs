@@ -10,7 +10,7 @@ namespace Bilverkstad.Entitetlagret
         public string Efternamn { get; set; }
         public string Personnummer { get; set; }
         public string Gatuadress { get; set; }
-        public int Postnummer { get; set; }
+        public string Postnummer { get; set; }
         public string Ort { get; set; }
         public string Telefonnummer { get; set; }
         public string Epost { get; set; }

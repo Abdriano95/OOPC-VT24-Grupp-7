@@ -12,14 +12,14 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
         public static void Populate(BilverkstadContext bilverkstad)
         {
             bilverkstad.Add(new Kund() {Förnamn = "Mohamud", Efternamn = "Abbass", Personnummer = "194506284783",Gatuadress="La",
-                Postnummer=145, Ort="Happaranda", Telefonnummer="112", Epost="Mohamud@hotmail.com" });
+                Postnummer="4353", Ort="Happaranda", Telefonnummer="112", Epost="Mohamud@hotmail.com" });
             bilverkstad.Add(new Kund()
             {
                 Förnamn = "Janne",
                 Efternamn = "Svensson",
                 Personnummer = "19300530-8118",
                 Gatuadress = "Sveavägen 7",
-                Postnummer = 23759,
+                Postnummer = "23759",
                 Ort = "Kiruna",
                 Telefonnummer = "1177",
                 Epost = "Jannesvesson@hotmail.com"
