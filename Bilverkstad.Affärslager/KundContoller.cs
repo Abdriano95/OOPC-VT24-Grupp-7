@@ -40,7 +40,10 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges(); 
             }
         }
-
+        public void UpdateKund(Kund kund) 
+        { 
+        
+        }
 
     }
 }

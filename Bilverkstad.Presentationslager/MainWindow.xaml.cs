@@ -44,6 +44,11 @@ namespace Bilverkstad.Presentationslager
             TaBortKund tabortkund = new TaBortKund();
             tabortkund.Show();
         }
+        public void UppdateraKund_Clicked(object sender, RoutedEventArgs e)
+        {
+            UppdateraKundWindow uppdateraKund = new UppdateraKundWindow();
+            uppdateraKund.Show();
+        }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
