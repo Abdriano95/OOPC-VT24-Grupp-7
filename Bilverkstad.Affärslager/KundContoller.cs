@@ -18,16 +18,7 @@ namespace Bilverkstad.Affärslager
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
                return (IList<Kund>)unitOfWork.Kund.GetAll().ToList();
-                //return (IList<Kund>)unitOfWork.Kund.Query(q => q.Include(k => k.Id)
-                //.Include(k => k.Förnamn)
-                //.Include(k => k.Efternamn)
-                //.Include(k => k.Personnummer)
-                //.Include(k => k.Gatuadress)
-                //.Include(k => k.Postnummer)
-                //.Include(k => k.Ort)
-                //.Include(k => k.Telefonnummer)
-                //.Include(k => k.Epost));
-                // ThenInclude <Fordon> 
+
             }
                 
         } 
