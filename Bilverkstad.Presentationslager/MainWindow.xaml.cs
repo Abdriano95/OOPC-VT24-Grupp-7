@@ -1,5 +1,4 @@
-﻿using Bilverkstad.Presentationslager.ViewModel;
-using System.Text;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,19 +14,13 @@ namespace Bilverkstad.Presentationslager
  
     public partial class MainWindow : Window
     {
-        private MainViewModel _viewModel;
-        public MainWindow(MainViewModel viewModel)
+      
+        public MainWindow()
         {
             InitializeComponent();
-            _viewModel= viewModel;
-            DataContext = viewModel;
-            Loaded += MainWindow_Loaded;
+ ;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            _viewModel.Load();
-        }
 
         public void VisaKund_Clicked (object sender, RoutedEventArgs e) 
         {
