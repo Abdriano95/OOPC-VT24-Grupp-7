@@ -22,16 +22,13 @@ namespace Bilverkstad.Affärslager
                 
         } 
 
-        public Kund AddKund(Kund kund)
+        public void AddKund(Kund kund)
         {
-            Kund newKund = null!;
-            using (UnitOfWork uow = new UnitOfWork())
+            using (UnitOfWork unitOfWork = new UnitOfWork()) 
             {
-                newKund = new Kund();
-                uow.Kund.Add(newKund);
-                uow.SaveChanges();
+                unitOfWork.Kund.Add(kund);
+                unitOfWork.SaveChanges();
             }
-            return newKund;
         }
 
         public void UpdateKund(Kund kund) 
