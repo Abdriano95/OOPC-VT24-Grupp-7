@@ -19,37 +19,28 @@ namespace Bilverkstad.Affärslager
             {
                return (IList<Kund>)unitOfWork.Kund.GetAll().ToList();
             }
-                
+            
         } 
 
-        public Kund AddKund(Kund kund)
+        public void AddKund(Kund kund)
         {
-            Kund newKund = null!;
-            using (UnitOfWork uow = new UnitOfWork())
+            using (UnitOfWork unitOfWork = new UnitOfWork()) 
             {
-                newKund = new Kund();
-                uow.Kund.Add(newKund);
-                uow.SaveChanges();
+                unitOfWork.Kund.Add(kund);
+                unitOfWork.SaveChanges();
             }
-            return newKund;
         }
 
-        public void UpdateKund(Kund kund) 
+        public void DeleteKund(Kund kund) 
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Kund emptyKund = uow.Kund.Find(kund.Id);
-                emptyKund.Förnamn = kund.Förnamn;
-                emptyKund.Efternamn = kund.Efternamn;
-                emptyKund.Personnummer = kund.Personnummer;
-                emptyKund.Gatuadress = kund.Gatuadress;
-                emptyKund.Postnummer = kund.Postnummer;
-                emptyKund.Ort = kund.Ort; 
-                emptyKund.Telefonnummer = kund.Telefonnummer;
-                emptyKund.Epost = kund.Epost;
-                uow.Kund.Update(emptyKund);
-                uow.SaveChanges();
+                Kund gammalKund = uow.Kund.Find(kund.Id);
+                uow.Kund.Delete(gammalKund);
+                uow.SaveChanges(); 
             }
         }
+
+
     }
 }
