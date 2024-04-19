@@ -41,8 +41,13 @@ namespace Bilverkstad.Affärslager
             }
         }
         public void UpdateKund(Kund kund) 
-        { 
-        
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                Kund gammalKund = uow.Kund.Find(kund.Id);
+                uow.Kund.UpdateNew();
+                
+            }
         }
 
     }

@@ -24,6 +24,7 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
         void Update(T entity);
         T Update(T oldEntity, T newEntity);
         void UpdateRange(IEnumerable<T> entities);
+        void UpdateNew();
 
         // Delete
         void Delete(int id);

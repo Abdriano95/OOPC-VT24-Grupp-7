@@ -47,7 +47,11 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
         {
             Context.Entry(oldEntity).CurrentValues.SetValues(newEntity);
             Table.Update(oldEntity);
-            return oldEntity;
+            return oldEntity;            
+        }
+        public void UpdateNew()
+        {
+            Context.SaveChanges();
         }
         public virtual void UpdateRange(IEnumerable<T> entities) => Table.UpdateRange(entities);
 
