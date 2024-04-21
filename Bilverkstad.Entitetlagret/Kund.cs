@@ -6,14 +6,16 @@ namespace Bilverkstad.Entitetlagret
     {
         [Key]
         public int Id { get; set; }
-        public string? Förnamn { get; set; }
-        public string? Efternamn { get; set; }
-        public string? Personnummer { get; set; }
+        public required string Förnamn { get; set; }
+        public required string Efternamn { get; set; }
+        public required string Personnummer { get; set; }
         public string? Gatuadress { get; set; }
         public string? Postnummer { get; set; }
         public string? Ort { get; set; }
         public string? Telefonnummer { get; set; }
         public string? Epost { get; set; }
+
+        public ICollection<Fordon>? Fordon { get; set; }
 
 
         //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
