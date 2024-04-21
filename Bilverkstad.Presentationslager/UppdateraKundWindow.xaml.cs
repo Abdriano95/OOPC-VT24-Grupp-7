@@ -29,10 +29,8 @@ namespace Bilverkstad.Presentationslager
         }
         public void UppdateraKund_Click(object sender, RoutedEventArgs e)
         {
-            Kund befintligKund = new Kund();
-            string inmatning = inputtxt.Text;
-            befintligKund.Id = int.Parse(inmatning);
-            KundFormulär kundFormulär = new KundFormulär();
+
+            KundFormulär kundFormulär = new KundFormulär(inputtxt.Text);
             kundFormulär.Show();
         }
     }

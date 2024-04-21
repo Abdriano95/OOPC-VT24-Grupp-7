@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -21,14 +22,17 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class KundFormulär : Window
     {
-        public KundFormulär()
+        int inmatning;
+        public KundFormulär(string data)
         {
             InitializeComponent();
+            inmatning = int.Parse(data);
         }
         public void Update_Click(object sender, RoutedEventArgs e)
         {
-        KundContoller contoller = new KundContoller();    
-            Kund kund = new Kund();
+            KundContoller contoller = new KundContoller();    
+            Kund kund = new Kund();  
+            kund.Id = inmatning;
             kund.Förnamn = txtFörnamn.Text;
             kund.Efternamn = txtEfternamn.Text;
             kund.Personnummer = txtPersonnummer.Text;
