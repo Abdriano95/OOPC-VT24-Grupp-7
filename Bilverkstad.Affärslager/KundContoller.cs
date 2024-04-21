@@ -22,13 +22,13 @@ namespace Bilverkstad.Affärslager
             
         }
 
-        //public Kund GetOneKund() 
-        //{
-        //    using (UnitOfWork unitOfWork = new UnitOfWork()) 
-        //    {
-        //        return (unitOfWork.Kund.Get());
-        //    }
-        //}
+        public Kund GetOneKund(int id)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Kund.Find(id);
+            }
+        }
 
         public void AddKund(Kund kund)
         {
