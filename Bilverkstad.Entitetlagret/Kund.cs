@@ -6,9 +6,9 @@ namespace Bilverkstad.Entitetlagret
     {
         [Key]
         public int Id { get; set; }
-        public string? Förnamn { get; set; }
-        public string? Efternamn { get; set; }
-        public string? Personnummer { get; set; }
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+        public string Personnummer { get; set; }
         public string? Gatuadress { get; set; }
         public string? Postnummer { get; set; }
         public string? Ort { get; set; }
