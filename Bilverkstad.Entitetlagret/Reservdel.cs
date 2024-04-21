@@ -11,8 +11,8 @@ namespace Bilverkstad.Entitetlagret
     {
         [Key]
         public int Id { get; set; } 
-        public required string Namn {  get; set; }   
-        public required decimal Pris {  get; set; }
+        public string Namn {  get; set; }   
+        public decimal Pris {  get; set; }
 
 
         public override string ToString()
