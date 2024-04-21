@@ -1,40 +1,29 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using Bilverkstad.Entitetlagret;
 
 public class Bokning
 {
-	private int bokningsNr;
-	public Kund BokadKund { get; private set; }
-	private DateTime inlämningsDatum;
-	private DateTime utlämningsDatum;
-	private string syfteMedBesök;
-	public Mekaniker BokadMekaniker { get; private set; }
-	public Reservdel BokadDel { get; private set; }
+	[Key]
+	public int Id { get; set; }	
+	public required Kund Kund { get; set; }
+	public required Fordon Fordon { get; set; }
+	public required DateTime InlämningsDatum { get; set; }
+	public DateTime? UtlämningsDatum { get; set; }	
+	public string? SyfteMedBesök { get; set; }	
+	
+	
 
-	public Bokning(int bokningsNr,Kund BokadKund)
-	{
-		this.bokningsNr = bokningsNr;
-		this.BokadKund = BokadKund;
-	}
+	//public Bokning(int bokningsNr,Kund BokadKund)
+	//{
+	//	this.bokningsNr = bokningsNr;
+	//	this.BokadKund = BokadKund;
+	//}
 
-	public int HämtaKund() 
-	{
-		return BokadKund.Id;
-	}
-
-	public int HämtaAnställningNr()
-	{
-		return BokadMekaniker.anställningNr;
-
-    }
-
-	public string HämtaReservdel()
-	{
-		return BokadDel.reservdelsnummer;
-	}
+	
 	public override string ToString()
     {
-        return String.Concat(bokningsNr, BokadKund);
+        return String.Concat(Id, Kund, Fordon, InlämningsDatum, UtlämningsDatum, SyfteMedBesök);
     }
 }
