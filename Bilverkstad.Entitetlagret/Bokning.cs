@@ -7,9 +7,10 @@ public class Bokning
 {
 	[Key]
 	public int Id { get; set; }	
-	public required Kund Kund { get; set; }
-	public required Fordon Fordon { get; set; }
-	public required DateTime InlämningsDatum { get; set; }
+	public Kund Kund { get; set; }
+	public Fordon Fordon { get; set; }
+	public Receptionist Receptionist { get; set; }
+	public DateTime InlämningsDatum { get; set; }
 	public DateTime? UtlämningsDatum { get; set; }	
 	public string? SyfteMedBesök { get; set; }	
 	

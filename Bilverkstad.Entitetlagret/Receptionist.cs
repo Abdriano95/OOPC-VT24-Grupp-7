@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bilverkstad.Entitetlagret
 {
-    public class Receptionist
+    public class Receptionist : Anställd
     {
 
     }
