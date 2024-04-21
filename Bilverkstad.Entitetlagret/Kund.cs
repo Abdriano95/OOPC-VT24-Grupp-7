@@ -9,11 +9,11 @@ namespace Bilverkstad.Entitetlagret
         public string Förnamn { get; set; }
         public string Efternamn { get; set; }
         public string Personnummer { get; set; }
-        public string Gatuadress { get; set; }
-        public string Postnummer { get; set; }
-        public string Ort { get; set; }
-        public string Telefonnummer { get; set; }
-        public string Epost { get; set; }
+        public string? Gatuadress { get; set; }
+        public string? Postnummer { get; set; }
+        public string? Ort { get; set; }
+        public string? Telefonnummer { get; set; }
+        public string? Epost { get; set; }
 
 
         //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)

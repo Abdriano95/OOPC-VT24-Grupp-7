@@ -20,7 +20,15 @@ namespace Bilverkstad.Affärslager
                return (IList<Kund>)unitOfWork.Kund.GetAll().ToList();
             }
             
-        } 
+        }
+
+        //public Kund GetOneKund() 
+        //{
+        //    using (UnitOfWork unitOfWork = new UnitOfWork()) 
+        //    {
+        //        return (unitOfWork.Kund.Get());
+        //    }
+        //}
 
         public void AddKund(Kund kund)
         {
@@ -44,9 +52,9 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                Kund gammalKund = uow.Kund.Find(kund.Id);
-                uow.Kund.UpdateNew();
-                
+                Kund benfintligKund = uow.Kund.Find(kund.Id);
+                uow.Kund.Update(benfintligKund,kund);
+                uow.SaveChanges();
             }
         }
 
