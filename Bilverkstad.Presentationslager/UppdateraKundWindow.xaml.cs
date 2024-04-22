@@ -1,4 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,21 @@ using System.Windows.Shapes;
 namespace Bilverkstad.Presentationslager
 {
     /// <summary>
-    /// Interaction logic for VisaKunderWindow.xaml
+    /// Interaction logic for UppdateraKundWindow.xaml
     /// </summary>
-    public partial class VisaKunderWindow : Window
+    public partial class UppdateraKundWindow : Window
     {
-        public VisaKunderWindow()
+        KundContoller controller = new KundContoller();
+        public UppdateraKundWindow()
         {
             InitializeComponent();
-            KundContoller kundContoller = new KundContoller();
-            Kunder.ItemsSource = kundContoller.GetKund();
+            Kunder.ItemsSource = controller.GetKund();
         }
+        public void UppdateraKund_Click(object sender, RoutedEventArgs e)
+        {
 
-         
-
+            KundFormulär kundFormulär = new KundFormulär(inputtxt.Text);
+            kundFormulär.Show();
+        }
     }
 }

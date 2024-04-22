@@ -13,9 +13,9 @@ namespace Bilverkstad.Datalager
         private readonly bool disopseContext = false;
         protected BilverkstadContext Context { get; }
         private IKundRepository kund = null!;
-        public IKundRepository Kund => kund ??= new KundRepository(Context);
+        public IKundRepository? Kund => kund ??= new KundRepository(Context);
 
-        public IKundRepository Kunder => throw new NotImplementedException();
+        public IKundRepository? Kunder => throw new NotImplementedException();
 
         public UnitOfWork()
           : this( new BilverkstadContext())
