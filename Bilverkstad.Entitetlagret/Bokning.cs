@@ -1,40 +1,29 @@
-﻿using System;
-using System.Security.Cryptography;
-using Bilverkstad.Entitetlagret;
+﻿using Bilverkstad.Entitetlagret;
+using System.ComponentModel.DataAnnotations;
 
 public class Bokning
 {
-	private int bokningsNr;
-	public Kund BokadKund { get; private set; }
-	private DateTime inlämningsDatum;
-	private DateTime utlämningsDatum;
-	private string syfteMedBesök;
-	public Mekaniker BokadMekaniker { get; private set; }
-	public Reservdel BokadDel { get; private set; }
+    [Key]
+    public int Id { get; set; }
+    public Kund Kund { get; set; } //required 
+    public Fordon? Fordon { get; set; } //required 
+    public Receptionist Receptionist { get; set; } // required 
+    public DateTime InlämningsDatum { get; set; }
+    public DateTime? UtlämningsDatum { get; set; }
+    public string? SyfteMedBesök { get; set; }
+    public ICollection<Reparation> Reparation { get; set; } // 1 till många required 
 
-	public Bokning(int bokningsNr,Kund BokadKund)
-	{
-		this.bokningsNr = bokningsNr;
-		this.BokadKund = BokadKund;
-	}
 
-	public int HämtaKund() 
-	{
-		return BokadKund.Id;
-	}
 
-	public int HämtaAnställningNr()
-	{
-		return BokadMekaniker.anställningNr;
+    //public Bokning(int bokningsNr,Kund BokadKund)
+    //{
+    //	this.bokningsNr = bokningsNr;
+    //	this.BokadKund = BokadKund;
+    //}
 
-    }
 
-	public string HämtaReservdel()
-	{
-		return BokadDel.reservdelsnummer;
-	}
-	public override string ToString()
+    public override string ToString()
     {
-        return String.Concat(bokningsNr, BokadKund);
+        return String.Concat(Id, Kund, Fordon, InlämningsDatum, UtlämningsDatum, SyfteMedBesök);
     }
 }

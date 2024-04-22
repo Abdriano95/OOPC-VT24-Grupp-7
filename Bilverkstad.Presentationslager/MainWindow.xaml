@@ -5,21 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
         mc:Ignorable="d"
-        Title="Jocke och Abbes Bilverkstad" Height="500" Width="800" FontSize="20">
-  
-    <DockPanel LastChildFill="True">
-        <!-- DockPanel Top -->
-        <!-- DockPanel Bottom -->
-        <!-- DockPanel Left -->
-        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" 
-Background="LightGreen" Margin="10,10,10,10">
-            <TextBlock Text="Kundhantering" FontSize="14" FontWeight="Bold" 
-HorizontalAlignment="Center" />
-            <Button x:Name="VisaKund" Content="Visa Kunder" FontSize="14" Width="100"
-Margin="10,10,10,5" Click="VisaKund_Clicked" />
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="navigationComboBox" Margin="10" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="NavigationComboBox_SelectionChanged">
+            <ComboBoxItem Content="Hantera Kunder"/>
+            <ComboBoxItem Content="Hantera Anställda"/>
 
-        </StackPanel>
-        <!-- DockPanel Right -->
-        <!-- DockPanel LastChildFill -->
-    </DockPanel>
+        </ComboBox>
+    </Grid>
 </Window>

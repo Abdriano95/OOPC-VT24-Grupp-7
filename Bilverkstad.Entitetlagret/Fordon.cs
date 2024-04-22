@@ -1,26 +1,26 @@
-﻿namespace Bilverkstad.Entitetlagret;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Bilverkstad.Entitetlagret;
 
 public class Fordon
 {
-	private string registreringsnummer {  get; set; }	
-	private string bilmärke {  get; set; }	
-	public Kund BokadKund {  get; private set; }	
-	 
-	public Fordon(string registreringsnummer, string bilmärke, Kund BokadKund)
-	{
-		this.registreringsnummer = registreringsnummer;
-		this.bilmärke = bilmärke;
-		this.BokadKund = BokadKund;
-	}
-			
-	public int HämtaKundNr()
-	{ 
-		return BokadKund.Id;
-	}
+    [Key]
+    public string? RegNr { get; set; }
+    public string? Bilmärke { get; set; }
+    public string? Modell { get; set; }
+    public Kund? Kund { get; set; } // Gör ett required
+
+    //public Fordon(string registreringsnummer, string bilmärke, Kund BokadKund)
+    //{
+    //	this.registreringsnummer = registreringsnummer;
+    //	this.bilmärke = bilmärke;
+    //	this.BokadKund = BokadKund;
+    //}
+
 
     public override string ToString()
     {
-        return String.Concat(registreringsnummer, bilmärke, BokadKund);
+        return String.Concat(RegNr, Bilmärke, Modell, Kund);
     }
 
 }

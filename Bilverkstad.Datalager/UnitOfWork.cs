@@ -1,9 +1,8 @@
 ﻿using Bilverkstad.Datalager.Respositories;
 using Bilverkstad.Datalager.Respositories.Interfaces;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Diagnostics;
-using Bilverkstad.Entitetlagret;
 
 namespace Bilverkstad.Datalager
 {
@@ -13,12 +12,28 @@ namespace Bilverkstad.Datalager
         private readonly bool disopseContext = false;
         protected BilverkstadContext Context { get; }
         private IKundRepository kund = null!;
-        public IKundRepository Kund => kund ??= new KundRepository(Context);
+        public IKundRepository? Kund => kund ??= new KundRepository(Context);
 
-        public IKundRepository Kunder => throw new NotImplementedException();
+        public IKundRepository? Kunder => throw new NotImplementedException();
+
+        private IAnställdRepository anställd = null!;
+        public IAnställdRepository? Anställd => anställd ??= new AnställdRepository(Context);
+
+        public IAnställdRepository? Anställda => throw new NotImplementedException();
+
+        private IMekanikerRepository mekaniker = null!;
+        public IMekanikerRepository? Mekaniker => mekaniker ??= new MekanikerRepository(Context);
+
+        public IMekanikerRepository? Mekanikers => throw new NotImplementedException();
+
+        private IReceptionistRepository receptionist = null!;
+        public IReceptionistRepository? Receptionist => receptionist ??= new ReceptionistRepository(Context);
+
+        public IReceptionistRepository? Receptionists => throw new NotImplementedException();
+
 
         public UnitOfWork()
-          : this( new BilverkstadContext())
+          : this(new BilverkstadContext())
         {
             disopseContext = true;
         }

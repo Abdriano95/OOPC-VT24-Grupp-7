@@ -3,9 +3,12 @@
 namespace Bilverkstad.Datalager
 {
 
-    public interface IUnitOfWork:IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IKundRepository Kunder { get; }
+        IAnställdRepository Anställd { get; }
+        IMekanikerRepository Mekaniker { get; }
+        IReceptionistRepository Receptionist { get; }
 
         int SaveChanges();
     }
