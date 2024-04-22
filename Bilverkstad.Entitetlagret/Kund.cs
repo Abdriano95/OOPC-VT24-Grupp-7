@@ -1,33 +1,36 @@
-﻿using Bilverkstad.Entitetslagret
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Bilverkstad.Entitetlagret
 {
-
-public class Kund
-{
-    private int kundnummer; {  get; set; }  
-    private string förnamn; {  get; set; }  
-    private string efternamn; {  get; set; }    
-    private string personnummer; {  get; set; } 
-    private string gatuadress;
-    private int postnummer;
-    private string ort;
-    private string telnr;
-    private string epost;
-
-
-    public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
+    public class Kund
     {
-        kundnummer = kundnr;
-        förnamn = fnamn;
-        efternamn = enamn;
-        personnummer = personnr;
-    }  
+        [Key]
+        public int Id { get; set; }
+        public string? Förnamn { get; set; }
+        public string? Efternamn { get; set; }
+        public string? Personnummer { get; set; }
+        public string? Gatuadress { get; set; }
+        public string? Postnummer { get; set; }
+        public string? Ort { get; set; }
+        public string? Telefonnummer { get; set; }
+        public string? Epost { get; set; }
+
+        public ICollection<Fordon>? Fordon { get; set; }
+
+
+        //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
+        //{
+        //    this.kundnummer = kundnummer;
+        //    this.förnamn = förnamn;
+        //    this.efternamn = efternamn;
+        //    this.personnummer = personnummer;
+        //}
+
+        public override string ToString()
+        {
+
+            return string.Concat(Id, Förnamn, Efternamn, Personnummer);
+
+        }
+    }
 }
-
-
-
-}
-
-
-
-
-

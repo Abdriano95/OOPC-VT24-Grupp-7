@@ -1,19 +1,9 @@
 ﻿namespace Bilverkstad.Entitetlagret
 {
-    public class Mekaniker
+    public class Mekaniker : Anställd
     {
-        private int anställningNr; { get; set; }
-        private string förnamn; { get; set; }
-        private string efternamn; { get; set; }
-        private string yrkesroll; { get; set; }
-        private string lösenord; { get; set; }
-        public List<Specialiseringar> Specialisering { get; set; }
+        public Specialiseringar Specialiseringar { get; set; }
 
-    }
-
-    public Mekaniker()
-    {
-        Specialisering = new List<Specialiseringar>();
     }
 
     public enum Specialiseringar
@@ -23,4 +13,5 @@
         Elektronik,
         Kaross
     }
+
 }
