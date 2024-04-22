@@ -8,7 +8,7 @@ public class Fordon
 	public string? RegNr {  get; set; }	
 	public string? Bilmärke {  get; set; }
     public string? Modell { get; set; }
-    public Kund? Kund { get; set; }
+    public Kund? Kund { get; set; } // Gör ett required
 
     //public Fordon(string registreringsnummer, string bilmärke, Kund BokadKund)
     //{
