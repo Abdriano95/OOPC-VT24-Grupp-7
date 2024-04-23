@@ -23,7 +23,7 @@ namespace Bilverkstad.Presentationslager
         public VisaKunderWindow()
         {
             InitializeComponent();
-            KundContoller kundContoller = new KundContoller();
+            KundController kundContoller = new KundController();
             Kunder.ItemsSource = kundContoller.GetKund();
         }
 

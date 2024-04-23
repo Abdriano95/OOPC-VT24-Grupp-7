@@ -9,7 +9,7 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
 {
     public class BilverkstadSeed
     {
-        public static void Populate(BilverkstadContext bilverkstad)
+        public static void PopulateKund(BilverkstadContext bilverkstad)
         {
             bilverkstad.Add(new Kund() {Förnamn = "Mohamud", Efternamn = "Abbass", Personnummer = "194506284783",Gatuadress="La",
                 Postnummer="4353", Ort="Happaranda", Telefonnummer="112", Epost="Mohamud@hotmail.com" });
@@ -26,6 +26,6 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
             });
 
             bilverkstad.SaveChanges();
-        }
+        } 
     }
 }

@@ -21,7 +21,7 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class SkapaKundWindow : Window
     {
-        KundContoller kundContoller = new KundContoller();
+        KundController kundContoller = new KundController();
         public SkapaKundWindow()
         {
             InitializeComponent();

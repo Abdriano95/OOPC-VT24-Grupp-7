@@ -18,7 +18,7 @@ namespace Bilverkstad.Presentationslager
         public MainWindow()
         {
             InitializeComponent();
- ;
+ 
         }
 
 

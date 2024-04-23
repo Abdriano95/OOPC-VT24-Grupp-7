@@ -14,7 +14,7 @@ namespace Testlager
 
             bilverkstad.Database.EnsureDeleted();
             bilverkstad.Database.EnsureCreated();
-            BilverkstadSeed.Populate(bilverkstad);  
+            BilverkstadSeed.PopulateKund(bilverkstad);  
             Console.ReadLine();
         }
 

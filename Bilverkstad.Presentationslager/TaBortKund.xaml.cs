@@ -21,7 +21,7 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class TaBortKund : Window
     {
-        KundContoller controller = new KundContoller();
+        KundController controller = new KundController();
         
         public TaBortKund()
         {

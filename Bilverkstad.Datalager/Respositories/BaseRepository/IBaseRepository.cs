@@ -12,6 +12,7 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
 
         // Read
         T Find(int id);
+        T FindStringID(string id);
         T FirstOrDefault(Func<T, bool> predicate);
         IEnumerable<T> Find(Func<T, bool> predicate);
         IEnumerable<T> GetAll();

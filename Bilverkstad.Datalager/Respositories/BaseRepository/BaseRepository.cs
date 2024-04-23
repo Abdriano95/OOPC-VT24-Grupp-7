@@ -59,6 +59,7 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
 
         // Read
         public virtual T Find(int id) => Table.Find(id);
+        public virtual T FindStringID(string id) => Table.Find(id);
         public virtual T FirstOrDefault(Func<T, bool> predicate) => Table.FirstOrDefault(predicate);
         public virtual IEnumerable<T> Find(Func<T, bool> predicate) => Table.Where(predicate);
         public virtual IEnumerable<T> GetAll() => Table;

@@ -23,7 +23,7 @@ namespace Bilverkstad.Presentationslager
     public partial class KundFormulär : Window
     {
         int inmatning;
-        KundContoller contoller = new KundContoller();
+        KundController contoller = new KundController();
         Kund kund = new Kund();
         public KundFormulär(string data)
         {

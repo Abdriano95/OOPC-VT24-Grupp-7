@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Bilverkstad.Affärslager
 {
-    public class KundContoller
+    public class KundController
     {
-        public KundContoller() { }
+        public KundController() { }
 
         public IList <Kund> GetKund()
         {
