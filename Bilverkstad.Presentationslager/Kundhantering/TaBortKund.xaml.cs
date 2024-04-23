@@ -1,18 +1,6 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bilverkstad.Presentationslager
 {
@@ -21,8 +9,8 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class TaBortKund : Window
     {
-        KundContoller controller = new KundContoller();
-        
+        KundController controller = new KundController();
+
         public TaBortKund()
         {
             InitializeComponent();
@@ -32,7 +20,7 @@ namespace Bilverkstad.Presentationslager
         {
             string inmatning = inputtxt.Text;
             Kund befintligKund = new Kund();
-            befintligKund.Id = int.Parse(inmatning);            
+            befintligKund.Id = int.Parse(inmatning);
             controller.DeleteKund(befintligKund);
         }
     }

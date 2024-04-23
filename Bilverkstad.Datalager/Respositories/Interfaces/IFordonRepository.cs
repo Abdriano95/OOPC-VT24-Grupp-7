@@ -3,8 +3,7 @@ using Bilverkstad.Entitetlagret;
 
 namespace Bilverkstad.Datalager.Respositories.Interfaces
 {
-    public interface IKundRepository : IBaseRepository<Kund>
+    public interface IFordonRepository : IBaseRepository<Fordon>
     {
-
     }
 }

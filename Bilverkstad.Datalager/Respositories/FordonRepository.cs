@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bilverkstad.Datalager.Respositories
 {
-    public class KundRepository : BaseRepository<Kund>, IKundRepository
+    public class FordonRepository : BaseRepository<Fordon>, IFordonRepository
     {
-        public KundRepository(DbContext context) : base(context)
+        public FordonRepository(DbContext context) : base(context)
         {
         }
     }

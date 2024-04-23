@@ -64,7 +64,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<string>("Bilmärke")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("KundId")
+                    b.Property<int>("KundId")
                         .HasColumnType("int");
 
                     b.Property<string>("Modell")
@@ -122,7 +122,10 @@ namespace Bilverkstad.Datalager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BokningId")
+                    b.Property<int?>("BokningId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MekanikerAnställningsNummer")
                         .HasColumnType("int");
 
                     b.Property<string>("Åtgärd")
@@ -131,6 +134,8 @@ namespace Bilverkstad.Datalager.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BokningId");
+
+                    b.HasIndex("MekanikerAnställningsNummer");
 
                     b.ToTable("Reparation");
                 });
@@ -146,8 +151,8 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<string>("Namn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Pris")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<float>("Pris")
+                        .HasColumnType("real");
 
                     b.Property<int?>("ReparationId")
                         .HasColumnType("int");
@@ -168,7 +173,6 @@ namespace Bilverkstad.Datalager.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FordonRegNr")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("InlämningsDatum")
@@ -218,7 +222,9 @@ namespace Bilverkstad.Datalager.Migrations
                 {
                     b.HasOne("Bilverkstad.Entitetlagret.Kund", "Kund")
                         .WithMany("Fordon")
-                        .HasForeignKey("KundId");
+                        .HasForeignKey("KundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kund");
                 });
@@ -226,12 +232,18 @@ namespace Bilverkstad.Datalager.Migrations
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reparation", b =>
                 {
                     b.HasOne("Bokning", "Bokning")
+                        .WithMany("Reparation")
+                        .HasForeignKey("BokningId");
+
+                    b.HasOne("Bilverkstad.Entitetlagret.Mekaniker", "Mekaniker")
                         .WithMany()
-                        .HasForeignKey("BokningId")
+                        .HasForeignKey("MekanikerAnställningsNummer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Bokning");
+
+                    b.Navigation("Mekaniker");
                 });
 
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
@@ -245,9 +257,7 @@ namespace Bilverkstad.Datalager.Migrations
                 {
                     b.HasOne("Bilverkstad.Entitetlagret.Fordon", "Fordon")
                         .WithMany()
-                        .HasForeignKey("FordonRegNr")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FordonRegNr");
 
                     b.HasOne("Bilverkstad.Entitetlagret.Kund", "Kund")
                         .WithMany()
@@ -276,6 +286,11 @@ namespace Bilverkstad.Datalager.Migrations
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reparation", b =>
                 {
                     b.Navigation("Reservdelar");
+                });
+
+            modelBuilder.Entity("Bokning", b =>
+                {
+                    b.Navigation("Reparation");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,18 +1,6 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bilverkstad.Presentationslager
 {
@@ -21,16 +9,20 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class SkapaKundWindow : Window
     {
-        KundContoller kundContoller = new KundContoller();
+        KundController kundContoller = new KundController();
+        Kund kund = new Kund();
+        Kund nyskapadkund = new Kund();
+        int lastAddedId;
         public SkapaKundWindow()
         {
             InitializeComponent();
-            
+
         }
 
         public void AddKund_Click(object sender, RoutedEventArgs e)
         {
-            var kund = new Kund {
+            kund = new Kund
+            {
                 Personnummer = txtPersonnummer.Text,
                 Förnamn = txtFörnamn.Text,
                 Efternamn = txtEfternamn.Text,
@@ -42,6 +34,19 @@ namespace Bilverkstad.Presentationslager
             };
 
             kundContoller.AddKund(kund);
+            nyskapadkund = kundContoller.GetOneKund(kund.Id);
+            
+            LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(nyskapadkund);
+            läggTillFordonWindow.Show();
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            kund = kundContoller.GetOneKund(lastAddedId);
+            LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(kund);
+            läggTillFordonWindow.Show();
+
 
         }
     }

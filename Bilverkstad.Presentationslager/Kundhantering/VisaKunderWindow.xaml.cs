@@ -1,17 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bilverkstad.Presentationslager
 {
@@ -23,11 +11,11 @@ namespace Bilverkstad.Presentationslager
         public VisaKunderWindow()
         {
             InitializeComponent();
-            KundContoller kundContoller = new KundContoller();
+            KundController kundContoller = new KundController();
             Kunder.ItemsSource = kundContoller.GetKund();
         }
 
-         
+
 
     }
 }

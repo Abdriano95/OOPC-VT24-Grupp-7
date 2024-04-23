@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq.Expressions;
 
 namespace Bilverkstad.Datalager.Respositories.BaseRepository
 {
@@ -12,9 +13,10 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
 
         // Read
         T Find(int id);
+        T FindStringID(string id);
         T FirstOrDefault(Func<T, bool> predicate);
         IEnumerable<T> Find(Func<T, bool> predicate);
-        IEnumerable<T> GetAll();
+        IQueryable<T> GetAll();
         IEnumerable<T> Get(Expression<Func<T, bool>> filter = null!,
                            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!,
                            params Expression<Func<T, object>>[] includes);

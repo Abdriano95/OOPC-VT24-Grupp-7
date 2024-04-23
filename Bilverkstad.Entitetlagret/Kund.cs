@@ -15,7 +15,12 @@ namespace Bilverkstad.Entitetlagret
         public string? Telefonnummer { get; set; }
         public string? Epost { get; set; }
 
-        public ICollection<Fordon>? Fordon { get; set; }
+        public virtual ICollection<Fordon>? Fordon { get; set; }
+
+        public Kund()
+        {    
+            Fordon = new List<Fordon>();
+        }
 
 
         //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
