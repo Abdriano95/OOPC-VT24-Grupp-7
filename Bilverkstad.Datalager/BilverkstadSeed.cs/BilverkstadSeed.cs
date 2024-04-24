@@ -4,7 +4,6 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
 {
     public class BilverkstadSeed
     {
-        Kund kund = new Kund();
         public static void Populate(BilverkstadContext bilverkstad)
         {
             bilverkstad.Add(new Kund()
@@ -39,6 +38,6 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
             });
 
             bilverkstad.SaveChanges();
-        }
+        } 
     }
 }

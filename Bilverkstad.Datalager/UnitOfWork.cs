@@ -11,12 +11,6 @@ namespace Bilverkstad.Datalager
         private bool isDisposed = false;
         private readonly bool disopseContext = false;
         protected BilverkstadContext Context { get; }
-
-
-        private IFordonRepository fordon = null!;
-        public IFordonRepository Fordon => fordon ??= new FordonRepository(Context);
-        public IFordonRepository? Fordons => throw new NotImplementedException();
-
         private IKundRepository kund = null!;
         public IKundRepository? Kund => kund ??= new KundRepository(Context);
 

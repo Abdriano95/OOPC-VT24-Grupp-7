@@ -3,7 +3,6 @@ using Bilverkstad.Entitetlagret;
 
 namespace Bilverkstad.Datalager.Respositories.Interfaces
 {
-    public interface IFordonRepository : IBaseRepository<Fordon>
     {
     }
 }
