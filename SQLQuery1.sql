@@ -1,2 +1,2 @@
 ﻿SELECT *
-FROM Kund;
+FROM Fordon

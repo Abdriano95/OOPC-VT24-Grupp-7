@@ -12,7 +12,7 @@ namespace Bilverkstad.Presentationslager
         {
             InitializeComponent();
             KundController kundContoller = new KundController();
-            Kunder.ItemsSource = kundContoller.GetKund();
+            Kunder.ItemsSource = kundContoller.GetKundWithFordon();
         }
 
 

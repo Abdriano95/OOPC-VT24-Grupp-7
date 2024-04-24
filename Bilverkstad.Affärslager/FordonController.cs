@@ -1,5 +1,6 @@
 ﻿using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace Bilverkstad.Affärslager
             }
 
         }
+
+        public IList<Kund> GetKundWithFordon()
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Kund!.GetAll().Include(k => k.Fordon).ToList();
+            }
+        }
+
 
 
 

@@ -6,9 +6,32 @@
         xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
         mc:Ignorable="d"
         Title="VisaKunderWindow" Height="450" Width="800">
-    <Grid>
-        <DataGrid x:Name="Kunder"></DataGrid>
+    <DataGrid x:Name="Kunder" AutoGenerateColumns="False">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Kundnummer" Binding="{Binding Id}" />
+            <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}" />
+            <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" />
+            <DataGridTextColumn Header="Personnummer" Binding="{Binding Personnummer}" />
+            <DataGridTextColumn Header="Gatuadress" Binding="{Binding Gatuadress}" />
+            <DataGridTextColumn Header="Postnummer" Binding="{Binding Postnummer}" />
+            <DataGridTextColumn Header="Ort" Binding="{Binding Ort}" />
+            <DataGridTextColumn Header="Telefonnummer" Binding="{Binding Telefonnummer}" />
+            <DataGridTextColumn Header="Epost" Binding="{Binding Epost}" />
+            <DataGridTemplateColumn Header="Fordon">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <ItemsControl ItemsSource="{Binding Fordon}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RegNr}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
 
-    </Grid>
 
 </Window>
