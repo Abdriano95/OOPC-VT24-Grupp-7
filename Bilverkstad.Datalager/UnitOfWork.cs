@@ -13,10 +13,10 @@ namespace Bilverkstad.Datalager
         protected BilverkstadContext Context { get; }
         private IKundRepository kund = null!;
         public IKundRepository? Kund => kund ??= new KundRepository(Context);
-        public IKundRepository? Kunder => throw new NotImplementedException();
+        public IKundRepository Kunder => throw new NotImplementedException();
 
         private IFordonRepository fordon = null!;
-        public IFordonRepository? Fordon => fordon ??= new FordonRepository(Context);
+        public IFordonRepository Fordon => fordon ??= new FordonRepository(Context);
         public IFordonRepository? Fordons => throw new NotImplementedException();
 
         public UnitOfWork()

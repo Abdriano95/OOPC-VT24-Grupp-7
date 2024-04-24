@@ -17,14 +17,14 @@ namespace Bilverkstad.Presentationslager
             InitializeComponent();
             inmatning = int.Parse(data);
             kund = contoller.GetOneKund(inmatning);
-            txtPersonnummer.Text = kund.Personnummer.ToString();
-            txtFörnamn.Text = kund.Förnamn.ToString();
-            txtEfternamn.Text = kund.Efternamn.ToString();
-            txtGatuadress.Text = kund.Gatuadress.ToString();
-            txtPostnummer.Text = kund.Postnummer.ToString();
-            txtOrt.Text = kund.Ort.ToString();
-            txtTelefonnummer.Text = kund.Telefonnummer.ToString();
-            txtEpost.Text = kund.Epost.ToString();
+            txtPersonnummer.Text = kund.Personnummer!.ToString();
+            txtFörnamn.Text = kund.Förnamn!.ToString();
+            txtEfternamn.Text = kund.Efternamn!.ToString();
+            txtGatuadress.Text = kund.Gatuadress!.ToString();
+            txtPostnummer.Text = kund.Postnummer!.ToString();
+            txtOrt.Text = kund.Ort!.ToString();
+            txtTelefonnummer.Text = kund.Telefonnummer!.ToString();
+            txtEpost.Text = kund.Epost!.ToString();
         }
         public void Update_Click(object sender, RoutedEventArgs e)
         {

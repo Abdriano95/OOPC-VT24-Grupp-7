@@ -13,6 +13,11 @@ namespace Bilverkstad.Affärslager
         KundController kundController = new KundController();
         public FordonController() { }
 
+        public void AddFordon(Fordon fordon)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<Fordon> GetFordon()
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -21,6 +26,8 @@ namespace Bilverkstad.Affärslager
             }
 
         }
+
+
 
     }
 }   

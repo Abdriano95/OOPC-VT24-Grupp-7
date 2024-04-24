@@ -11,7 +11,7 @@ namespace Bilverkstad.Presentationslager
     public partial class LäggTillFordonWindow : Window
     {
         KundController kundController = new KundController();
-        FordonController fordController = new FordonController();
+        FordonController fordonController = new FordonController();
         Kund nySkapadKund = new Kund();
         int kundID;
         public LäggTillFordonWindow(Kund kund)
@@ -39,10 +39,10 @@ namespace Bilverkstad.Presentationslager
                 };
 
                 // Lägg till fordonet i databasen
-                fordController.AddFordon(fordon);
+                fordonController.AddFordon(fordon);
 
                 // Uppdatera kundens fordonslista
-                nySkapadKund.Fordon.Add(fordon);
+                nySkapadKund.Fordon!.Add(fordon);
                 kundController.UpdateKund(nySkapadKund);
             }
             else

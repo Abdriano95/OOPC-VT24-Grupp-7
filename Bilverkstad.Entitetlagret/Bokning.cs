@@ -5,13 +5,13 @@ public class Bokning
 {
     [Key]
     public int Id { get; set; }
-    public Kund Kund { get; set; } //required 
+    public Kund? Kund { get; set; } //required 
     public Fordon? Fordon { get; set; } //required 
-    public Receptionist Receptionist { get; set; } // required 
+    public Receptionist? Receptionist { get; set; } // required 
     public DateTime InlämningsDatum { get; set; }
     public DateTime? UtlämningsDatum { get; set; }
     public string? SyfteMedBesök { get; set; }
-    public ICollection<Reparation> Reparation { get; set; } // 1 till många required 
+    public ICollection<Reparation>? Reparation { get; set; } // 1 till många required 
 
 
 

@@ -9,7 +9,7 @@ public class Fordon
     public string? Bilmärke { get; set; }
     public string? Modell { get; set; }
     public int KundId { get; set; }
-    public virtual Kund Kund { get; set; } // Gör ett required
+    public virtual Kund? Kund { get; set; } // Gör ett required
 
     //public Fordon(string registreringsnummer, string bilmärke, Kund BokadKund)
     //{
