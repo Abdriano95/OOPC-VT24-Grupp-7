@@ -9,7 +9,32 @@
     <Grid>
         <TextBox HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="" x:Name="inputtxt" VerticalAlignment="Top" Width="120"/>
         <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="150,10,0,0" VerticalAlignment="Top" Click="UppdateraKund_Click"/>
-        <DataGrid x:Name="Kunder" Margin="0,52,0,0"></DataGrid>
+        <DataGrid x:Name="Kunder" AutoGenerateColumns="False" Margin="0,42,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Kundnummer" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}" />
+                <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" />
+                <DataGridTextColumn Header="Personnummer" Binding="{Binding Personnummer}" />
+                <DataGridTextColumn Header="Gatuadress" Binding="{Binding Gatuadress}" />
+                <DataGridTextColumn Header="Postnummer" Binding="{Binding Postnummer}" />
+                <DataGridTextColumn Header="Ort" Binding="{Binding Ort}" />
+                <DataGridTextColumn Header="Telefonnummer" Binding="{Binding Telefonnummer}" />
+                <DataGridTextColumn Header="Epost" Binding="{Binding Epost}" />
+                <DataGridTemplateColumn Header="Fordon">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ItemsControl ItemsSource="{Binding Fordon}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RegNr}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

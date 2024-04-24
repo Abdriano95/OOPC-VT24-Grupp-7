@@ -12,7 +12,7 @@ namespace Bilverkstad.Presentationslager
         public UppdateraKundWindow()
         {
             InitializeComponent();
-            Kunder.ItemsSource = controller.GetKund();
+            Kunder.ItemsSource = controller.GetKundWithFordon();
         }
         public void UppdateraKund_Click(object sender, RoutedEventArgs e)
         {

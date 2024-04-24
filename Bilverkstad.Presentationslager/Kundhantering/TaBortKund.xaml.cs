@@ -14,7 +14,7 @@ namespace Bilverkstad.Presentationslager
         public TaBortKund()
         {
             InitializeComponent();
-            Kunder.ItemsSource = controller.GetKund();
+            Kunder.ItemsSource = controller.GetKundWithFordon();
         }
         public void TaBortKund_Click(object sender, RoutedEventArgs e)
         {
