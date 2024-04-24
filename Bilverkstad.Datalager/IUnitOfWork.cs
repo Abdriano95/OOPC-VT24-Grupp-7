@@ -5,7 +5,7 @@ namespace Bilverkstad.Datalager
 
     public interface IUnitOfWork : IDisposable
     {
-        IKundRepository Kund { get; }
+        IKundRepository Kunder { get; }
         IFordonRepository Fordon { get; }
 
         int SaveChanges();

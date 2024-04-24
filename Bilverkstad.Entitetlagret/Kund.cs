@@ -18,7 +18,7 @@ namespace Bilverkstad.Entitetlagret
         public virtual ICollection<Fordon>? Fordon { get; set; }
 
         public Kund()
-        {    
+        {
             Fordon = new List<Fordon>();
         }
 

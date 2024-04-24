@@ -2,8 +2,6 @@
 using Bilverkstad.Affärslager;
 using Bilverkstad.Datalager;
 using Bilverkstad.Datalager.BilverkstadSeed.cs;
-using Bilverkstad.Entitetlagret;
-using Microsoft.EntityFrameworkCore;
 
 namespace Testlager
 {
@@ -45,6 +43,9 @@ namespace Testlager
 
 
 
+            bilverkstad.Database.EnsureDeleted();
+            bilverkstad.Database.EnsureCreated();
+            BilverkstadSeed.Populate(bilverkstad);
             Console.ReadLine();
         }
 

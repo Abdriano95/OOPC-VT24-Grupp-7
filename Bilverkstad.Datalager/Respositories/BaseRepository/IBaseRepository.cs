@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Bilverkstad.Datalager.Respositories.BaseRepository
 {

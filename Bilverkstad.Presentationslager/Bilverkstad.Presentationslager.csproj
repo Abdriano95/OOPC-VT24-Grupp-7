@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Kundhantering\Fordonhantering\" />
+  </ItemGroup>
+
 </Project>

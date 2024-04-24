@@ -6,20 +6,7 @@ namespace Bilverkstad.Affärslager
 {
     public class KundController
     {
-        public KundController() 
-        
-        {
-        
-        }
-
-        public IList<Kund> GetKund()
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                return (IList<Kund>)unitOfWork.Kund.GetAll().Include(k => k.Fordon).ToList();
-            }
-
-        }
+        public KundController() { }
 
         public IList<Kund> GetKundWithFordon()
         {
@@ -27,6 +14,14 @@ namespace Bilverkstad.Affärslager
             {
                 return unitOfWork.Kund.GetAll().Include(k => k.Fordon).ToList();
             }
+        }
+        public IList<Kund> GetKund()
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return (IList<Kund>)unitOfWork.Kund.GetAll().ToList();
+            }
+
         }
 
         public Kund GetOneKund(int id)
@@ -55,6 +50,7 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
         public void UpdateKund(Kund kund)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -80,7 +76,5 @@ namespace Bilverkstad.Affärslager
                 return kund.Fordon.ToList();
             }
         }
-
-
     }
 }

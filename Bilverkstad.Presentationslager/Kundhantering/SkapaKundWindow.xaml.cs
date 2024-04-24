@@ -13,6 +13,7 @@ namespace Bilverkstad.Presentationslager
         Kund kund = new Kund();
         Kund nyskapadkund = new Kund();
         int lastAddedId;
+
         public SkapaKundWindow()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace Bilverkstad.Presentationslager
 
             kundContoller.AddKund(kund);
             nyskapadkund = kundContoller.GetOneKund(kund.Id);
-            
+
             LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(nyskapadkund);
             läggTillFordonWindow.Show();
 
@@ -43,7 +44,7 @@ namespace Bilverkstad.Presentationslager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            kund = kundContoller.GetOneKund(lastAddedId);
+            //kund = kundContoller.GetOneKund(lastAddedId);
             LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(kund);
             läggTillFordonWindow.Show();
 
