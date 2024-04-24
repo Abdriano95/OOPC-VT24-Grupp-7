@@ -15,7 +15,11 @@ namespace Bilverkstad.Affärslager
 
         public void AddFordon(Fordon fordon)
         {
-            throw new NotImplementedException();
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                unitOfWork.Fordon!.Add(fordon);
+                unitOfWork.SaveChanges();
+            }
         }
 
         public IList<Fordon> GetFordon()

@@ -36,10 +36,7 @@ namespace Testlager
             //kund.Fordon.Add(fordon);
             //kundController.AddKund(kund);
 
-            Console.WriteLine(kundController.GetKund().ToString());
-
-
-
+            //Console.WriteLine(kundController.GetKund().ToString());
 
 
 
