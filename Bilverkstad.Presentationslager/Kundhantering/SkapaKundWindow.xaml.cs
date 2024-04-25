@@ -22,11 +22,9 @@ namespace Bilverkstad.Presentationslager
 
         public void AddKund_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<<< HEAD:Bilverkstad.Presentationslager/KunderWindow/SkapaKundWindow.xaml.cs
-            var kund = new Kund
-========
+
+            var kund = new Kund();
             kund = new Kund
->>>>>>>> Implmenting-Fordon-funkctionality:Bilverkstad.Presentationslager/Kundhantering/SkapaKundWindow.xaml.cs
             {
                 Personnummer = txtPersonnummer.Text,
                 Förnamn = txtFörnamn.Text,

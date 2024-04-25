@@ -39,7 +39,7 @@ namespace Testlager
             //Console.WriteLine(kundController.GetKund().ToString());
 
 
-
+            // hejhej
             bilverkstad.Database.EnsureDeleted();
             bilverkstad.Database.EnsureCreated();
             //BilverkstadSeed.PopulateReceptionist(bilverkstad);

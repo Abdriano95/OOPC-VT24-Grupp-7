@@ -9,6 +9,7 @@ namespace Bilverkstad.Datalager
         IAnställdRepository Anställd { get; }
         IMekanikerRepository Mekaniker { get; }
         IReceptionistRepository Receptionist { get; }
+        IFordonRepository Fordon { get; }
 
         int SaveChanges();
     }
