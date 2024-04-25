@@ -34,6 +34,12 @@ namespace Bilverkstad.Datalager
 
         public IReceptionistRepository? Receptionists => throw new NotImplementedException();
 
+        private IReservdelRepository reservdel = null!;
+        public IReservdelRepository? Reservdel => reservdel ??= new ReservdelRepository(Context);
+
+        public IReservdelRepository? Reservdelar => throw new NotImplementedException();
+
+
 
         public UnitOfWork()
           : this(new BilverkstadContext())
