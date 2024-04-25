@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bilverkstad.Affärslager\Bilverkstad.Affärslager.csproj" />
     <ProjectReference Include="..\Bilverkstad.Datalager\Bilverkstad.Datalager.csproj" />
     <ProjectReference Include="..\Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj" />
   </ItemGroup>

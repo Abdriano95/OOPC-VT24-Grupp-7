@@ -7,7 +7,7 @@ namespace Bilverkstad.Entitetlagret
         [Key]
         public int Id { get; set; }
         public string? Namn { get; set; }
-        public decimal Pris { get; set; }
+        public float Pris { get; set; }
 
 
         public override string ToString()

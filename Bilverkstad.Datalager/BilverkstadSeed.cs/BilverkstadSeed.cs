@@ -27,6 +27,14 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
                 Ort = "Kiruna",
                 Telefonnummer = "1177",
                 Epost = "Jannesvesson@hotmail.com"
+
+            });
+
+            bilverkstad.Add(new Fordon()
+            {
+                RegNr = "ABC123",
+                Bilmärke = "Volvo",
+                Modell = "X70",
             });
 
             bilverkstad.SaveChanges();

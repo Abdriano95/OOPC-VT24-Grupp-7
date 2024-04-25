@@ -44,18 +44,42 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
             return oldEntity;
         }
 
-        //public virtual void Update(T entity)
-        //{
-        //    Context.Attach(entity);
-        //    Context.Entry(entity).State |= EntityState.Modified;
-        //}
         public virtual void UpdateRange(IEnumerable<T> entities) => Table.UpdateRange(entities);
 
         // Read
-        public virtual T Find(int id) => Table.Find(id);
-        public virtual T FirstOrDefault(Func<T, bool> predicate) => Table.FirstOrDefault(predicate);
+        public virtual T Find(int id)
+        {
+            var result = Table.Find(id);
+            if (result == null)
+            {
+                throw new InvalidOperationException("Item not found.");
+            }
+            return result;
+        }
+
+        public virtual T FindStringID(string id)
+        {
+            var result = Table.Find(id);
+            if (result == null)
+            {
+                throw new InvalidOperationException("Item not found with the provided ID.");
+            }
+            return result;
+        }
+        public virtual T FirstOrDefault(Func<T, bool> predicate)
+        {
+            var result = Table.FirstOrDefault(predicate);
+            if (result == null)
+            {
+                
+                throw new InvalidOperationException("No element satisfies the condition.");
+
+            }
+            return result;
+        }
+
         public virtual IEnumerable<T> Find(Func<T, bool> predicate) => Table.Where(predicate);
-        public virtual IEnumerable<T> GetAll() => Table;
+        public virtual IQueryable<T> GetAll() => Table;
         public virtual IEnumerable<T> Get(Expression<Func<T, bool>> filter = null!,
                                           Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null!,
                                           params Expression<Func<T, object>>[] includes)

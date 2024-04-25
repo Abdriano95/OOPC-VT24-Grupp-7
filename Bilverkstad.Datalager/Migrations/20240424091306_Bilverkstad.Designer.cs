@@ -4,6 +4,7 @@ using Bilverkstad.Datalager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bilverkstad.Datalager.Migrations
 {
     [DbContext(typeof(BilverkstadContext))]
-    partial class BilverkstadContextModelSnapshot : ModelSnapshot
+    [Migration("20240424091306_Bilverkstad")]
+    partial class Bilverkstad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,7 +128,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<int?>("BokningId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MekanikerAnställningsNummer")
+                    b.Property<int>("MekanikerAnställningsNummer")
                         .HasColumnType("int");
 
                     b.Property<string>("Åtgärd")
@@ -178,10 +181,10 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<DateTime>("InlämningsDatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("KundId")
+                    b.Property<int>("KundId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReceptionistAnställningsNummer")
+                    b.Property<int>("ReceptionistAnställningsNummer")
                         .HasColumnType("int");
 
                     b.Property<string>("SyfteMedBesök")
@@ -237,7 +240,9 @@ namespace Bilverkstad.Datalager.Migrations
 
                     b.HasOne("Bilverkstad.Entitetlagret.Mekaniker", "Mekaniker")
                         .WithMany()
-                        .HasForeignKey("MekanikerAnställningsNummer");
+                        .HasForeignKey("MekanikerAnställningsNummer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Bokning");
 
@@ -259,11 +264,15 @@ namespace Bilverkstad.Datalager.Migrations
 
                     b.HasOne("Bilverkstad.Entitetlagret.Kund", "Kund")
                         .WithMany()
-                        .HasForeignKey("KundId");
+                        .HasForeignKey("KundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Bilverkstad.Entitetlagret.Receptionist", "Receptionist")
                         .WithMany()
-                        .HasForeignKey("ReceptionistAnställningsNummer");
+                        .HasForeignKey("ReceptionistAnställningsNummer")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Fordon");
 
