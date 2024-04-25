@@ -2,7 +2,12 @@
 {
     public class Receptionist : Anställd
     {
-        public bool Is_Admin; //required
+        public Auktoritet Auktoritet { get; set; }
 
+    }
+    public enum Auktoritet
+    {
+        NotAdmin,
+        Admin
     }
 }

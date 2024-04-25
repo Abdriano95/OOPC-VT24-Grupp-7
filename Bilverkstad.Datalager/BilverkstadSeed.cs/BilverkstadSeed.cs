@@ -11,7 +11,7 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
                 Förnamn = "Mohamud",
                 Efternamn = "Abbass",
                 Personnummer = "194506284783",
-                Gatuadress = "Bergsjöngatan 43",
+                Gatuadress = "La",
                 Postnummer = "4353",
                 Ort = "Happaranda",
                 Telefonnummer = "112",
@@ -39,5 +39,12 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
 
             bilverkstad.SaveChanges();
         }
+
+        public static void PopulateReceptionist(BilverkstadContext bilverkstad)
+        {
+            bilverkstad.Add(new Receptionist() { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123" });
+            bilverkstad.SaveChanges();
+        }
+        
     }
 }

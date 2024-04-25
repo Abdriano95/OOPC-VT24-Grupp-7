@@ -42,7 +42,7 @@ namespace Testlager
 
             bilverkstad.Database.EnsureDeleted();
             bilverkstad.Database.EnsureCreated();
-            BilverkstadSeed.Populate(bilverkstad);
+            //BilverkstadSeed.PopulateReceptionist(bilverkstad);
             Console.ReadLine();
         }
 
