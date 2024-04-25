@@ -44,8 +44,6 @@
             <Label Grid.Row="6" Content="Lösenord" Margin="10 0"/>
             <TextBox Grid.Row="7" x:Name="txtLösenord" Margin="10 0 10 10"/>
 
-            <Label Grid.Row="8" Content="Admin" Margin="10 0"/>
-            <TextBox Grid.Row="9" x:Name="txtIs_Admin" Margin="10 0 10 10"/>
 
 
 
