@@ -1,9 +1,4 @@
 ﻿using Bilverkstad.Entitetlagret;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bilverkstad.Datalager.BilverkstadSeed.cs
 {
@@ -11,8 +6,17 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
     {
         public static void Populate(BilverkstadContext bilverkstad)
         {
-            bilverkstad.Add(new Kund() {Förnamn = "Mohamud", Efternamn = "Abbass", Personnummer = "194506284783",Gatuadress="La",
-                Postnummer="4353", Ort="Happaranda", Telefonnummer="112", Epost="Mohamud@hotmail.com" });
+            bilverkstad.Add(new Kund()
+            {
+                Förnamn = "Mohamud",
+                Efternamn = "Abbass",
+                Personnummer = "194506284783",
+                Gatuadress = "La",
+                Postnummer = "4353",
+                Ort = "Happaranda",
+                Telefonnummer = "112",
+                Epost = "Mohamud@hotmail.com"
+            });
             bilverkstad.Add(new Kund()
             {
                 Förnamn = "Janne",
@@ -27,5 +31,12 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
 
             bilverkstad.SaveChanges();
         }
+
+        public static void PopulateReceptionist(BilverkstadContext bilverkstad)
+        {
+            bilverkstad.Add(new Receptionist() { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123" });
+            bilverkstad.SaveChanges();
+        }
+        
     }
 }

@@ -5,27 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
         mc:Ignorable="d"
-        Title="Jockes och Abbes Bilverkstad" Height="500" Width="800" FontSize="20">
-  
-    <DockPanel LastChildFill="True">
-        <!-- DockPanel Top -->
-        <!-- DockPanel Bottom -->
-        <!-- DockPanel Left -->
-        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" 
-Background="SlateGray" Margin="10,10,10,10">
-            <TextBlock Text="Hantera kunder" Foreground="White" FontSize="16" FontWeight="SemiBold" 
-HorizontalAlignment="Center" />
-            <Button x:Name="VisaKund" Content="Visa Kunder" Background="White" FontSize="14" Width="110"
-Margin="10,10,10,5" Click="VisaKund_Clicked" />
-            <Button x:Name="LäggTillKund" Content="Lägg till Kund" Background="White" FontSize="14" Width="110"
-Margin="10,10,10,5" Click="LäggTillKund_Clicked" />
-            <Button x:Name="TaBortKund" Content="Ta bort Kund" Background="White" FontSize="14" Width="110"
-Margin="10,10,10,5" Click="TaBortKund_Clicked" />
-            <Button x:Name="UppdateraKund" Content="Uppdatera Kund" Background="White" FontSize="14" Width="110"
-Margin="10,10,10,5" Click="UppdateraKund_Clicked" />
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="navigationComboBox" Margin="10" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="NavigationComboBox_SelectionChanged">
+            <ComboBoxItem Content="Hantera Kunder"/>
+            <ComboBoxItem Content="Hantera Anställda"/>
 
-        </StackPanel>
-        <!-- DockPanel Right -->
-        <!-- DockPanel LastChildFill -->
-    </DockPanel>
+        </ComboBox>
+    </Grid>
 </Window>

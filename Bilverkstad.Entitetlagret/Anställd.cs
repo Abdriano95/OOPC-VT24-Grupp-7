@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Bilverkstad.Entitetlagret
 {
@@ -12,8 +7,8 @@ namespace Bilverkstad.Entitetlagret
         [Key]
         public int AnställningsNummer { get; set; }
         public string? Förnamn { get; set; }
-        public string? Efternamn { get; set; } 
-        public string? Yrkesroll { get; set; }
-        public string? Lösenord { get; set; } 
+        public string? Efternamn { get; set; }
+        public string? Lösenord { get; set; }
+        
     }
 }

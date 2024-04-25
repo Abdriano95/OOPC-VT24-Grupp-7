@@ -1,4 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +17,15 @@ using System.Windows.Shapes;
 namespace Bilverkstad.Presentationslager
 {
     /// <summary>
-    /// Interaction logic for VisaKunderWindow.xaml
+    /// Interaction logic for VisaMekanikerWindow.xaml
     /// </summary>
-    public partial class VisaKunderWindow : Window
+    public partial class VisaMekanikerWindow : Window
     {
-        public VisaKunderWindow()
+        public VisaMekanikerWindow()
         {
             InitializeComponent();
-            KundContoller kundContoller = new KundContoller();
-            Kunder.ItemsSource = kundContoller.GetKund();
+            MekanikerController mekanikerController = new MekanikerController();
+            Mekaniker.ItemsSource = mekanikerController.GetMekaniker();
         }
-
-         
-
     }
 }

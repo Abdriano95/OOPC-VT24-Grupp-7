@@ -1,11 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bilverkstad.Datalager.Respositories.BaseRepository
 {
@@ -22,9 +16,9 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
         }
 
         //CREATE
-        public virtual T Add(T entity) 
-        { 
-            Table.Add(entity); return entity; 
+        public virtual T Add(T entity)
+        {
+            Table.Add(entity); return entity;
         }
         public virtual IEnumerable<T> AddRange(IEnumerable<T> entities) { Table.AddRange(entities); return entities; }
 
@@ -35,9 +29,9 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
             if (entity != null)
                 Context.Entry(entity).State = EntityState.Deleted;
         }
-        public virtual T Delete(T entity) 
-        { 
-            Table.Remove(entity); return entity; 
+        public virtual T Delete(T entity)
+        {
+            Table.Remove(entity); return entity;
         }
         public virtual void DeleteRange(IEnumerable<T> entities) => Table.RemoveRange(entities);
 

@@ -4,9 +4,9 @@ namespace Bilverkstad.Entitetlagret;
 
 public class Fordon
 {
-	[Key]
-	public string? RegNr {  get; set; }	
-	public string? Bilmärke {  get; set; }
+    [Key]
+    public string? RegNr { get; set; }
+    public string? Bilmärke { get; set; }
     public string? Modell { get; set; }
     public Kund? Kund { get; set; } // Gör ett required
 

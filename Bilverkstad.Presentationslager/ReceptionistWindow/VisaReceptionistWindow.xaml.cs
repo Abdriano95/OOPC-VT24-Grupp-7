@@ -17,23 +17,15 @@ using System.Windows.Shapes;
 namespace Bilverkstad.Presentationslager
 {
     /// <summary>
-    /// Interaction logic for TaBortKund.xaml
+    /// Interaction logic for VisaReceptionistWindow.xaml
     /// </summary>
-    public partial class TaBortKund : Window
+    public partial class VisaReceptionistWindow : Window
     {
-        KundContoller controller = new KundContoller();
-        
-        public TaBortKund()
+        public VisaReceptionistWindow()
         {
             InitializeComponent();
-            Kunder.ItemsSource = controller.GetKund();
-        }
-        public void TaBortKund_Click(object sender, RoutedEventArgs e)
-        {
-            string inmatning = inputtxt.Text;
-            Kund befintligKund = new Kund();
-            befintligKund.Id = int.Parse(inmatning);            
-            controller.DeleteKund(befintligKund);
+            ReceptionistController receptionistController = new ReceptionistController();
+            Receptionist.ItemsSource = receptionistController.GetReceptionist();
         }
     }
 }
