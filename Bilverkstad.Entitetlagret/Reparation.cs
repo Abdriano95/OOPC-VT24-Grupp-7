@@ -11,7 +11,13 @@ namespace Bilverkstad.Entitetlagret
         public Bokning? Bokning { get; set; }  // required  
         public ICollection<Reservdel>? Reservdelar { get; set; }
         public Mekaniker? Mekaniker { get; set; } //required 
+        public Reparation()
+        { 
+            Reservdelar = new List<Reservdel>();    
+        }
+        
     }
+    
     public enum Reparationsstatus
     {
         EjPåbörjad,Påbörjad,Klar        

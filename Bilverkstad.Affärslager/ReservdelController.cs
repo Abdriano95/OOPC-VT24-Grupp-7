@@ -23,7 +23,8 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return unitOfWork.Reservdel.Find(Artikelnummer);
+            Reservdel reservdel = unitOfWork.Reservdel!.Find(Artikelnummer);
+                return reservdel;
             }
         }
 
@@ -52,6 +53,14 @@ namespace Bilverkstad.Affärslager
                 Reservdel benfintligReservdel = uow.Reservdel.Find(reservdel.Artikelnummer);
                 uow.Reservdel.Update(benfintligReservdel, reservdel);
                 uow.SaveChanges();
+            }
+        }
+        public IList<int> GetArtikelnummer()
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var artikelnummerList = unitOfWork.Reservdel.GetAll().Select(reservdel => reservdel.Artikelnummer).ToList();
+                return artikelnummerList;
             }
         }
     }
