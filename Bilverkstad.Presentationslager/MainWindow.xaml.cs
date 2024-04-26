@@ -47,18 +47,14 @@ namespace Bilverkstad.Presentationslager
                     default:
                         break;
                     case "Hantera Bokning":
-                        OpenWindow3();
+                        OpenWindow5();
                         break;
 
                 }
             }
         }
 
-        private void OpenWindow3()
-        {
-            HanteraBokningarWindow hanteraBokningar = new HanteraBokningarWindow();
-            hanteraBokningar.Show();
-        }
+        
 
         private void OpenWindow1()
         {
@@ -81,6 +77,12 @@ namespace Bilverkstad.Presentationslager
             HanteraReparationerWindow hanteraReparationer = new HanteraReparationerWindow();
             hanteraReparationer.Show();
         }
+        private void OpenWindow5()
+        {
+            HanteraBokningarWindow hanteraBokningar = new HanteraBokningarWindow();
+            hanteraBokningar.Show();
+        }
+
 
     }
 
