@@ -41,6 +41,9 @@ namespace Bilverkstad.Presentationslager
                     case "Hantera Reservdelar":
                         OpenWindow3(); 
                         break;
+                    case "Hantera Reparationer":
+                        OpenWindow4();
+                        break;
                     default:
                         break;
                 }
@@ -62,6 +65,11 @@ namespace Bilverkstad.Presentationslager
         {
             HanteraReservdelarWindow hanteraReservdelar = new HanteraReservdelarWindow();
             hanteraReservdelar.Show();
+        }
+        private void OpenWindow4()
+        {
+            HanteraReparationerWindow hanteraReparationer = new HanteraReparationerWindow();
+            hanteraReparationer.Show();
         }
 
     }
