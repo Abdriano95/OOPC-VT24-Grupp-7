@@ -35,7 +35,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            
+
             <Label Grid.Row="2" Content="Personnummer" Margin="10 0"/>
             <TextBox Grid.Row="3" x:Name="txtPersonnummer" Margin="10 0 10 10"/>
 
@@ -59,8 +59,8 @@
 
             <Label Grid.Row="16" Content="Epost" Margin="10 0"/>
             <TextBox Grid.Row="17" x:Name="txtEpost" Margin="10 0 10 10"/>
-
-            <Button Grid.Row="18" Margin="5" Content="Uppdatera Kund" Click="Update_Click"/>
+            <Button Content="Uppdatera Kund" Click="Update_Click" HorizontalAlignment="Left" Margin="10,22,0,0" Grid.Row="18" VerticalAlignment="Top" RenderTransformOrigin="-1.753,0.172"/>
+            <Button Content="Lägg till fler fordon" HorizontalAlignment="Left" Margin="128,22,0,0" Grid.Row="18" VerticalAlignment="Top" Click="Button_Click"/>
 
 
 

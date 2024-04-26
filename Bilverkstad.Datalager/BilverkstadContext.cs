@@ -19,14 +19,5 @@ namespace Bilverkstad.Datalager
             base.OnConfiguring(optionsBuilder);
         }
 
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Kund>().HasMany(k => k.Fordon).WithOne(f => f.Kund).HasForeignKey(f => f.KundId);
-        //    base.OnModelCreating(modelBuilder);
-        //}
-
-
-
     }
 }
