@@ -17,7 +17,7 @@ namespace Testlager
             //bilverkstad.Database.EnsureCreated();
             ////BilverkstadSeed.Populate(bilverkstad);
             //Kund kund = new Kund();
-
+            //det här är min branch
             //kund.Förnamn = "Abdulla";
             //kund.Efternamn = "Mehdi";
             //kund.Personnummer = "19950420-8118";
