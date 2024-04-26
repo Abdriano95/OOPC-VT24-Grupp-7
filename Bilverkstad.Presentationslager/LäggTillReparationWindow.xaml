@@ -7,16 +7,13 @@
         mc:Ignorable="d"
         Title="LäggTillReparationWindow" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="22"/>
+                <RowDefinition Height="Auto" MinHeight="31.96"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,20 +26,27 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" MinHeight="173"/>
+                <RowDefinition Height="Auto" MinHeight="37"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Grid.Row="2" Content="Åtgärd" Margin="10 0"/>
-            <TextBox Grid.Row="3" x:Name="txtÅtgärd" Margin="10 0 10 10"/>
+            <Label Grid.Row="2" Content="Åtgärd" Margin="10,0,10,28" Grid.RowSpan="2"/>
+            <TextBox Grid.Row="3" x:Name="txtÅtgärd" Margin="10,0,10,10"/>
 
-            <Label Grid.Row="4" Content="Reparationsstatus" Margin="10 0"/>
-            <ComboBox Grid.Row="5" HorizontalAlignment="Left" x:Name="cbReparationsstatus" Width="150" Margin="5,10,5,10" SelectionChanged="cbReparationsstatus_SelectionChanged" />
+            <Label Grid.Row="4" Content="Reparationsstatus" Margin="10,0,10,42" Grid.RowSpan="2"/>
+            <ComboBox Grid.Row="5" HorizontalAlignment="Left" Height="20" x:Name="cbReparationsstatus" Width="150" Margin="5,19,0,19" SelectionChanged="cbReparationsstatus_SelectionChanged" />
 
-            <Button Grid.Row="6" Content="Lägg till Reparation" HorizontalAlignment="Center" Click="AddReparation_Click"/>
+            <Label Grid.Row="6" Content="Reservdelar" Margin="10,0,10,40" Grid.RowSpan="2"/>
+            <ComboBox Grid.Row="7" HorizontalAlignment="Left" Height="20" x:Name="cbArtikelnummer" Width="150" Margin="5,19,0,19" SelectionChanged="cbArtikelnummer_SelectionChanged" />
+
+            <DataGrid Grid.Row="7" HorizontalAlignment="Center" Width="250" Height="Auto" x:Name="Reservdel"></DataGrid>
             
+
+
+
+            <Button Grid.Row="16" Content="Lägg till Reparation" HorizontalAlignment="Left" Click="AddReparation_Click" Margin="10,70,0,71" Width="106" RenderTransformOrigin="0.509,0.507"/>
+            
+
 
         </Grid>
 
