@@ -11,7 +11,10 @@ public class Bokning
     public DateTime InlämningsDatum { get; set; }
     public DateTime? UtlämningsDatum { get; set; }
     public string? SyfteMedBesök { get; set; }
+    public Status? BokningStatus { get; set; }
     public ICollection<Reparation>? Reparation { get; set; } // 1 till många required 
+
+
 
 
 
@@ -26,4 +29,13 @@ public class Bokning
     {
         return String.Concat(Id, Kund, Fordon, InlämningsDatum, UtlämningsDatum, SyfteMedBesök);
     }
+}
+
+public enum Status
+{
+    Inlämnad = 1,
+    Pågående = 2,
+    Utlämnad = 3,
+    Avbruten = 4
+
 }
