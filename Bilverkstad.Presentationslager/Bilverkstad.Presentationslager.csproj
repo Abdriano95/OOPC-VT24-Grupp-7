@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Kundhantering\Fordonhantering\" />
+    <Folder Include="ReparationWindow\" />
   </ItemGroup>
 
 </Project>

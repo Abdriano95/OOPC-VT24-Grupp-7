@@ -15,6 +15,7 @@
     
 
             <ComboBoxItem Content="Hantera Reservdelar"/>
+            <ComboBoxItem Content="Hantera Reparationer"/>
 
 
         </ComboBox>
