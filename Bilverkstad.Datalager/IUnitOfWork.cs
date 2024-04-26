@@ -11,7 +11,7 @@ namespace Bilverkstad.Datalager
         IReceptionistRepository Receptionist { get; }
         IFordonRepository Fordon { get; }
         IReservdelRepository Reservdel { get; }
-
+        IReparationRepository Reparation { get; }
         int SaveChanges();
     }
 }

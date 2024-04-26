@@ -36,7 +36,7 @@ namespace Bilverkstad.Presentationslager
         {
             reservdel = controller.GetOneReservdel(inmatning);
             reservdel.Namn = txtNamn.Text;
-            reservdel.Pris = txtPris.Text;
+            reservdel.Pris = float.Parse(txtPris.Text.ToString());
             controller.UpdateReservdel(reservdel);
         }
     }

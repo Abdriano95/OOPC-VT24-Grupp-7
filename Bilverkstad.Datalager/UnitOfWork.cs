@@ -39,6 +39,11 @@ namespace Bilverkstad.Datalager
 
         public IReservdelRepository? Reservdelar => throw new NotImplementedException();
 
+        private IReparationRepository reparation = null!;
+        public IReparationRepository? Reparation => reparation ??= new ReparationRepository(Context);
+
+        public IReparationRepository? Reparationer => throw new NotImplementedException();
+
 
 
         public UnitOfWork()

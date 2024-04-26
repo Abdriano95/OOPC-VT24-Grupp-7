@@ -28,14 +28,32 @@ namespace Bilverkstad.Presentationslager
         }
         public void AddReservdel_Click(object sender, RoutedEventArgs e)
         {
-            var reservdel = new Reservdel
+            // Försök att hitta txtPris från fönstrets träd
+            if (FindName("txtPris") is TextBox txtPris)
             {
-                Namn = txtNamn.Text,
-                Pris = Pris,
-            };
+                // Försök att konvertera texten till float
+                if (float.TryParse(txtPris.Text, out float pris))
+                {
+                    var reservdel = new Reservdel
+                    {
+                        Namn = txtNamn.Text,
+                        Pris = pris
+                    };
 
-            controller.AddReservdel(reservdel);
-
+                    controller.AddReservdel(reservdel);
+                }
+                else
+                {
+                    // Om konverteringen misslyckas, hantera felaktigt format
+                    MessageBox.Show("Felaktigt prisformat. Vänligen ange ett giltigt tal.");
+                }
+            }
+            else
+            {
+                // Hantera om txtPris inte hittas
+                MessageBox.Show("Kunde inte hitta txtPris.");
+            }
         }
+
     }
 }
