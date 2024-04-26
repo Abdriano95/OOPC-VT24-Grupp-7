@@ -10,8 +10,13 @@ namespace Bilverkstad.Datalager
         IMekanikerRepository Mekaniker { get; }
         IReceptionistRepository Receptionist { get; }
         IFordonRepository Fordon { get; }
+
         IBokningRepository Bokning { get; }
 
+
+        IReservdelRepository Reservdel { get; }
+        IReparationRepository Reparation { get; }
+ 
         int SaveChanges();
     }
 }

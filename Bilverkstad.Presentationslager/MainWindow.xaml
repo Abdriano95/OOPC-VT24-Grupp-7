@@ -10,8 +10,13 @@
         <ComboBox x:Name="navigationComboBox" Margin="10" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="NavigationComboBox_SelectionChanged">
             <ComboBoxItem Content="Hantera Kunder"/>
             <ComboBoxItem Content="Hantera Anställda"/>
+
             <ComboBoxItem Content="Hantera Bokning"/>
     
+
+            <ComboBoxItem Content="Hantera Reservdelar"/>
+
+
         </ComboBox>
     </Grid>
 </Window>
