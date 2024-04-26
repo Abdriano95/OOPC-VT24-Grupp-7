@@ -1,0 +1,30 @@
+﻿<Window x:Class="Bilverkstad.Presentationslager.HanteraReparationerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
+        mc:Ignorable="d"
+        Title="HanteraReparationerWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <!-- DockPanel Top -->
+        <!-- DockPanel Bottom -->
+        <!-- DockPanel Left -->
+        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" 
+Background="LightSeaGreen" Margin="10,10,10,10">
+            <TextBlock Text="Hantera Reparation" Foreground="White" FontSize="16" FontWeight="SemiBold" 
+HorizontalAlignment="Center" />
+            <Button x:Name="VisaReparation" Content="Visa Reparationer" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="VisaReparation_Clicked" />
+            <Button x:Name="LäggTillReparation" Content="Lägg till Reparation" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="LäggTillReparation_Clicked" />
+            <Button x:Name="TaBortReparation" Content="Ta bort Reparation" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="TaBortReparation_Clicked" />
+            <Button x:Name="UppdateraReparation" Content="Uppdatera Reparation" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="UppdateraReparation_Clicked" />
+
+        </StackPanel>
+        <!-- DockPanel Right -->
+        <!-- DockPanel LastChildFill -->
+    </DockPanel>
+</Window>

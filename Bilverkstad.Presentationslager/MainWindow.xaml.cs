@@ -41,21 +41,20 @@ namespace Bilverkstad.Presentationslager
                     case "Hantera Reservdelar":
                         OpenWindow3(); 
                         break;
+                    case "Hantera Reparationer":
+                        OpenWindow4();
+                        break;
                     default:
                         break;
                     case "Hantera Bokning":
-                        OpenWindow3();
+                        OpenWindow5();
                         break;
 
                 }
             }
         }
 
-        private void OpenWindow3()
-        {
-            HanteraBokningarWindow hanteraBokningar = new HanteraBokningarWindow();
-            hanteraBokningar.Show();
-        }
+        
 
         private void OpenWindow1()
         {
@@ -73,6 +72,17 @@ namespace Bilverkstad.Presentationslager
             HanteraReservdelarWindow hanteraReservdelar = new HanteraReservdelarWindow();
             hanteraReservdelar.Show();
         }
+        private void OpenWindow4()
+        {
+            HanteraReparationerWindow hanteraReparationer = new HanteraReparationerWindow();
+            hanteraReparationer.Show();
+        }
+        private void OpenWindow5()
+        {
+            HanteraBokningarWindow hanteraBokningar = new HanteraBokningarWindow();
+            hanteraBokningar.Show();
+        }
+
 
     }
 
