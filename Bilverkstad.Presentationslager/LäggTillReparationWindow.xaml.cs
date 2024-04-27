@@ -1,18 +1,7 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bilverkstad.Presentationslager
 {
@@ -25,7 +14,7 @@ namespace Bilverkstad.Presentationslager
         ReservdelController reservdelcontroller = new ReservdelController();
         Reservdel reservdel = new Reservdel();
         Reparation nyReparation = new Reparation();
-        string input; 
+        string input;
         List<int> artikelnummerList;
         public LäggTillReparationWindow()
         {
@@ -37,13 +26,13 @@ namespace Bilverkstad.Presentationslager
         }
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
-            
-            
+
+
             var reparation = new Reparation
             {
                 Åtgärd = txtÅtgärd.Text,
                 Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
-                
+
                 // Reservdelar
                 // Mekaniker ID och kopplad till åtgärd
                 //Bokning ID
@@ -51,8 +40,8 @@ namespace Bilverkstad.Presentationslager
             reparationcontroller.AddReparation(reparation);
             reparation.Reservdelar.Add(reservdel);
             reparationcontroller.UpdateReparation(reparation);
-           
-            
+
+
             ResetForm();
         }
         private void LoadArtikelnummer()
@@ -75,13 +64,7 @@ namespace Bilverkstad.Presentationslager
         }
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            input = cbArtikelnummer.Text;
-            reservdel = reservdelcontroller.GetOneReservdel(input);
-            if (reservdel1!= null)
-            {
-               reservdel = reservdel1;
-                // Använd den valda artikelnumret här, till exempel spara det i en variabel eller använd det på annat sätt
-            }
+
         }
 
         private void cbReparationsstatus_SelectionChanged(object sender, SelectionChangedEventArgs e)

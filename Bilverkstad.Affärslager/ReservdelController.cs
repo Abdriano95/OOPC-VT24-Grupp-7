@@ -1,10 +1,5 @@
 ﻿using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bilverkstad.Affärslager
 {
@@ -23,7 +18,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-            Reservdel reservdel = unitOfWork.Reservdel!.Find(Artikelnummer);
+                Reservdel reservdel = unitOfWork.Reservdel!.Find(Artikelnummer);
                 return reservdel;
             }
         }

@@ -17,7 +17,7 @@ namespace Bilverkstad.Presentationslager
             visaReceptionistWindow.Show();
         }
 
-        public void LäggTillReceptionist_Clicked(object sender, RoutedEventArgs e) 
+        public void LäggTillReceptionist_Clicked(object sender, RoutedEventArgs e)
         {
             LäggTillReceptionistWindow läggTillReceptionistWindow = new LäggTillReceptionistWindow();
             läggTillReceptionistWindow.Show();
