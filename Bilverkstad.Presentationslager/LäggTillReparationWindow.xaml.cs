@@ -24,6 +24,8 @@ namespace Bilverkstad.Presentationslager
         ReparationController reparationcontroller = new ReparationController();
         ReservdelController reservdelcontroller = new ReservdelController();
         Reservdel reservdel = new Reservdel();
+        Reparation nyReparation = new Reparation();
+        string input; 
         List<int> artikelnummerList;
         public LäggTillReparationWindow()
         {
@@ -46,9 +48,10 @@ namespace Bilverkstad.Presentationslager
                 // Mekaniker ID och kopplad till åtgärd
                 //Bokning ID
             };
+            reparationcontroller.AddReparation(reparation);
             reparation.Reservdelar.Add(reservdel);
             reparationcontroller.UpdateReparation(reparation);
-            reparationcontroller.AddReparation(reparation);
+           
             
             ResetForm();
         }
@@ -72,10 +75,11 @@ namespace Bilverkstad.Presentationslager
         }
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int inmatning = cbArtikelnummer.SelectedIndex;  
-            if (cbArtikelnummer.SelectedItem != null)
+            input = cbArtikelnummer.Text;
+            reservdel = reservdelcontroller.GetOneReservdel(input);
+            if (reservdel1!= null)
             {
-                reservdel = reservdelcontroller.GetOneReservdel(inmatning);
+               reservdel = reservdel1;
                 // Använd den valda artikelnumret här, till exempel spara det i en variabel eller använd det på annat sätt
             }
         }
