@@ -43,6 +43,10 @@ namespace Bilverkstad.Datalager
                 .WithMany()
                 .HasForeignKey(b => b.ReceptionistId)
                 .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+
+            modelBuilder.Entity<Reparation>().HasMany(r => r.Reservdelar).WithMany().UsingEntity(Reservdel);
+                
+                
         }
 
 

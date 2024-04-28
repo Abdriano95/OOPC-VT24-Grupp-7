@@ -1,5 +1,4 @@
-﻿using Bilverkstad.Affärslager;
-using Bilverkstad.Presentationslager.HanteraBokningWindow;
+﻿using Bilverkstad.Presentationslager.HanteraBokningWindow;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager
@@ -12,9 +11,6 @@ namespace Bilverkstad.Presentationslager
         public HanteraBokningarWindow()
         {
             InitializeComponent();
-            BokningsController controller = new BokningsController();
-            Bokningar.ItemsSource = controller.GetBokning();
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

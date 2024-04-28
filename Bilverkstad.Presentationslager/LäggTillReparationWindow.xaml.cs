@@ -35,30 +35,30 @@ namespace Bilverkstad.Presentationslager
         //        // Mekaniker ID och kopplad till åtgärd
         //        //Bokning ID
         //    };
-            
+
         //    //reparation.Reservdelar.Add(reservdel);
         //    //reparationcontroller.UpdateReparation(reparation);
         //    reparationcontroller.AddReparation(reparation);
-            
+
         //    ResetForm();
         //}
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
             Reparation nyReparation = new Reparation();
-            Reservdel reservdelen = new Reservdel();
-            reservdelen = cbArtikelnummer.SelectedItem as Reservdel;
-            
+            string åtgärd = txtÅtgärd.Text;
+            Reparationsstatus repStatus = (Reparationsstatus)cbReparationsstatus.SelectedItem;
+            Reservdel reservdelen = cbArtikelnummer.SelectedItem as Reservdel;
+
+
+
             if (reservdelen != null)
             {
                 var reparation = new Reparation
                 {
-                    Åtgärd = txtÅtgärd.Text,
-                    Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
-                    Reservdel = reservdelen,
-                    
-                    // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
+                    Åtgärd = åtgärd,
+                    Reparationsstatus = repStatus,
                 };
-                reparationcontroller.AddReparation(reparation);
+                reparationcontroller.CreateOrUpdateReparation(reparation, reservdelen.Artikelnummer);
                 ResetForm();
             }
             else
@@ -92,28 +92,28 @@ namespace Bilverkstad.Presentationslager
             txtÅtgärd.Text = "";
             cbReparationsstatus.SelectedIndex = -1;
             cbArtikelnummer.SelectedIndex = -1;
-        }        
-       
+        }
+
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbArtikelnummer.SelectedItem != null)
-            {
-                Reservdel selectedReservdel2 = new Reservdel();
-                selectedReservdel2 = cbArtikelnummer.SelectedItem as Reservdel;
-                if (selectedReservdel2 != null)
-                {
-                    // Gör något med den valda reservdelen
-                    reservdel = selectedReservdel2;
-                }
-                else
-                {
-                    throw new InvalidOperationException("Det valda objektet är inte en instans av Reservdel.");
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("Inget objekt är valt i comboboxen.");
-            }
+            //if (cbArtikelnummer.SelectedItem != null)
+            //{
+            //    Reservdel selectedReservdel2 = new Reservdel();
+            //    selectedReservdel2 = cbArtikelnummer.SelectedItem as Reservdel;
+            //    if (selectedReservdel2 != null)
+            //    {
+            //        // Gör något med den valda reservdelen
+            //        reservdel = selectedReservdel2;
+            //    }
+            //    else
+            //    {
+            //        throw new InvalidOperationException("Det valda objektet är inte en instans av Reservdel.");
+            //    }
+            //}
+            //else
+            //{
+            //    throw new InvalidOperationException("Inget objekt är valt i comboboxen.");
+            //}
         }
 
 
@@ -128,6 +128,6 @@ namespace Bilverkstad.Presentationslager
         {
             cbReparationsstatus.ItemsSource = Enum.GetValues(typeof(Reparationsstatus));
         }
-        
+
     }
 }

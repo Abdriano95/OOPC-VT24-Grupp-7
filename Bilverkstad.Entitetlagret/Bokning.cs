@@ -1,5 +1,4 @@
 ﻿using Bilverkstad.Entitetlagret;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,17 +21,17 @@ public class Bokning
     public virtual Fordon? Fordon { get; set; } //required 
     [ForeignKey("ReceptionistId")]
     public virtual Receptionist? Receptionist { get; set; } // required 
-    public virtual ICollection<Reparation> Reparation { get; set; } = new List<Reparation> (); // 1 till många required 
+    public virtual ICollection<Reparation> Reparation { get; set; } = new List<Reparation>(); // 1 till många required 
 }
 
 
 
 
-    //public Bokning(int bokningsNr,Kund BokadKund)
-    //{
-    //	this.bokningsNr = bokningsNr;
-    //	this.BokadKund = BokadKund;
-    //}
+//public Bokning(int bokningsNr,Kund BokadKund)
+//{
+//	this.bokningsNr = bokningsNr;
+//	this.BokadKund = BokadKund;
+//}
 
 
 

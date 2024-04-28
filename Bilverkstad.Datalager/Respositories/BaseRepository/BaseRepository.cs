@@ -44,16 +44,6 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
             return oldEntity;
         }
 
-        public void UpdatePartial(T existingEntity, Dictionary<string, object> updatedValues)
-        {
-            var entry = Context.Entry(existingEntity);
-            foreach (var property in updatedValues)
-            {
-                entry.Property(property.Key).CurrentValue = property.Value;
-            }
-            entry.State = EntityState.Modified;
-        }
-
         public virtual void UpdateRange(IEnumerable<T> entities) => Table.UpdateRange(entities);
 
         // Read

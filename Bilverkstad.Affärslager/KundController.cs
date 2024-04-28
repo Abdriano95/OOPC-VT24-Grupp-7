@@ -39,18 +39,15 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                // Include the Fordon navigation property to fetch vehicles along with the customer
-                Kund kund = unitOfWork.Kund!.GetAll().Include(k => k.Fordon).FirstOrDefault(k => k.Id == id);
-
+                Kund kund = unitOfWork.Kund!.Find(id);
                 if (kund == null)
                 {
                     throw new KeyNotFoundException("Ingen kund hittat med given ID.");
-                }
 
+                }
                 return kund;
             }
         }
-
 
 
         public void AddKund(Kund kund)
@@ -102,25 +99,6 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
-
-        public void AddOrUpdateKund(Kund kund)
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                var existingKund = unitOfWork.Kund.Find(kund.Id);
-                if (existingKund == null)
-                {
-                    unitOfWork.Kund.Add(kund);
-                }
-                else
-                {
-                    // Use repository update method
-                    unitOfWork.Kund.Update(existingKund, kund);
-                }
-                unitOfWork.SaveChanges();
-            }
-        }
-
 
     }
 }
