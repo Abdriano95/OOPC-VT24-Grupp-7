@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bilverkstad.Datalager.Migrations
 {
     [DbContext(typeof(BilverkstadContext))]
-    [Migration("20240428153923_Bilverkstad")]
+    [Migration("20240428222929_Bilverkstad")]
     partial class Bilverkstad
     {
         /// <inheritdoc />
@@ -122,6 +122,9 @@ namespace Bilverkstad.Datalager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReparationsId"));
 
+                    b.Property<int?>("Artikelnummer")
+                        .HasColumnType("int");
+
                     b.Property<int?>("BokningId")
                         .HasColumnType("int");
 
@@ -134,9 +137,6 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<int>("Reparationsstatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("ReservArtNr")
-                        .HasColumnType("int");
-
                     b.Property<string>("Åtgärd")
                         .HasColumnType("nvarchar(max)");
 
@@ -147,6 +147,21 @@ namespace Bilverkstad.Datalager.Migrations
                     b.HasIndex("MekanikerAnställningsNummer");
 
                     b.ToTable("Reparation");
+                });
+
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.ReparationReservdel", b =>
+                {
+                    b.Property<int>("ReparationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservdelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReparationId", "ReservdelId");
+
+                    b.HasIndex("ReservdelId");
+
+                    b.ToTable("ReparationReservdel");
                 });
 
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
@@ -163,12 +178,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<float>("Pris")
                         .HasColumnType("real");
 
-                    b.Property<int?>("ReparationsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Artikelnummer");
-
-                    b.HasIndex("ReparationsId");
 
                     b.ToTable("Reservdel");
                 });
@@ -260,11 +270,23 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Navigation("Mekaniker");
                 });
 
-            modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.ReparationReservdel", b =>
                 {
-                    b.HasOne("Bilverkstad.Entitetlagret.Reparation", null)
-                        .WithMany("Reservdelar")
-                        .HasForeignKey("ReparationsId");
+                    b.HasOne("Bilverkstad.Entitetlagret.Reparation", "Reparation")
+                        .WithMany("ReparationReservdel")
+                        .HasForeignKey("ReparationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bilverkstad.Entitetlagret.Reservdel", "Reservdel")
+                        .WithMany("ReparationReservdel")
+                        .HasForeignKey("ReservdelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reparation");
+
+                    b.Navigation("Reservdel");
                 });
 
             modelBuilder.Entity("Bokning", b =>
@@ -301,7 +323,12 @@ namespace Bilverkstad.Datalager.Migrations
 
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reparation", b =>
                 {
-                    b.Navigation("Reservdelar");
+                    b.Navigation("ReparationReservdel");
+                });
+
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
+                {
+                    b.Navigation("ReparationReservdel");
                 });
 
             modelBuilder.Entity("Bokning", b =>

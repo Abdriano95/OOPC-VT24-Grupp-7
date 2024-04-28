@@ -45,9 +45,8 @@ namespace Bilverkstad.Presentationslager
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
 
-            Reparation nyReparation = new Reparation();
-            Reservdel reservdelen = new Reservdel();
-            reservdelen = cbArtikelnummer.SelectedItem as Reservdel;
+            Reservdel reservdelen = cbArtikelnummer.SelectedItem as Reservdel;
+            int id = reservdel.Artikelnummer;
             
             if (reservdelen != null)
             {
@@ -59,7 +58,7 @@ namespace Bilverkstad.Presentationslager
                     
                     // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
                 };
-                reparationcontroller.AddReparation(reparation);
+                reparationcontroller.CreateOrUpdateReparation(reparation,id);
                 ResetForm();
             }
             else
@@ -98,24 +97,24 @@ namespace Bilverkstad.Presentationslager
        
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbArtikelnummer.SelectedItem != null)
-            {
-                Reservdel selectedReservdel2 = new Reservdel();
-                selectedReservdel2 = cbArtikelnummer.SelectedItem as Reservdel;
-                if (selectedReservdel2 != null)
-                {
-                    // Gör något med den valda reservdelen
-                    reservdel = selectedReservdel2;
-                }
-                else
-                {
-                    throw new InvalidOperationException("Det valda objektet är inte en instans av Reservdel.");
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException("Inget objekt är valt i comboboxen.");
-            }
+            //if (cbArtikelnummer.SelectedItem != null)
+            //{
+            //    Reservdel selectedReservdel2 = new Reservdel();
+            //    selectedReservdel2 = cbArtikelnummer.SelectedItem as Reservdel;
+            //    if (selectedReservdel2 != null)
+            //    {
+            //        // Gör något med den valda reservdelen
+            //        reservdel = selectedReservdel2;
+            //    }
+            //    else
+            //    {
+            //        throw new InvalidOperationException("Det valda objektet är inte en instans av Reservdel.");
+            //    }
+            //}
+            //else
+            //{
+            //    throw new InvalidOperationException("Inget objekt är valt i comboboxen.");
+            //}
         }
 
 
