@@ -22,7 +22,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public IList<Kund> GetKund()
+        public IList<Kund> GetKund() // här är en metod för att lägga alla kunderi en lisa
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
