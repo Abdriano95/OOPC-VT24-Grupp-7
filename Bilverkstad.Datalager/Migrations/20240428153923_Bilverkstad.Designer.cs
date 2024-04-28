@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bilverkstad.Datalager.Migrations
 {
     [DbContext(typeof(BilverkstadContext))]
-    [Migration("20240427180944_Bilverkstad")]
+    [Migration("20240428153923_Bilverkstad")]
     partial class Bilverkstad
     {
         /// <inheritdoc />
@@ -122,7 +122,7 @@ namespace Bilverkstad.Datalager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReparationsId"));
 
-                    b.Property<int>("BokningId")
+                    b.Property<int?>("BokningId")
                         .HasColumnType("int");
 
                     b.Property<int>("BokningsId")
@@ -132,6 +132,9 @@ namespace Bilverkstad.Datalager.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Reparationsstatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservArtNr")
                         .HasColumnType("int");
 
                     b.Property<string>("Åtgärd")
@@ -246,9 +249,7 @@ namespace Bilverkstad.Datalager.Migrations
                 {
                     b.HasOne("Bokning", "Bokning")
                         .WithMany("Reparation")
-                        .HasForeignKey("BokningId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BokningId");
 
                     b.HasOne("Bilverkstad.Entitetlagret.Mekaniker", "Mekaniker")
                         .WithMany()
@@ -283,7 +284,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.HasOne("Bilverkstad.Entitetlagret.Receptionist", "Receptionist")
                         .WithMany()
                         .HasForeignKey("ReceptionistId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Fordon");

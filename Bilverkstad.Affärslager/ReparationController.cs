@@ -48,5 +48,25 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
+        public void CreateOrUpdateReparation(Reparation reparation, int Id)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var reservdel = unitOfWork.Reservdel.FirstOrDefault(r => r.Artikelnummer == Id);
+                reparation.Reservdelar.Add(reservdel);
+                if (reparation.ReparationsId == 0)
+                {
+                    unitOfWork.Reparation.Add(reparation);
+                }
+                else
+                {
+                    unitOfWork.Reparation.Update(reparation);
+                }
+                unitOfWork.SaveChanges();
+            }
+
+
+        }
     }
 }

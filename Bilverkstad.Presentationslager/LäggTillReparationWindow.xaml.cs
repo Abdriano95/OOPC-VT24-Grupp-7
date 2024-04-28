@@ -26,16 +26,20 @@ namespace Bilverkstad.Presentationslager
         }
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
-           
+            Reservdel selectedReservdel = cbArtikelnummer.SelectedItem as Reservdel;
+
+            int id = selectedReservdel.Artikelnummer;
 
             var reparation = new Reparation
             {
                 Åtgärd = txtÅtgärd.Text,
                 Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
             };
-            reparationcontroller.AddReparation(reparation);
-            reparation.Reservdelar.Add(reservdel);
-            reparationcontroller.UpdateReparation(reparation);
+            reparationcontroller.CreateOrUpdateReparation(reparation, id);
+
+            //reparationcontroller.AddReparation(reparation);
+            //reparation.Reservdelar.Add(reservdel);
+            //reparationcontroller.UpdateReparation(reparation);
 
 
             ResetForm();
