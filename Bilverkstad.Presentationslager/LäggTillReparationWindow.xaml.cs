@@ -44,6 +44,7 @@ namespace Bilverkstad.Presentationslager
         //}
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
+
             Reparation nyReparation = new Reparation();
             Reservdel reservdelen = new Reservdel();
             reservdelen = cbArtikelnummer.SelectedItem as Reservdel;
@@ -66,6 +67,7 @@ namespace Bilverkstad.Presentationslager
                 // Om ingen reservdel är vald, visa ett meddelande eller vidta annan lämplig åtgärd
                 MessageBox.Show("Vänligen välj en reservdelen.");
             }
+
         }
         //private void LoadArtikelnummer()
         //{

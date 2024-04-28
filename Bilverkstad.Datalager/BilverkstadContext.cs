@@ -37,12 +37,10 @@ namespace Bilverkstad.Datalager
                 .HasForeignKey(b => b.FordonRegNr)
                 .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
 
-            // Configure the Bokning-Receptionist relationship
-            modelBuilder.Entity<Bokning>()
-                .HasOne(b => b.Receptionist)
-                .WithMany()
-                .HasForeignKey(b => b.ReceptionistId)
-                .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+            // Configure the Repartaion-Reservdel relationship
+
+
+
         }
 
 

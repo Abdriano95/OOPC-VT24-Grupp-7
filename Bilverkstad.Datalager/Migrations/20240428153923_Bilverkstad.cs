@@ -90,7 +90,8 @@ namespace Bilverkstad.Datalager.Migrations
                         name: "FK_Bokning_Anställd_ReceptionistId",
                         column: x => x.ReceptionistId,
                         principalTable: "Anställd",
-                        principalColumn: "AnställningsNummer");
+                        principalColumn: "AnställningsNummer",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bokning_Fordon_FordonRegNr",
                         column: x => x.FordonRegNr,
@@ -109,11 +110,12 @@ namespace Bilverkstad.Datalager.Migrations
                 {
                     ReparationsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ReservArtNr = table.Column<int>(type: "int", nullable: false),
                     Reparationsstatus = table.Column<int>(type: "int", nullable: false),
                     BokningsId = table.Column<int>(type: "int", nullable: false),
                     Åtgärd = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MekanikerAnställningsNummer = table.Column<int>(type: "int", nullable: true),
-                    BokningId = table.Column<int>(type: "int", nullable: false)
+                    BokningId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -127,8 +129,7 @@ namespace Bilverkstad.Datalager.Migrations
                         name: "FK_Reparation_Bokning_BokningId",
                         column: x => x.BokningId,
                         principalTable: "Bokning",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

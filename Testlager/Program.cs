@@ -14,9 +14,9 @@ namespace Testlager
             BilverkstadContext bilverkstad = new BilverkstadContext();
 
 
-            //bilverkstad.Database.EnsureDeleted();
-            //bilverkstad.Database.EnsureCreated();
-            //BilverkstadSeed.Populate(bilverkstad);
+            bilverkstad.Database.EnsureDeleted();
+            bilverkstad.Database.EnsureCreated();
+            BilverkstadSeed.Populate(bilverkstad);
 
             foreach (var entry in bilverkstad.ChangeTracker.Entries())
             {
