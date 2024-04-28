@@ -55,7 +55,7 @@ namespace Bilverkstad.Presentationslager
                 {
                     Åtgärd = txtÅtgärd.Text,
                     Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
-                    Reservdel = reservdelen,
+                    //Reservdel = reservdelen,
                     
                     // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
                 };
