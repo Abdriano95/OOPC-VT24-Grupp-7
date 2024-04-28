@@ -26,16 +26,12 @@ namespace Bilverkstad.Presentationslager
         }
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
-
+           
 
             var reparation = new Reparation
             {
                 Åtgärd = txtÅtgärd.Text,
                 Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
-
-                // Reservdelar
-                // Mekaniker ID och kopplad till åtgärd
-                //Bokning ID
             };
             reparationcontroller.AddReparation(reparation);
             reparation.Reservdelar.Add(reservdel);
