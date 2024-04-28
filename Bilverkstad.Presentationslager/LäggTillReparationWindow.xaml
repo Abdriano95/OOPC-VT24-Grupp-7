@@ -40,12 +40,14 @@
             <ComboBox Grid.Row="7" HorizontalAlignment="Left" Height="20" x:Name="cbArtikelnummer" Width="150" Margin="5,19,0,19" SelectionChanged="cbArtikelnummer_SelectionChanged" />
 
             <DataGrid Grid.Row="7" HorizontalAlignment="Center" Width="250" Height="Auto" x:Name="Reservdel"></DataGrid>
-            
 
 
 
-            <Button Grid.Row="16" Content="Lägg till Reparation" HorizontalAlignment="Left" Click="AddReparation_Click" Margin="10,70,0,71" Width="106" RenderTransformOrigin="0.509,0.507"/>
-            
+
+            <Button Grid.Row="16" Content="Lägg till Reparation" HorizontalAlignment="Left" Click="AddReparation_Click" Margin="10,168,0,10" Width="106" RenderTransformOrigin="0.509,0.507" Grid.RowSpan="2"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="173,22,0,0" Grid.Row="7" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="14,0,0,0" Grid.Row="16" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Använda reservdelar"/><LineBreak/><Run Language="sv-se"/></TextBlock>
+
 
 
         </Grid>

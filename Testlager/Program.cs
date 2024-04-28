@@ -9,8 +9,6 @@ namespace Testlager
     {
         static void Main(string[] args)
         {
-            KundController kundController = new KundController();
-            FordonController fordonController = new FordonController();
             BilverkstadContext bilverkstad = new BilverkstadContext();
 
 

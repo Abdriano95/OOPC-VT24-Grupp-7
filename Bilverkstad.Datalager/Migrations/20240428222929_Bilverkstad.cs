@@ -50,6 +50,20 @@ namespace Bilverkstad.Datalager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reservdel",
+                columns: table => new
+                {
+                    Artikelnummer = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Namn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Pris = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservdel", x => x.Artikelnummer);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Fordon",
                 columns: table => new
                 {
@@ -110,7 +124,7 @@ namespace Bilverkstad.Datalager.Migrations
                 {
                     ReparationsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ReservArtNr = table.Column<int>(type: "int", nullable: false),
+                    Artikelnummer = table.Column<int>(type: "int", nullable: true),
                     Reparationsstatus = table.Column<int>(type: "int", nullable: false),
                     BokningsId = table.Column<int>(type: "int", nullable: false),
                     Åtgärd = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -133,23 +147,27 @@ namespace Bilverkstad.Datalager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservdel",
+                name: "ReparationReservdel",
                 columns: table => new
                 {
-                    Artikelnummer = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Namn = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Pris = table.Column<float>(type: "real", nullable: false),
-                    ReparationsId = table.Column<int>(type: "int", nullable: true)
+                    ReparationId = table.Column<int>(type: "int", nullable: false),
+                    ReservdelId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reservdel", x => x.Artikelnummer);
+                    table.PrimaryKey("PK_ReparationReservdel", x => new { x.ReparationId, x.ReservdelId });
                     table.ForeignKey(
-                        name: "FK_Reservdel_Reparation_ReparationsId",
-                        column: x => x.ReparationsId,
+                        name: "FK_ReparationReservdel_Reparation_ReparationId",
+                        column: x => x.ReparationId,
                         principalTable: "Reparation",
-                        principalColumn: "ReparationsId");
+                        principalColumn: "ReparationsId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReparationReservdel_Reservdel_ReservdelId",
+                        column: x => x.ReservdelId,
+                        principalTable: "Reservdel",
+                        principalColumn: "Artikelnummer",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -183,19 +201,22 @@ namespace Bilverkstad.Datalager.Migrations
                 column: "MekanikerAnställningsNummer");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservdel_ReparationsId",
-                table: "Reservdel",
-                column: "ReparationsId");
+                name: "IX_ReparationReservdel_ReservdelId",
+                table: "ReparationReservdel",
+                column: "ReservdelId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Reservdel");
+                name: "ReparationReservdel");
 
             migrationBuilder.DropTable(
                 name: "Reparation");
+
+            migrationBuilder.DropTable(
+                name: "Reservdel");
 
             migrationBuilder.DropTable(
                 name: "Bokning");

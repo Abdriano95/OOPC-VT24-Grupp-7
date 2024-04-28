@@ -1,5 +1,6 @@
 ﻿using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bilverkstad.Affärslager
 {
@@ -21,6 +22,13 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        public IList<Reparation> GetReparationWithReservdel()
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Reparation.GetAll().Include(r => r.ReparationReservdel).ToList();
+            }
+        }
         public void AddReparation(Reparation reparation)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -53,8 +61,8 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                var reservdel = unitOfWork.Reservdel.FirstOrDefault(r => r.Artikelnummer == Id);
-                reparation.Reservdelar.Add(reservdel);
+                //var reservdel = unitOfWork.Reservdel.FirstOrDefault(r => r.Artikelnummer == Id);
+                //reparation.ReparationReservdel.Add(reservdel);
                 if (reparation.ReparationsId == 0)
                 {
                     unitOfWork.Reparation.Add(reparation);

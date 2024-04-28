@@ -21,6 +21,7 @@ namespace Bilverkstad.Affärslager
                 return kundRepository.GetAll().Include(k => k.Fordon).ToList();
             }
         }
+
         public IList<Kund> GetKund()
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
