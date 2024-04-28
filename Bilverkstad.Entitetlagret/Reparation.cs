@@ -15,7 +15,7 @@ namespace Bilverkstad.Entitetlagret
         public virtual ICollection<Reservdel>? Reservdelar { get; set; }
         public Mekaniker? Mekaniker { get; set; } //required 
 
-        public virtual Bokning Bokning { get; set; }  // required  
+        public virtual Bokning? Bokning { get; set; }  // required  
         public Reparation()
         {
             Reservdelar = new List<Reservdel>();
