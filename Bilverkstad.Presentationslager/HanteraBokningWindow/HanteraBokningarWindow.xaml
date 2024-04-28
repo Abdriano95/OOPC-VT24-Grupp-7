@@ -1,0 +1,15 @@
+﻿<Window x:Class="Bilverkstad.Presentationslager.HanteraBokningarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
+        mc:Ignorable="d"
+        Title="HanteraBokningWindow" Height="450" Width="800">
+    <Grid>
+        <Button Content="Skapa bokning" HorizontalAlignment="Left" Margin="16,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.505,0.603" Click="Button_Click"/>
+        <Button Content="Ändra bokning" HorizontalAlignment="Left" Margin="16,51,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <DataGrid  x:Name= "Bokningar" Margin="123,0,0,0"/>
+    </Grid>
+
+</Window>

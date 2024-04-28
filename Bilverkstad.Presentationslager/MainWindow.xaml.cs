@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Bilverkstad.Presentationslager
 {
@@ -38,11 +26,23 @@ namespace Bilverkstad.Presentationslager
                     case "Hantera Anställda":
                         OpenWindow2();
                         break;
+                    case "Hantera Reservdelar":
+                        OpenWindow3();
+                        break;
+                    case "Hantera Reparationer":
+                        OpenWindow4();
+                        break;
                     default:
                         break;
+                    case "Hantera Bokning":
+                        OpenWindow5();
+                        break;
+
                 }
             }
         }
+
+
 
         private void OpenWindow1()
         {
@@ -55,6 +55,22 @@ namespace Bilverkstad.Presentationslager
             HanteraAnställdaWindow hanteraAnställda = new HanteraAnställdaWindow();
             hanteraAnställda.Show();
         }
+        private void OpenWindow3()
+        {
+            HanteraReservdelarWindow hanteraReservdelar = new HanteraReservdelarWindow();
+            hanteraReservdelar.Show();
+        }
+        private void OpenWindow4()
+        {
+            HanteraReparationerWindow hanteraReparationer = new HanteraReparationerWindow();
+            hanteraReparationer.Show();
+        }
+        private void OpenWindow5()
+        {
+            HanteraBokningarWindow hanteraBokningar = new HanteraBokningarWindow();
+            hanteraBokningar.Show();
+        }
+
 
     }
 

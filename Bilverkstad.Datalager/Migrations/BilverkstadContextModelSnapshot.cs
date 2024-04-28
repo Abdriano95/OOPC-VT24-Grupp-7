@@ -44,9 +44,6 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<string>("Lösenord")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Yrkesroll")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("AnställningsNummer");
 
                     b.ToTable("Anställd");
@@ -116,22 +113,31 @@ namespace Bilverkstad.Datalager.Migrations
 
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reparation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ReparationsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReparationsId"));
+
+                    b.Property<int?>("Artikelnummer")
+                        .HasColumnType("int");
 
                     b.Property<int?>("BokningId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BokningsId")
                         .HasColumnType("int");
 
                     b.Property<int?>("MekanikerAnställningsNummer")
                         .HasColumnType("int");
 
+                    b.Property<int>("Reparationsstatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("Åtgärd")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ReparationsId");
 
                     b.HasIndex("BokningId");
 
@@ -140,13 +146,28 @@ namespace Bilverkstad.Datalager.Migrations
                     b.ToTable("Reparation");
                 });
 
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.ReparationReservdel", b =>
+                {
+                    b.Property<int>("ReparationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservdelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReparationId", "ReservdelId");
+
+                    b.HasIndex("ReservdelId");
+
+                    b.ToTable("ReparationReservdel");
+                });
+
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Artikelnummer")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Artikelnummer"));
 
                     b.Property<string>("Namn")
                         .HasColumnType("nvarchar(max)");
@@ -154,12 +175,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<float>("Pris")
                         .HasColumnType("real");
 
-                    b.Property<int?>("ReparationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReparationId");
+                    b.HasKey("Artikelnummer");
 
                     b.ToTable("Reservdel");
                 });
@@ -172,16 +188,20 @@ namespace Bilverkstad.Datalager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BokningStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("FordonRegNr")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("InlämningsDatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("KundId")
+                    b.Property<int>("KundId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReceptionistAnställningsNummer")
+                    b.Property<int>("ReceptionistId")
                         .HasColumnType("int");
 
                     b.Property<string>("SyfteMedBesök")
@@ -196,7 +216,7 @@ namespace Bilverkstad.Datalager.Migrations
 
                     b.HasIndex("KundId");
 
-                    b.HasIndex("ReceptionistAnställningsNummer");
+                    b.HasIndex("ReceptionistId");
 
                     b.ToTable("Bokning");
                 });
@@ -214,6 +234,9 @@ namespace Bilverkstad.Datalager.Migrations
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Receptionist", b =>
                 {
                     b.HasBaseType("Bilverkstad.Entitetlagret.Anställd");
+
+                    b.Property<int>("Auktoritet")
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Receptionist");
                 });
@@ -244,26 +267,44 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Navigation("Mekaniker");
                 });
 
-            modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.ReparationReservdel", b =>
                 {
-                    b.HasOne("Bilverkstad.Entitetlagret.Reparation", null)
-                        .WithMany("Reservdelar")
-                        .HasForeignKey("ReparationId");
+                    b.HasOne("Bilverkstad.Entitetlagret.Reparation", "Reparation")
+                        .WithMany("ReparationReservdel")
+                        .HasForeignKey("ReparationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bilverkstad.Entitetlagret.Reservdel", "Reservdel")
+                        .WithMany("ReparationReservdel")
+                        .HasForeignKey("ReservdelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reparation");
+
+                    b.Navigation("Reservdel");
                 });
 
             modelBuilder.Entity("Bokning", b =>
                 {
                     b.HasOne("Bilverkstad.Entitetlagret.Fordon", "Fordon")
                         .WithMany()
-                        .HasForeignKey("FordonRegNr");
+                        .HasForeignKey("FordonRegNr")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Bilverkstad.Entitetlagret.Kund", "Kund")
                         .WithMany()
-                        .HasForeignKey("KundId");
+                        .HasForeignKey("KundId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Bilverkstad.Entitetlagret.Receptionist", "Receptionist")
                         .WithMany()
-                        .HasForeignKey("ReceptionistAnställningsNummer");
+                        .HasForeignKey("ReceptionistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Fordon");
 
@@ -279,7 +320,12 @@ namespace Bilverkstad.Datalager.Migrations
 
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reparation", b =>
                 {
-                    b.Navigation("Reservdelar");
+                    b.Navigation("ReparationReservdel");
+                });
+
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
+                {
+                    b.Navigation("ReparationReservdel");
                 });
 
             modelBuilder.Entity("Bokning", b =>

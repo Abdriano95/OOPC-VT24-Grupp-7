@@ -40,5 +40,12 @@ namespace Bilverkstad.Presentationslager
             contoller.UpdateKund(kund);
         }
 
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(kund);
+            läggTillFordonWindow.Show();
+        }
     }
 }

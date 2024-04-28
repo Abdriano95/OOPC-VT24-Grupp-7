@@ -35,6 +35,23 @@ namespace Bilverkstad.Datalager
         public IReceptionistRepository? Receptionists => throw new NotImplementedException();
 
 
+        private IBokningRepository bokning = null!;
+        public IBokningRepository Bokning => bokning ??= new BokningRepository(Context);
+        public IBokningRepository Boknings => throw new NotImplementedException();
+
+        private IReservdelRepository reservdel = null!;
+        public IReservdelRepository? Reservdel => reservdel ??= new ReservdelRepository(Context);
+
+        public IReservdelRepository? Reservdelar => throw new NotImplementedException();
+
+        private IReparationRepository reparation = null!;
+        public IReparationRepository? Reparation => reparation ??= new ReparationRepository(Context);
+
+        public IReparationRepository? Reparationer => throw new NotImplementedException();
+
+
+
+
         public UnitOfWork()
           : this(new BilverkstadContext())
         {

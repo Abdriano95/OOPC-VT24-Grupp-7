@@ -21,14 +21,15 @@ namespace Bilverkstad.Affärslager
                 return kundRepository.GetAll().Include(k => k.Fordon).ToList();
             }
         }
-        public IList<Kund> GetKund() // här är en metod för att lägga alla kunderi en lista
+
+        public IList<Kund> GetKund() // här är en metod för att lägga alla kunderi en lisa
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
                 var kundRepository = unitOfWork.Kund;
                 if (kundRepository == null)
                 {
-                    
+
                     return new List<Kund>();
                 }
                 return kundRepository.GetAll().ToList();
@@ -39,15 +40,18 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                Kund kund = unitOfWork.Kund!.Find(id);
+                // Include the Fordon navigation property to fetch vehicles along with the customer
+                Kund kund = unitOfWork.Kund!.GetAll().Include(k => k.Fordon).FirstOrDefault(k => k.Id == id);
+
                 if (kund == null)
                 {
                     throw new KeyNotFoundException("Ingen kund hittat med given ID.");
-                    
                 }
+
                 return kund;
             }
         }
+
 
 
         public void AddKund(Kund kund)
@@ -99,6 +103,25 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
+        public void AddOrUpdateKund(Kund kund)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var existingKund = unitOfWork.Kund.Find(kund.Id);
+                if (existingKund == null)
+                {
+                    unitOfWork.Kund.Add(kund);
+                }
+                else
+                {
+                    // Use repository update method
+                    unitOfWork.Kund.Update(existingKund, kund);
+                }
+                unitOfWork.SaveChanges();
+            }
+        }
+
 
     }
 }

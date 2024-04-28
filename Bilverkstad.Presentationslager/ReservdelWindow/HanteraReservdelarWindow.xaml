@@ -1,0 +1,30 @@
+﻿<Window x:Class="Bilverkstad.Presentationslager.HanteraReservdelarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
+        mc:Ignorable="d"
+        Title="HanteraReservdelarWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="True">
+        <!-- DockPanel Top -->
+        <!-- DockPanel Bottom -->
+        <!-- DockPanel Left -->
+        <StackPanel DockPanel.Dock="Left" Orientation="Vertical" 
+Background="CornflowerBlue" Margin="10,10,10,10">
+            <TextBlock Text="Hantera Reservdelar" Foreground="White" FontSize="16" FontWeight="SemiBold" 
+HorizontalAlignment="Center" />
+            <Button x:Name="VisaReservdel" Content="Visa Reservdelar" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="VisaReservdel_Clicked" />
+            <Button x:Name="LäggTillReservdel" Content="Lägg till Reservdel" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="LäggTillReservdel_Clicked" />
+            <Button x:Name="TaBortReservdel" Content="Ta bort Reservdel" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="TaBortReservdel_Clicked" />
+            <Button x:Name="UppdateraReservdel" Content="Uppdatera Reservdel" Background="White" FontSize="14" Width="140"
+Margin="10,10,10,5" Click="UppdateraReservdel_Clicked" />
+
+        </StackPanel>
+        <!-- DockPanel Right -->
+        <!-- DockPanel LastChildFill -->
+    </DockPanel>
+</Window>

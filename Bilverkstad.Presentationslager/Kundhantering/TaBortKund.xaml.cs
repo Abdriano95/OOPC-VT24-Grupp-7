@@ -1,6 +1,6 @@
-﻿using Bilverkstad.Entitetlagret;
+﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System.Windows;
-using Bilverkstad.Affärslager;
 
 namespace Bilverkstad.Presentationslager
 {

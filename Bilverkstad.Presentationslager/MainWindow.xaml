@@ -11,6 +11,13 @@
             <ComboBoxItem Content="Hantera Kunder"/>
             <ComboBoxItem Content="Hantera Anställda"/>
 
+            <ComboBoxItem Content="Hantera Bokning"/>
+    
+
+            <ComboBoxItem Content="Hantera Reservdelar"/>
+            <ComboBoxItem Content="Hantera Reparationer"/>
+
+
         </ComboBox>
     </Grid>
 </Window>
