@@ -5,5 +5,6 @@ namespace Bilverkstad.Datalager.Respositories.Interfaces
 {
     public interface IFordonRepository : IBaseRepository<Fordon>
     {
+        public void AddOrUpdate(Fordon fordon);
     }
 }

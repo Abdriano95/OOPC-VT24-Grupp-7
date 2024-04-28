@@ -10,5 +10,23 @@ namespace Bilverkstad.Datalager.Respositories
         public FordonRepository(DbContext context) : base(context)
         {
         }
+
+        public void AddOrUpdate(Fordon fordon)
+        {
+            var existingFordon = FindStringID(fordon.RegNr);
+            if (existingFordon != null)
+            {
+                // Manually update properties if there's no helper to automatically copy values
+                existingFordon.Bilmärke = fordon.Bilmärke;
+                existingFordon.Modell = fordon.Modell;
+                // Add more properties to update as needed
+                Update(existingFordon);
+            }
+            else
+            {
+                Add(fordon);
+            }
+            // Assuming SaveChanges is called outside this method or you could call it here
+        }
     }
 }

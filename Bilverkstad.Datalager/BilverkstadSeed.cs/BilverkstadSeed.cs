@@ -1,12 +1,20 @@
 ﻿using Bilverkstad.Entitetlagret;
 
-namespace Bilverkstad.Datalager.BilverkstadSeed.cs
+namespace Bilverkstad.Datalager
 {
     public class BilverkstadSeed
     {
+        // Define the Specialistområde enum
+        public enum Specialistområde
+        {
+            Dackbyte,
+            Motor
+        }
+
         public static void Populate(BilverkstadContext bilverkstad)
         {
-            bilverkstad.Add(new Kund()
+            // Seed customers and their vehicles
+            var kund1 = new Kund
             {
                 Förnamn = "Mohamud",
                 Efternamn = "Abbass",
@@ -15,9 +23,15 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
                 Postnummer = "4353",
                 Ort = "Happaranda",
                 Telefonnummer = "112",
-                Epost = "Mohamud@hotmail.com"
-            });
-            bilverkstad.Add(new Kund()
+                Epost = "Mohamud@hotmail.com",
+                Fordon = new List<Fordon>
+                {
+                    new Fordon { RegNr = "ABC123", Bilmärke = "Volvo", Modell = "X70" },
+                    new Fordon { RegNr = "DEF456", Bilmärke = "Saab", Modell = "9-5" }
+                }
+            };
+
+            var kund2 = new Kund
             {
                 Förnamn = "Janne",
                 Efternamn = "Svensson",
@@ -26,25 +40,29 @@ namespace Bilverkstad.Datalager.BilverkstadSeed.cs
                 Postnummer = "23759",
                 Ort = "Kiruna",
                 Telefonnummer = "1177",
-                Epost = "Jannesvesson@hotmail.com"
+                Epost = "Jannesvesson@hotmail.com",
+                Fordon = new List<Fordon>
+                {
+                    new Fordon { RegNr = "GHI789", Bilmärke = "Tesla", Modell = "Model S" }
+                }
+            };
 
-            });
+            bilverkstad.Add(kund1);
+            bilverkstad.Add(kund2);
 
-            bilverkstad.Add(new Fordon()
-            {
-                RegNr = "ABC123",
-                Bilmärke = "Volvo",
-                Modell = "X70",
-            });
+            // Seed employees
+            bilverkstad.Add(new Mekaniker { Förnamn = "Karl", Efternamn = "Andersson", Specialiseringar = Specialiseringar.Motor, Lösenord = "pwd12345" });
+            bilverkstad.Add(new Mekaniker { Förnamn = "Eva", Efternamn = "Lund", Specialiseringar = Specialiseringar.Dackbyte, Lösenord = "pwd67890" });
+            bilverkstad.Add(new Receptionist { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123", Auktoritet = Auktoritet.Admin });
+            bilverkstad.Add(new Receptionist { Förnamn = "Anna", Efternamn = "Nilsson", Lösenord = "adminpwd", Auktoritet = Auktoritet.NotAdmin });
+
+            // Seed spare parts
+            bilverkstad.Add(new Reservdel { Namn = "Oljefilter", Pris = 150 });
+            bilverkstad.Add(new Reservdel { Namn = "Vindruta", Pris = 2500 });
+            bilverkstad.Add(new Reservdel { Namn = "Bromspad", Pris = 300 });
+            bilverkstad.Add(new Reservdel { Namn = "Tändstift", Pris = 100 });
 
             bilverkstad.SaveChanges();
         }
-
-        public static void PopulateReceptionist(BilverkstadContext bilverkstad)
-        {
-            bilverkstad.Add(new Receptionist() { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123" });
-            bilverkstad.SaveChanges();
-        }
-        
     }
 }

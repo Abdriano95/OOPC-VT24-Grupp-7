@@ -19,5 +19,32 @@ namespace Bilverkstad.Datalager
             base.OnConfiguring(optionsBuilder);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure the Bokning-Kund relationship
+            modelBuilder.Entity<Bokning>()
+                .HasOne(b => b.Kund)
+                .WithMany()
+                .HasForeignKey(b => b.KundId)
+                .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+
+            // Configure the Bokning-Fordon relationship
+            modelBuilder.Entity<Bokning>()
+                .HasOne(b => b.Fordon)
+                .WithMany()
+                .HasForeignKey(b => b.FordonRegNr)
+                .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+
+            // Configure the Bokning-Receptionist relationship
+            modelBuilder.Entity<Bokning>()
+                .HasOne(b => b.Receptionist)
+                .WithMany()
+                .HasForeignKey(b => b.ReceptionistId)
+                .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+        }
+
+
     }
 }
