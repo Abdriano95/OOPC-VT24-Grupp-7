@@ -1,0 +1,18 @@
+﻿<Window x:Class="Bilverkstad.Presentationslager.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
+        mc:Ignorable="d"
+        Title="Jocke och Abbes Bilverkstad" Height="285" Width="489">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="215,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Login"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="100,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Anställnings"/><Run Text=" I"/><Run Language="sv-se" Text="D"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="130,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Lösenord"/></TextBlock>
+        <TextBox x:Name="txtAnvändarid" HorizontalAlignment="Left" Margin="190,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="17"/>
+        <Button Content="Logga in" HorizontalAlignment="Left" Margin="190,158,0,0" VerticalAlignment="Top" Click="LoggaIn_Click"/>
+        <PasswordBox x:Name="txtLösenord" HorizontalAlignment="Left" Margin="190,120,0,0" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>

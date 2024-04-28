@@ -48,5 +48,18 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
+        public bool ValideraInlogg(int anställningsNummer, string password)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var anställd = unitOfWork.Anställd.Find(anställningsNummer);
+                if (anställd != null && anställd.Lösenord == password)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
