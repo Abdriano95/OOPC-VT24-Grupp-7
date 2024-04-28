@@ -10,7 +10,7 @@ namespace Bilverkstad.Presentationslager
         public HanteraKunderWindow()
         {
             InitializeComponent();
-            
+
         }
 
 

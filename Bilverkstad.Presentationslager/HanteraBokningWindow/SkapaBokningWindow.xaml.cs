@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bilverkstad.Presentationslager.HanteraBokningWindow
 {
@@ -19,11 +10,113 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
     /// </summary>
     public partial class SkapaBokningWindow : Window
     {
+        KundController kundController = new KundController();
+        FordonController fordonController = new FordonController();
+        ReceptionistController receptionistController = new ReceptionistController();
+        BokningsController bokningsController = new BokningsController();
+
+        Kund kund = new Kund();
+        Receptionist receptionist = new Receptionist();
+        string kundID;
+        string receptionistID;
         public SkapaBokningWindow()
         {
             InitializeComponent();
         }
 
-  
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            kundID = txtKundID.Text;
+            if (!string.IsNullOrWhiteSpace(kundID))
+            {
+                try
+                {
+                    int id = int.Parse(kundID);
+                    var customerInfo = await Task.Run(() => kundController.GetOneKund(id));
+                    if (customerInfo != null && customerInfo.Fordon != null && customerInfo.Fordon.Any())
+                    {
+
+                        cmbFordon.ItemsSource = customerInfo.Fordon;  // Bind the vehicles to the ComboBox
+                        cmbFordon.DisplayMemberPath = "RegNr";  // Adjust property name as per your vehicle properties
+                        cmbFordon.SelectedValuePath = "RegNr";  // Typically, the unique identifier of the vehicle
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Inga fordon hittade för kunden");
+                    }
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Ogiltig KundID. Var god och ange ett heltal");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ett fel har inträffat: " + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Har god och ange ett giltigt KundID.");
+            }
+        }
+
+        private void SkapaBokning_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string kundID = txtKundID.Text;
+                string receptionistID = txtReceptionistID.Text;
+                if (!string.IsNullOrWhiteSpace(kundID) && !string.IsNullOrWhiteSpace(receptionistID))
+                {
+                    int id = int.Parse(kundID);
+                    int recId = int.Parse(receptionistID);
+                    Fordon selectedFordon = cmbFordon.SelectedItem as Fordon;
+
+                    if (selectedFordon != null)
+                    {
+                        DateTime startDate = datePickerStartDate.SelectedDate ?? DateTime.Now;
+                        DateTime? endDate = datePickerEndDate.SelectedDate;
+                        string purpose = txtPurpose.Text;
+                        Status initialStatus = Status.Inlämnad;
+
+                        Bokning nyBokning = new Bokning
+                        {
+                            // Properties set directly, no longer fetching inside click event
+                            InlämningsDatum = startDate,
+                            UtlämningsDatum = endDate,
+                            SyfteMedBesök = purpose,
+                            BokningStatus = initialStatus
+                        };
+
+                        // Call the comprehensive method to handle creation or updating of Bokning
+                        bokningsController.CreateOrUpdateBokning(id, selectedFordon.RegNr, recId, nyBokning);
+                        MessageBox.Show("Booking Created Successfully!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please make sure all entries are valid and a vehicle is selected.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please ensure all fields are filled correctly.");
+                }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Invalid ID(s). Please enter valid integer ID(s).");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
     }
 }

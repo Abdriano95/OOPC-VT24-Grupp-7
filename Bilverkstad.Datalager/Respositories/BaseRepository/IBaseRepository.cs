@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Security.Cryptography;
 
 namespace Bilverkstad.Datalager.Respositories.BaseRepository
 {
@@ -24,6 +25,7 @@ namespace Bilverkstad.Datalager.Respositories.BaseRepository
         // Update
         void Update(T entity);
         T Update(T oldEntity, T newEntity);
+        void UpdatePartial(T existingEntity, Dictionary<string, object> updatedValues);
         void UpdateRange(IEnumerable<T> entities);
 
         // Delete
