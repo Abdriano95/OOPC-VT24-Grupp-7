@@ -1,18 +1,7 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bilverkstad.Presentationslager
 {
@@ -21,7 +10,7 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class LäggTillMekanikerWindow : Window
     {
-         MekanikerController controller = new MekanikerController();    
+        MekanikerController controller = new MekanikerController();
         public LäggTillMekanikerWindow()
         {
             InitializeComponent();
@@ -42,7 +31,7 @@ namespace Bilverkstad.Presentationslager
         {
             if (cbSpecialiseringar.SelectedItem != null)
             {
-                var selectedSpecialisering = (Specialiseringar)cbSpecialiseringar.SelectedItem;               
+                var selectedSpecialisering = (Specialiseringar)cbSpecialiseringar.SelectedItem;
             }
         }
         private void FillComboBoxWithEnums()

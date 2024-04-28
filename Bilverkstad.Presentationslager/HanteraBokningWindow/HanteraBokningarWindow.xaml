@@ -9,7 +9,7 @@
     <Grid>
         <Button Content="Skapa bokning" HorizontalAlignment="Left" Margin="16,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.505,0.603" Click="Button_Click"/>
         <Button Content="Ändra bokning" HorizontalAlignment="Left" Margin="16,51,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="123,0,0,0"/>
+        <DataGrid  x:Name= "Bokningar" Margin="123,0,0,0"/>
     </Grid>
 
 </Window>

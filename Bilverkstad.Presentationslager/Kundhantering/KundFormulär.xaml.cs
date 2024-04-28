@@ -42,7 +42,7 @@ namespace Bilverkstad.Presentationslager
 
 
 
-         private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(kund);
             läggTillFordonWindow.Show();
