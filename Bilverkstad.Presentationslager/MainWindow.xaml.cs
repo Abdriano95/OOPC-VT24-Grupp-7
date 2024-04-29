@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Bilverkstad.Entitetlagret;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Bilverkstad.Presentationslager
@@ -8,9 +9,12 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
-        public MainWindow()
+        public Anställd _nuvarandeAnvändare;
+        public MainWindow(Anställd nuvarandeAnvändare)
         {
             InitializeComponent();
+            _nuvarandeAnvändare = nuvarandeAnvändare;
+            ConfigureMainMenuBasedOnRole();
         }
         private void NavigationComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -40,6 +44,43 @@ namespace Bilverkstad.Presentationslager
 
                 }
             }
+        }
+
+        private void ConfigureMainMenuBasedOnRole()
+        {
+            // Clear existing items
+            navigationComboBox.Items.Clear();
+
+            // Based on the type of _currentUser, add the appropriate items to the ComboBox
+            if (_nuvarandeAnvändare is Receptionist receptionist)
+            {
+                // If receptionist is an admin, they can access everything
+                if (receptionist.Auktoritet == Auktoritet.Admin)
+                {
+                    AddAllMenuItems();
+                }
+                else // If not an admin, add only receptionist-specific items
+                {
+                    navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Kunder" });
+                    navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning" });
+                }
+            }
+            else if (_nuvarandeAnvändare is Mekaniker)
+            {
+                navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning" });
+                navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reservdelar" });
+                navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reparationer" });
+            }
+
+        }
+
+        private void AddAllMenuItems()
+        {
+            navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Kunder" });
+            navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Anställda" });
+            navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning" });
+            navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reservdelar" });
+            navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reparationer" });
         }
 
 

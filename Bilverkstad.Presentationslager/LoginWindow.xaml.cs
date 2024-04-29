@@ -1,4 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,12 @@ namespace Bilverkstad.Presentationslager
         {
             int användarid = int.Parse(txtAnvändarid.Text);
             string lösenord = txtLösenord.Password;
+            Anställd anställd = _anställdController.GetSubTypeAnställd(användarid);
 
             if (_anställdController.ValideraInlogg(användarid, lösenord))
             {
-                MainWindow mainWindow = new MainWindow();
+               
+                MainWindow mainWindow = new MainWindow(anställd);
                 mainWindow.Show();
                 this.Close();
                 MessageBox.Show("Välkommen!");
