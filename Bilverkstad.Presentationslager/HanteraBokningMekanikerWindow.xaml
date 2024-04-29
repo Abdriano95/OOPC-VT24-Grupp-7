@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="HanteraBokningMekanikerWindow" Height="450" Width="800">
     <Grid>
-
-        <Button Content="Öppna bokning" HorizontalAlignment="Left" Margin="21,217,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <DataGrid  x:Name= "Bokningar" Margin="123,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" x:Name="txtAnställningsNummer" Margin="21,40,0,0" TextWrapping="Wrap" Text="AnstNr" VerticalAlignment="Top" Width="87"/>
-        <ComboBox HorizontalAlignment="Left" x:Name="cmbBokning" SelectionChanged="ComboBox_SelectionChanged" Margin="21,69,0,0" VerticalAlignment="Top" Width="87"/>
+        
+        <Button Content="Öppna Bokning" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <DataGrid x:Name="Bokningar" Margin="123,51,0,0" AutoGenerateColumns="True" SelectionMode="Single" SelectionUnit="FullRow"/>
+        <TextBox x:Name="txtSök" HorizontalAlignment="Left" Margin="123,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Sök" HorizontalAlignment="Left" Margin="261,14,0,0" VerticalAlignment="Top" Click="SökButton_Click"/>
     </Grid>
 </Window>

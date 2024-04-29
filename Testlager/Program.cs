@@ -15,7 +15,7 @@ namespace Testlager
             bilverkstad.Database.EnsureDeleted();
             bilverkstad.Database.EnsureCreated();
             BilverkstadSeed.Populate(bilverkstad);
-
+            //ja
             foreach (var entry in bilverkstad.ChangeTracker.Entries())
             {
                 Console.WriteLine($"Entity: {entry.Entity.GetType().Name}, State: {entry.State.ToString()}");

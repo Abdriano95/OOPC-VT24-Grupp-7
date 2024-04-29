@@ -12,11 +12,11 @@
         <TextBox HorizontalAlignment="Left" Margin="585,143,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140" Height="117" x:Name="txtPurpose"/>
         <TextBlock HorizontalAlignment="Left" Margin="347,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Reparation"/></TextBlock>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="37,65,553,95"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="286,65,301,95"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=1}" Margin="286,65,301,95"/>
         <Button Content="Lägg till reparation på bokning" HorizontalAlignment="Left" Margin="58,372,0,0" VerticalAlignment="Top"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="286,38,0,0" TextWrapping="Wrap" Text="Reparationer" VerticalAlignment="Top"/>
-        <Button Content="Skapa ny reparation" HorizontalAlignment="Left" Margin="338,372,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="286,38,0,0" TextWrapping="Wrap" Text="Befintliga reparationer" VerticalAlignment="Top"/>
+        <Button Content="Ändra reparation för bokning" HorizontalAlignment="Center" Margin="0,372,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

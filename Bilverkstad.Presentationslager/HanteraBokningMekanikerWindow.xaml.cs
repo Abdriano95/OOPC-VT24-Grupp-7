@@ -22,55 +22,71 @@ namespace Bilverkstad.Presentationslager
     /// </summary>
     public partial class HanteraBokningMekanikerWindow : Window
     {
-        private readonly BokningsController bokningsController;
-        private readonly MekanikerController mekanikerController;
+        BokningsController _bokningController;
 
         public HanteraBokningMekanikerWindow()
         {
             InitializeComponent();
-            bokningsController = new BokningsController();
-            mekanikerController = new MekanikerController();
+            _bokningController = new BokningsController();
+            Bokningar.ItemsSource = _bokningController.GetBokning();
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string anställningsnummerStr = txtAnställningsNummer.Text;
-            int anställningsnummerInt;
-
-            if (int.TryParse(anställningsnummerStr, out anställningsnummerInt))
-            {
-                Mekaniker mekaniker = mekanikerController.GetOneMekaniker(anställningsnummerInt);
-
-                if (mekaniker != null)
-                {
-                    IList<Bokning> mekanikernsBokningar = bokningsController.GetBokningarByAnställningsnummer(mekaniker.AnställningsNummer);
-                    cmbBokning.ItemsSource = mekanikernsBokningar;
-                }
-                else
-                {
-                    MessageBox.Show("Mekaniker med angivet anställningsnummer hittades inte.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Felaktigt format på anställningsnummer.");
-            }
+            Bokningar.ItemsSource = _bokningController.GetBokning();  // Your method to fetch bookings
         }
-
+        
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Bokning valdBokning = cmbBokning.SelectedItem as Bokning;
-
-            if (valdBokning != null)
+            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  // Assuming your data type is Bokning
+            if (selectedBooking != null)
             {
-                ÄndraBokningMekanikerWindow ändraBokningMekanikerWindow = new ÄndraBokningMekanikerWindow(valdBokning);
-                ändraBokningMekanikerWindow.Show();
+                ÄndraBokningMekanikerWindow editWindow = new ÄndraBokningMekanikerWindow(selectedBooking);  // Assuming you have a window or dialog for editing
+                editWindow.ShowDialog();  // Show the edit window as a modal dialog
+                ReloadData();  // Refresh the data after editing
             }
             else
             {
-                MessageBox.Show("Vänligen välj en bokning.");
+                MessageBox.Show("Please select a booking to edit.");
+            }
+
+        }
+
+        private void ReloadData()
+        {
+            _bokningController = new BokningsController();
+            Bokningar.ItemsSource = _bokningController.GetBokning();
+        }
+
+        private void SökButton_Click(object sender, RoutedEventArgs e)
+        {
+            var searchTerm = txtSök.Text.Trim();
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                try
+                {
+                    var results = _bokningController.SearchBookings(searchTerm);
+                    // Assuming you have a DataGrid or some UI element to display bookings:
+                    Bokningar.ItemsSource = results;
+
+                    if (results.Count == 0)
+                    {
+                        MessageBox.Show("No bookings found.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error searching bookings: " + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a search term.");
             }
         }
+
+
+
+
     }
 }
