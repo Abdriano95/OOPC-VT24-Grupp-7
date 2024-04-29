@@ -44,10 +44,12 @@ namespace Bilverkstad.Presentationslager
         //}
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
+
             ReservdelController test = new ReservdelController();
             var reservdelen = test.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
             //Reservdel reservdelen = new Reservdel();
             /*reservdelen = cbArtikelnummer.SelectedItem as Reservdel;*/ // Här är något knas
+
 
             if (reservdelen != null)
             {
@@ -59,14 +61,17 @@ namespace Bilverkstad.Presentationslager
 
                     // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
                 };
+
                 reparationcontroller.AddReparation(reparation);
                 
+
             }
             else
             {
                 // Om ingen reservdel är vald, visa ett meddelande eller vidta annan lämplig åtgärd
                 MessageBox.Show("Vänligen välj en reservdelen.");
             }
+
         }
 
         private void LoadArtikelnummer()
@@ -92,6 +97,7 @@ namespace Bilverkstad.Presentationslager
        
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (cbArtikelnummer.SelectedIndex != null)
             {
                 ReservdelController test = new ReservdelController();
@@ -113,6 +119,7 @@ namespace Bilverkstad.Presentationslager
             {
                 throw new InvalidOperationException("Inget objekt är valt i comboboxen.");
             }
+
         }
 
 

@@ -119,7 +119,10 @@ namespace Bilverkstad.Datalager.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReparationsId"));
 
-                    b.Property<int>("BokningId")
+                    b.Property<int?>("Artikelnummer")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BokningId")
                         .HasColumnType("int");
 
                     b.Property<int>("BokningsId")
@@ -143,6 +146,21 @@ namespace Bilverkstad.Datalager.Migrations
                     b.ToTable("Reparation");
                 });
 
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.ReparationReservdel", b =>
+                {
+                    b.Property<int>("ReparationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservdelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ReparationId", "ReservdelId");
+
+                    b.HasIndex("ReservdelId");
+
+                    b.ToTable("ReparationReservdel");
+                });
+
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
                 {
                     b.Property<int>("Artikelnummer")
@@ -157,12 +175,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Property<float>("Pris")
                         .HasColumnType("real");
 
-                    b.Property<int?>("ReparationsId")
-                        .HasColumnType("int");
-
                     b.HasKey("Artikelnummer");
-
-                    b.HasIndex("ReparationsId");
 
                     b.ToTable("Reservdel");
                 });
@@ -243,9 +256,7 @@ namespace Bilverkstad.Datalager.Migrations
                 {
                     b.HasOne("Bokning", "Bokning")
                         .WithMany("Reparation")
-                        .HasForeignKey("BokningId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BokningId");
 
                     b.HasOne("Bilverkstad.Entitetlagret.Mekaniker", "Mekaniker")
                         .WithMany()
@@ -256,11 +267,23 @@ namespace Bilverkstad.Datalager.Migrations
                     b.Navigation("Mekaniker");
                 });
 
-            modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.ReparationReservdel", b =>
                 {
-                    b.HasOne("Bilverkstad.Entitetlagret.Reparation", null)
-                        .WithMany("Reservdelar")
-                        .HasForeignKey("ReparationsId");
+                    b.HasOne("Bilverkstad.Entitetlagret.Reparation", "Reparation")
+                        .WithMany("ReparationReservdel")
+                        .HasForeignKey("ReparationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bilverkstad.Entitetlagret.Reservdel", "Reservdel")
+                        .WithMany("ReparationReservdel")
+                        .HasForeignKey("ReservdelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Reparation");
+
+                    b.Navigation("Reservdel");
                 });
 
             modelBuilder.Entity("Bokning", b =>
@@ -280,7 +303,7 @@ namespace Bilverkstad.Datalager.Migrations
                     b.HasOne("Bilverkstad.Entitetlagret.Receptionist", "Receptionist")
                         .WithMany()
                         .HasForeignKey("ReceptionistId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Fordon");
@@ -297,7 +320,12 @@ namespace Bilverkstad.Datalager.Migrations
 
             modelBuilder.Entity("Bilverkstad.Entitetlagret.Reparation", b =>
                 {
-                    b.Navigation("Reservdelar");
+                    b.Navigation("ReparationReservdel");
+                });
+
+            modelBuilder.Entity("Bilverkstad.Entitetlagret.Reservdel", b =>
+                {
+                    b.Navigation("ReparationReservdel");
                 });
 
             modelBuilder.Entity("Bokning", b =>

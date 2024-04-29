@@ -48,5 +48,44 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
+        public bool ValideraInlogg(int anställningsNummer, string password)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var anställd = unitOfWork.Anställd.Find(anställningsNummer);
+                if (anställd != null && anställd.Lösenord == password)
+                { 
+                    return true;
+                }
+                return false;
+            }
+        }
+        public Anställd GetSubTypeAnställd(int anställningsNummer)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                Anställd anställd = unitOfWork.Anställd.Find(anställningsNummer);
+                if (anställd == null)
+                {
+                    return null;
+                }
+
+                // Depending on how your discriminator values are set up, these strings might change.
+                // The following "is" checks are assuming that the discriminator values are the names of the types as strings.
+                if (anställd is Receptionist)
+                {
+                    return anställd as Receptionist;
+                }
+                else if (anställd is Mekaniker)
+                {
+                    return anställd as Mekaniker;
+                }
+                // Add additional checks for other subtypes as necessary.
+
+                return anställd; // If it's neither a Receptionist nor a Mekaniker, return the base type.
+            }
+        }
+
     }
 }

@@ -21,7 +21,8 @@ namespace Bilverkstad.Affärslager
                 return kundRepository.GetAll().Include(k => k.Fordon).ToList();
             }
         }
-        public IList<Kund> GetKund()
+
+        public IList<Kund> GetKund() // här är en metod för att lägga alla kunderi en lisa
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
