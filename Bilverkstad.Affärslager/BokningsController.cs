@@ -100,6 +100,15 @@ namespace Bilverkstad.Affärslager
                 return bokningar;
             }
         }
+        public List<Bokning> GetBokningarByAnställningsnummer(int anställningsnummer)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                // Antag att du har en relation mellan Mekaniker och Bokning där MekanikerId i Bokning-tabellen
+                // refererar till ID i Mekaniker-tabellen
+                return unitOfWork.Bokning.Get(b => b.Mekaniker.AnställningsNummer == anställningsnummer).ToList();
+            }
+        }
 
 
         public IList<Mekaniker> GetMechanicsBySpecialisering(Specialiseringar specialisering)

@@ -13,6 +13,7 @@ namespace Bilverkstad.Datalager
         public DbSet<Reservdel> Reservdel { get; set; }
         public DbSet<Receptionist> Receptionist { get; set; }
         public DbSet<Mekaniker> Mekaniker { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Bilverkstad;Integrated Security=True");
