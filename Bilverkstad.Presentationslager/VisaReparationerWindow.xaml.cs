@@ -12,7 +12,7 @@ namespace Bilverkstad.Presentationslager
         {
             InitializeComponent();
             ReparationController reparationController = new ReparationController();
-            Reparation.ItemsSource = reparationController.GetReparationWithReservdel();
+            Reparation.ItemsSource = reparationController.GetReparation();
         }
     }
 }
