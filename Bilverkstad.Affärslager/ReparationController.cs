@@ -29,7 +29,7 @@ namespace Bilverkstad.Affärslager
                 return unitOfWork.Reparation.GetAll().Include(r => r.ReparationReservdel).ToList();
             }
         }
-        public void AddReparation(Reparation reparation)
+        public void AddReparation(Reparation reparation)//läggertill reparation
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
