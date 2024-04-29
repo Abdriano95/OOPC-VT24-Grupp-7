@@ -13,7 +13,6 @@ namespace Bilverkstad.Datalager
         public DbSet<Reservdel> Reservdel { get; set; }
         public DbSet<Receptionist> Receptionist { get; set; }
         public DbSet<Mekaniker> Mekaniker { get; set; }
-        public DbSet<ReparationReservdel> ReparationReservdel { get; set; } 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Bilverkstad;Integrated Security=True");
@@ -37,10 +36,6 @@ namespace Bilverkstad.Datalager
                 .WithMany()
                 .HasForeignKey(b => b.FordonRegNr)
                 .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
-
-            // Configure the Reparation-Reservdel relationship
-            modelBuilder.Entity<ReparationReservdel>()
-                .HasKey(rr => new { rr.ReparationId, rr.ReservdelId });
 
             // Configure the Bokning-Mekaniker relationship
             modelBuilder.Entity<Mekaniker>()

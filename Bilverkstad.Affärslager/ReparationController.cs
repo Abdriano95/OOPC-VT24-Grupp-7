@@ -22,13 +22,13 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public IList<Reparation> GetReparationWithReservdel()
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                return unitOfWork.Reparation.GetAll().Include(r => r.ReparationReservdel).ToList();
-            }
-        }
+        //public IList<Reparation> GetReparationWithReservdel()
+        //{
+        //    using (UnitOfWork unitOfWork = new UnitOfWork())
+        //    {
+        //        return unitOfWork.Reparation.GetAll().Include(r => r.ReparationReservdel).ToList();
+        //    }
+        //}
         public void AddReparation(Reparation reparation)//läggertill reparation
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())

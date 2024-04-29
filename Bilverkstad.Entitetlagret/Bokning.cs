@@ -17,6 +17,7 @@ public class Bokning
     public string? SyfteMedBesök { get; set; }
     public Status? BokningStatus { get; set; }
 
+
     [NotMapped]
     public string MekanikerFullName { get; set; } // This will hold the mechanic's full name, set manually after fetching the data
 
