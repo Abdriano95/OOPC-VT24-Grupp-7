@@ -22,11 +22,27 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
         public SkapaBokningWindow()
         {
             InitializeComponent();
+            cmbSpecialiseringar.ItemsSource = Enum.GetValues(typeof(Specialiseringar));
+            cmbSpecialiseringar.Items.Refresh();
+            cmbSpecialiseringar.DisplayMemberPath = null; // Using ToString to display enum names
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void cmbSpecialiseringar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbSpecialiseringar.SelectedItem != null)
+            {
+                var selectedSpecialisering = (Specialiseringar)cmbSpecialiseringar.SelectedItem;
+                var mechanics = bokningsController.GetMechanicsBySpecialisering(selectedSpecialisering);
+                cmbMekaniker.ItemsSource = mechanics;
+                cmbMekaniker.DisplayMemberPath = "FullName";  // Make sure 'Name' is a property of Mekaniker
+                cmbMekaniker.SelectedValuePath = "AnställningsNummer";    // Make sure 'Id' is a property of Mekaniker
+                cmbMekaniker.IsEnabled = mechanics.Any();
+            }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -74,11 +90,13 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                 string receptionistID = txtReceptionistID.Text;
                 if (!string.IsNullOrWhiteSpace(kundID) && !string.IsNullOrWhiteSpace(receptionistID))
                 {
-                    int id = int.Parse(kundID);
+                    int _kundId = int.Parse(kundID);
                     int recId = int.Parse(receptionistID);
                     Fordon selectedFordon = cmbFordon.SelectedItem as Fordon;
+                    var selectedMekanikerID = cmbMekaniker.SelectedValue as int?;
+                    var selectedSpecialisering = (Specialiseringar)cmbSpecialiseringar.SelectedItem; ;
 
-                    if (selectedFordon != null)
+                    if (selectedFordon != null && selectedMekanikerID.HasValue)
                     {
                         DateTime startDate = datePickerStartDate.SelectedDate ?? DateTime.Now;
                         DateTime? endDate = datePickerEndDate.SelectedDate;
@@ -95,7 +113,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                         };
 
                         // Call the comprehensive method to handle creation or updating of Bokning
-                        bokningsController.CreateOrUpdateBokning(id, selectedFordon.RegNr, recId, nyBokning);
+                        bokningsController.CreateOrUpdateBokning(_kundId, selectedFordon.RegNr, recId, selectedMekanikerID.Value, selectedSpecialisering, nyBokning);
                         MessageBox.Show("Booking Created Successfully!");
                     }
                     else

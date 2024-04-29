@@ -4,6 +4,7 @@ using Bilverkstad.Datalager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bilverkstad.Datalager.Migrations
 {
     [DbContext(typeof(BilverkstadContext))]
-    partial class BilverkstadContextModelSnapshot : ModelSnapshot
+    [Migration("20240429091151_UpdateMekanikerWithBokningar")]
+    partial class UpdateMekanikerWithBokningar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,8 +310,7 @@ namespace Bilverkstad.Datalager.Migrations
 
                     b.HasOne("Bilverkstad.Entitetlagret.Mekaniker", "Mekaniker")
                         .WithMany("Bokningar")
-                        .HasForeignKey("MekanikerId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("MekanikerId");
 
                     b.HasOne("Bilverkstad.Entitetlagret.Receptionist", "Receptionist")
                         .WithMany()

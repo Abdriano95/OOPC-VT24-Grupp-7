@@ -40,7 +40,15 @@ namespace Bilverkstad.Datalager
 
             // Configure the Reparation-Reservdel relationship
             modelBuilder.Entity<ReparationReservdel>()
-                .HasKey(rr => new { rr.ReparationId, rr.ReservdelId }); 
+                .HasKey(rr => new { rr.ReparationId, rr.ReservdelId });
+
+            // Configure the Bokning-Mekaniker relationship
+            modelBuilder.Entity<Mekaniker>()
+                .HasMany(m => m.Bokningar)
+                .WithOne(b => b.Mekaniker) 
+                .HasForeignKey(b => b.MekanikerId)
+                .OnDelete(DeleteBehavior.NoAction);// Prevent cascading delete
+
 
             //modelBuilder.Entity<Reservdel>()
             //    .Property(r => r.Artikelnummer)
