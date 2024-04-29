@@ -11,14 +11,28 @@ namespace Bilverkstad.Affärslager
             {
                 return (IList<Reservdel>)unitOfWork.Reservdel.GetAll().ToList();
             }
-
         }
 
+        //public Reservdel GetOneReservdel(int Artikelnummer)
+        //{
+        //    using (UnitOfWork unitOfWork = new UnitOfWork())
+        //    {
+        //        Reservdel reservdel = unitOfWork.Reservdel!.Find(Artikelnummer);
+        //        return reservdel;
+        //    }
+        //}
         public Reservdel GetOneReservdel(int Artikelnummer)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
                 Reservdel reservdel = unitOfWork.Reservdel!.Find(Artikelnummer);
+
+                if (reservdel == null)
+                {
+                    // Om ingen 'Reservdel' hittades med det angivna artikelnumret, kasta ett undantag eller hantera det på annat sätt
+                    throw new Exception("Reservdel med angivet artikelnummer hittades inte.");
+                }
+
                 return reservdel;
             }
         }
