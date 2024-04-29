@@ -49,10 +49,12 @@ namespace Bilverkstad.Datalager
 
                 // Add employees
                 bilverkstad.AddRange(
+                    new Receptionist { Förnamn = "Abdulla", Efternamn = "Mehdi", Lösenord = "1", Auktoritet = Auktoritet.Admin },
                     new Mekaniker { Förnamn = "Karl", Efternamn = "Andersson", Specialiseringar = Specialiseringar.Motor, Lösenord = "pwd12345" },
                     new Mekaniker { Förnamn = "Eva", Efternamn = "Lund", Specialiseringar = Specialiseringar.Dackbyte, Lösenord = "pwd67890" },
                     new Receptionist { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123", Auktoritet = Auktoritet.Admin },
                     new Receptionist { Förnamn = "Anna", Efternamn = "Nilsson", Lösenord = "adminpwd", Auktoritet = Auktoritet.NotAdmin }
+                    
                 );
 
                 // Add spare parts
