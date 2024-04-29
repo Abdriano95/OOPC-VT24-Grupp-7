@@ -36,10 +36,13 @@ namespace Bilverkstad.Presentationslager
                     case "Hantera Reparationer":
                         OpenWindow4();
                         break;
-                    default:
-                        break;
                     case "Hantera Bokning":
                         OpenWindow5();
+                        break;
+                    case "Hantera Bokning (Mekaniker)":
+                        OpenWindow6();
+                        break;
+                    default:
                         break;
 
                 }
@@ -70,6 +73,7 @@ namespace Bilverkstad.Presentationslager
                 navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning" });
                 navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reservdelar" });
                 navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reparationer" });
+                navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning (Mekaniker)" });
             }
 
         }
@@ -81,6 +85,7 @@ namespace Bilverkstad.Presentationslager
             navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning" });
             navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reservdelar" });
             navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Reparationer" });
+            navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning (Mekaniker)" });
         }
 
 
@@ -111,7 +116,11 @@ namespace Bilverkstad.Presentationslager
             HanteraBokningarWindow hanteraBokningar = new HanteraBokningarWindow();
             hanteraBokningar.Show();
         }
-
+        private void OpenWindow6()
+        {
+            HanteraBokningMekanikerWindow hanteraBokningMekaniker = new HanteraBokningMekanikerWindow();
+            hanteraBokningMekaniker.Show();
+        }
 
     }
 

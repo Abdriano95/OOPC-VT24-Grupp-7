@@ -1,0 +1,22 @@
+﻿<Window x:Class="Bilverkstad.Presentationslager.ÄndraBokningMekanikerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bilverkstad.Presentationslager"
+        mc:Ignorable="d"
+        Title="HanteraBokningMekanikerWindow" Height="450" Width="800">
+    <Grid Margin="0,0,0,1">
+        <TextBlock HorizontalAlignment="Left" Margin="37,38,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Bokningsinfo"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="585,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Information"/></TextBlock>
+        <TextBox HorizontalAlignment="Left" Margin="585,143,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140" Height="117" x:Name="txtPurpose"/>
+        <TextBlock HorizontalAlignment="Left" Margin="347,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Reparation"/></TextBlock>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="37,65,553,95"/>
+        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="286,65,301,95"/>
+        <Button Content="Lägg till reparation på bokning" HorizontalAlignment="Left" Margin="58,372,0,0" VerticalAlignment="Top"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="286,38,0,0" TextWrapping="Wrap" Text="Reparationer" VerticalAlignment="Top"/>
+        <Button Content="Skapa ny reparation" HorizontalAlignment="Left" Margin="338,372,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
