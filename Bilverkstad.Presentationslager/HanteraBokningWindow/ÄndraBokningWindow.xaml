@@ -8,7 +8,7 @@
         Title="ÄndraBokningWindow" Height="578" Width="827">
     <Grid>
         <Label Content="BokningsID:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtBokningsID" HorizontalAlignment="Left" Margin="80,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True" TextChanged="txtBokningsID_TextChanged"/>
+        <TextBox x:Name="txtBokningsID" HorizontalAlignment="Left" Margin="80,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
 
         <Label Content="Inlämningsdatum:" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="datePickerInlämningsdatum" HorizontalAlignment="Left" Margin="120,70,0,0" VerticalAlignment="Top" Width="200" SelectedDate="{Binding InlämningsDatum, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
@@ -25,7 +25,7 @@
         <Button Content="Ändra bokning" HorizontalAlignment="Left" Margin="10,408,0,0" VerticalAlignment="Top" Width="120" Click="ÄndraBokningButton_Click"/>
         <Button Content="Ta bort bokning" HorizontalAlignment="Left" Margin="160,408,0,0" VerticalAlignment="Top" Width="120" Click="TaBortBokningButton_Click"/>
         <Label Content="Bokningstatus" HorizontalAlignment="Left" Margin="20,360,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbMekaniker_Copy" HorizontalAlignment="Left" Margin="120,364,0,0" VerticalAlignment="Top" Width="200"/>
+        <ComboBox x:Name="cmbBokningstatus" HorizontalAlignment="Left" Margin="120,364,0,0" VerticalAlignment="Top" Width="200"/>
         <Label Content="Specialisering" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Center"/>
         <ComboBox x:Name="cmbSpecialiseringar" HorizontalAlignment="Left" Margin="120,272,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" SelectedValue="{Binding Path=Mekaniker.Specialiseringar, Mode=OneWay}"/>
     </Grid>

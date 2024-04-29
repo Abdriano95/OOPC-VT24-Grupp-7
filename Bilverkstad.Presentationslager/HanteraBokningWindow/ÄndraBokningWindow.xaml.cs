@@ -111,6 +111,5 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             }
         }
 
-        
     }
 }
