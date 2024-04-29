@@ -26,71 +26,75 @@ namespace Bilverkstad.Presentationslager
 
         private Bokning _selectedBokning; // Stores the retrieved booking object
 
-        public ÄndraBokningMekanikerWindow(Bokning valdbokning)
+        public ÄndraBokningMekanikerWindow(Bokning selectedBokning)
         {
             InitializeComponent();
             _selectedBokning = selectedBokning;
             this.DataContext = _selectedBokning;
-            HämtaBokningData(_selectedBokning);
-            FyllSpecBox();
-            HämtaMekanikerTillBokningen(selectedBokning.Mekaniker.Specialiseringar);
-        }
-
-        
-
-        private void HämtaBokningData(Bokning bokning)
-        {
-            txtBokningsID.Text = bokning.Id.ToString();
-            
-            txtSyfteMedBesok.Text = bokning.SyfteMedBesök;
-
-            // Load mechanics
-            cmbMekaniker.ItemsSource = mekan.GetMekaniker(); // Implement this method to fetch mechanics
-            cmbMekaniker.DisplayMemberPath = "FullName"; // Assuming the mechanic has a FullName property
-            cmbMekaniker.SelectedValuePath = "AnställningsNummer"; // Make sure this is the key property in Mekaniker
-
-            // Fetch and set the Mekaniker property of the bokning object
-            if (bokning.MekanikerId != null)
-            {
-                var mekaniker = mekan.GetOneMekaniker(bokning.MekanikerId.Value);
-                bokning.Mekaniker = mekaniker;
-                cmbMekaniker.SelectedValue = bokning.MekanikerId;
-            }
-        }
-
-        private void HämtaMekanikerTillBokningen(Specialiseringar specialization)
-        {
-            var mechanics = bokningsController.GetMechanicsBySpecialisering(specialization);
-            cmbMekaniker.ItemsSource = mechanics;
-            cmbMekaniker.DisplayMemberPath = "FullName";
-            cmbMekaniker.SelectedValuePath = "AnställningsNummer";
-            cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId; // Ensure the originally assigned mechanic is selected
-            cmbMekaniker.IsEnabled = false; // Optional: Disable changes if required
+            //HämtaBokningData(_selectedBokning);
+            //FyllSpecBox();
+            //HämtaMekanikerTillBokningen(selectedBokning.Mekaniker.Specialiseringar);
         }
 
 
 
-        // Implement event handlers for modifying UI elements and managing selected repairs
-        // ... (e.g., handling changes in TextBoxes, Calendars, ComboBox, adding/removing items from ListBoxes)
+        //    private void HämtaBokningData(Bokning bokning)
+        //    {
+        //        txtBokningsID.Text = bokning.Id.ToString();
 
-        private void ÄndraBokningButton_Click(object sender, RoutedEventArgs e)
-        {
+        //        txtSyfteMedBesok.Text = bokning.SyfteMedBesök;
 
-            try
-            {
+        //        // Load mechanics
+        //        cmbMekaniker.ItemsSource = mekan.GetMekaniker(); // Implement this method to fetch mechanics
+        //        cmbMekaniker.DisplayMemberPath = "FullName"; // Assuming the mechanic has a FullName property
+        //        cmbMekaniker.SelectedValuePath = "AnställningsNummer"; // Make sure this is the key property in Mekaniker
 
-                // Manually update properties if necessary
-                _selectedBokning.SyfteMedBesök = txtSyfteMedBesok.Text;                
-                _selectedBokning.MekanikerId = (int?)cmbMekaniker.SelectedValue;
-                bokningsController.UpdateBokning(_selectedBokning);
-                MessageBox.Show("Booking updated successfully!");
+        //        // Fetch and set the Mekaniker property of the bokning object
+        //        if (bokning.MekanikerId != null)
+        //        {
+        //            var mekaniker = mekan.GetOneMekaniker(bokning.MekanikerId.Value);
+        //            bokning.Mekaniker = mekaniker;
+        //            cmbMekaniker.SelectedValue = bokning.MekanikerId;
+        //        }
+        //    }
+        //    private void FyllSpecBox()
+        //    {
+        //        cmbSpecialiseringar.ItemsSource = Enum.GetValues(typeof(Specialiseringar));
+        //        cmbSpecialiseringar.SelectedItem = _selectedBokning.Mekaniker?.Specialiseringar;  // Assuming Specialiseringar is an enum on Mekaniker
+        //    }
+        //    private void HämtaMekanikerTillBokningen(Specialiseringar specialization)
+        //    {
+        //        var mechanics = bokningsController.GetMechanicsBySpecialisering(specialization);
+        //        cmbMekaniker.ItemsSource = mechanics;
+        //        cmbMekaniker.DisplayMemberPath = "FullName";
+        //        cmbMekaniker.SelectedValuePath = "AnställningsNummer";
+        //        cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId; // Ensure the originally assigned mechanic is selected
+        //        cmbMekaniker.IsEnabled = false; // Optional: Disable changes if required
+        //    }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to update booking: " + ex.Message);
-            }
-        }
+
+
+        //    // Implement event handlers for modifying UI elements and managing selected repairs
+        //    // ... (e.g., handling changes in TextBoxes, Calendars, ComboBox, adding/removing items from ListBoxes)
+
+        //    private void ÄndraBokningButton_Click(object sender, RoutedEventArgs e)
+        //    {
+
+        //        try
+        //        {
+
+        //            // Manually update properties if necessary
+        //            _selectedBokning.SyfteMedBesök = txtSyfteMedBesok.Text;                
+        //            _selectedBokning.MekanikerId = (int?)cmbMekaniker.SelectedValue;
+        //            bokningsController.UpdateBokning(_selectedBokning);
+        //            MessageBox.Show("Booking updated successfully!");
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Failed to update booking: " + ex.Message);
+        //        }
+        //    }
     }
 }   
 

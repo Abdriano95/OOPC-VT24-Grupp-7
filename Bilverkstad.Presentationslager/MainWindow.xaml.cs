@@ -1,4 +1,5 @@
-﻿using Bilverkstad.Entitetlagret;
+﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,6 +14,8 @@ namespace Bilverkstad.Presentationslager
         public MainWindow(Anställd nuvarandeAnvändare)
         {
             InitializeComponent();
+            UpdateraAnvändarInfo();
+
             _nuvarandeAnvändare = nuvarandeAnvändare;
             ConfigureMainMenuBasedOnRole();
         }
@@ -49,6 +52,25 @@ namespace Bilverkstad.Presentationslager
             }
         }
 
+        private void UpdateraAnvändarInfo()
+        {
+            if (AnvändarSession.InloggadAnvändare != null)
+            {
+                användarNamn.Text = AnvändarSession.InloggadAnvändare.AnvändarNamn;
+                AnställningsID.Text = AnvändarSession.InloggadAnvändare.AnställningsNummer.ToString();
+
+
+            }
+        }
+
+
+        private void LoggaUt_Click(object sender, RoutedEventArgs e)
+        {
+            AnvändarSession.Logout();
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }   
         private void ConfigureMainMenuBasedOnRole()
         {
             // Clear existing items
