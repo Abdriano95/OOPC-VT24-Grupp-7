@@ -17,6 +17,15 @@ namespace Bilverkstad.Entitetlagret
         public string? Telefonnummer { get; set; }
         public string? Epost { get; set; }
 
+        [NotMapped] // This will hold the customer's full name, set manually after fetching the data
+        public string? FullständigtNamn
+        {
+            get
+            {
+                return string.Concat(Förnamn, " ", Efternamn);
+            }
+        }
+
         public virtual ICollection<Fordon>? Fordon { get; set; }
 
         public Kund()

@@ -27,6 +27,7 @@ namespace Bilverkstad.Presentationslager
         {
             SkapaBokningWindow skapaBokningWindow = new SkapaBokningWindow();
             skapaBokningWindow.Show();
+            ReloadData();
 
         }
 
@@ -55,28 +56,47 @@ namespace Bilverkstad.Presentationslager
         private void SökButton_Click(object sender, RoutedEventArgs e)
         {
             var searchTerm = txtSök.Text.Trim();
+            try
+            {
+                var results = _bokningController.SökBokningar(searchTerm);
+                Bokningar.ItemsSource = results;
+
+                if (results.Count == 0)
+                {
+                    MessageBox.Show("No bookings found.");  // This will show if no bookings match the search term or if there are no bookings at all
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error searching bookings: " + ex.Message);
+            }
+        }
+
+        private void txtSök_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchAndUpdateGrid();
+
+        }
+        private void SearchAndUpdateGrid()
+        {
+            var searchTerm = txtSök.Text.Trim();
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                try
-                {
-                    var results = _bokningController.SearchBookings(searchTerm);
-                    // Assuming you have a DataGrid or some UI element to display bookings:
-                    Bokningar.ItemsSource = results;
+                var results = _bokningController.SökBokningar(searchTerm);
+                Bokningar.ItemsSource = results;
 
-                    if (results.Count == 0)
-                    {
-                        MessageBox.Show("No bookings found.");
-                    }
-                }
-                catch (Exception ex)
+                if (results.Count == 0)
                 {
-                    MessageBox.Show("Error searching bookings: " + ex.Message);
+                    MessageBox.Show("No bookings found matching your criteria.");
                 }
             }
             else
             {
-                MessageBox.Show("Please enter a search term.");
+                // Optionally, display all bookings when search term is cleared
+                var allBookings = _bokningController.GetBokning();
+                Bokningar.ItemsSource = allBookings;
             }
+
         }
     }
 }

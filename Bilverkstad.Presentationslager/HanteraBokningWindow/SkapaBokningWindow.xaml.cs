@@ -37,7 +37,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                 var selectedSpecialisering = (Specialiseringar)cmbSpecialiseringar.SelectedItem;
                 var mechanics = bokningsController.GetMechanicsBySpecialisering(selectedSpecialisering);
                 cmbMekaniker.ItemsSource = mechanics;
-                cmbMekaniker.DisplayMemberPath = "FullName";  // Make sure 'Name' is a property of Mekaniker
+                cmbMekaniker.DisplayMemberPath = "FullständigtNamn";  // Make sure 'Name' is a property of Mekaniker
                 cmbMekaniker.SelectedValuePath = "AnställningsNummer";    // Make sure 'Id' is a property of Mekaniker
                 cmbMekaniker.IsEnabled = mechanics.Any();
             }
