@@ -11,7 +11,7 @@ namespace Bilverkstad.Entitetlagret
         public string? Namn { get; set; }
         public float Pris { get; set; }
 
-        public ICollection<ReparationReservdel> ReparationReservdel { get; set; } = new List<ReparationReservdel>();
+       
 
 
         //public override string ToString()
