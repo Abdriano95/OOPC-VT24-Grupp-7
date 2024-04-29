@@ -17,7 +17,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void CreateOrUpdateBokning(int kundId, string fordonRegNr, int receptionistId, int? mechanicId, Specialiseringar requiredSpecialisering, Bokning bokningData)
+        public void CreateOrUpdateBokning(int kundId, string fordonRegNr, int receptionistId, int? mekanikerID, Specialiseringar requiredSpecialisering, Bokning bokningData)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -26,9 +26,9 @@ namespace Bilverkstad.Affärslager
                 var receptionist = unitOfWork.Receptionist.FirstOrDefault(r => r.AnställningsNummer == receptionistId);
                 Mekaniker? mekaniker = null;
 
-                if (mechanicId.HasValue)
+                if (mekanikerID.HasValue)
                 {
-                    mekaniker = unitOfWork.Mekaniker.Get(m => m.AnställningsNummer == mechanicId.Value && m.Specialiseringar == requiredSpecialisering).FirstOrDefault();
+                    mekaniker = unitOfWork.Mekaniker.Get(m => m.AnställningsNummer == mekanikerID.Value && m.Specialiseringar == requiredSpecialisering).FirstOrDefault();
                     if (mekaniker == null)
                     {
                         throw new ArgumentException("Ingen mekaniker hittat eller specialisering matchar inte");
@@ -58,48 +58,33 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void UpdateBokning(Bokning bokning)
+
+        public void UpdateBokning(Bokning updatedBokning)
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                if (uow.Bokning == null)
-                {
-                    throw new InvalidOperationException("Bokning repository is not initialized.");
-                }
-
-                Bokning? existingBokning = uow.Bokning.Find(bokning.Id);
+                var existingBokning = uow.Bokning.FirstOrDefault(b => b.Id == updatedBokning.Id);
                 if (existingBokning == null)
                 {
                     throw new KeyNotFoundException("No Bokning found with the given ID to update.");
                 }
 
-                // Assuming Update(Bokning oldBokning, Bokning newBokning) is implemented in the repository
-                uow.Bokning.Update(existingBokning, bokning);
+                uow.Bokning.Update(existingBokning, updatedBokning);
                 uow.SaveChanges();
             }
         }
+
 
         public IList<Bokning> GetBokning()
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
                 var bokningar = unitOfWork.Bokning.GetAll()
-                    .Include(b => b.Mekaniker)  // Load Mekaniker data
-                    .ToList();
-
-                foreach (var bokning in bokningar)
-                {
-                    if (bokning.Mekaniker != null)
-                    {
-                        // Assuming Mekaniker has Förnamn and Efternamn properties
-                        bokning.MekanikerFullName = $"{bokning.Mekaniker.Förnamn} {bokning.Mekaniker.Efternamn}";
-                    }
-                    else
-                    {
-                        bokning.MekanikerFullName = "Not Assigned";
-                    }
-                }
-
+            .Include(b => b.Kund)
+            .Include(b => b.Fordon)
+            .Include(b => b.Receptionist)
+            .Include(b => b.Mekaniker) // Ensure all relevant navigation properties are included
+            .ToList();
                 return bokningar;
             }
         }
@@ -113,6 +98,38 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        public void DeleteBokning(int bokningId)
+        {
+            using (var unitOfWork = new UnitOfWork())
+            {
+                var bokning = unitOfWork.Bokning.Find(bokningId);
+                if (bokning != null)
+                {
+                    unitOfWork.Bokning.Delete(bokning);
+                    unitOfWork.SaveChanges();
+                }
+                else
+                {
+                    throw new KeyNotFoundException("Ingen bokning med given ID hittad.");
+                }
+            }
+        }
+       
+            public List<Bokning> SearchBookings(string searchTerm)
+            {
+                using (var unitOfWork = new UnitOfWork())
+                {
+                    return unitOfWork.Bokning.GetAll()
+                        .Where(b => b.Kund.Förnamn.Contains(searchTerm)
+                                    || b.Kund.Efternamn.Contains(searchTerm)
+                                    || b.Fordon.RegNr.Contains(searchTerm)
+                                    || b.SyfteMedBesök.Contains(searchTerm)
+                                    || b.Receptionist.Förnamn.Contains(searchTerm)
+                                    || b.Receptionist.Efternamn.Contains(searchTerm)
+                                    || b.Mekaniker.FullName.Contains(searchTerm))
+                        .ToList();
+                }
+            }
+        }
 
-    }
 }

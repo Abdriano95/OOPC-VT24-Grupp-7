@@ -11,8 +11,6 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
     public partial class SkapaBokningWindow : Window
     {
         KundController kundController = new KundController();
-        FordonController fordonController = new FordonController();
-        ReceptionistController receptionistController = new ReceptionistController();
         BokningsController bokningsController = new BokningsController();
 
         Kund kund = new Kund();
