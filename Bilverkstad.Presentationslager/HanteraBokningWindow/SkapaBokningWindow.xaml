@@ -19,13 +19,16 @@
         <ComboBox HorizontalAlignment="Left" Margin="103,77,0,0" VerticalAlignment="Top" Width="72" Height="17" x:Name="cmbFordon" SelectionChanged="ComboBox_SelectionChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="487,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Syfte med besöket"/></TextBlock>
         <TextBox HorizontalAlignment="Left" Margin="486,151,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="198" Height="158" x:Name="txtPurpose"/>
-        <TextBlock HorizontalAlignment="Left" Margin="55,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Reparation"/></TextBlock>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="55,367,557,53"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="265,367,355,53"/>
-        <Button Content="Lägg till &gt;" HorizontalAlignment="Left" Margin="186,378,0,0" VerticalAlignment="Top"/>
-        <Button Content="&lt; Ta bort" HorizontalAlignment="Left" Margin="186,417,0,0" VerticalAlignment="Top"/>
         <Button Content="Skapa bokning" HorizontalAlignment="Left" Margin="544,477,0,0" VerticalAlignment="Top" Click="SkapaBokning_Click"/>
         <Button Content="Hämta" HorizontalAlignment="Left" Margin="186,45,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <ComboBox x:Name="cmbSpecialiseringar" HorizontalAlignment="Left" Margin="46,342,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbSpecialiseringar_SelectionChanged">
+            <!-- This ComboBox will be populated in code-behind -->
+        </ComboBox>
+        <TextBlock Text="Specialisering" HorizontalAlignment="Left" Margin="46,321,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbMekaniker" HorizontalAlignment="Left" Margin="46,408,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False">
+            <!-- This ComboBox will be populated in code-behind after specialization is selected -->
+        </ComboBox>
+        <TextBlock Text="Mekaniker" HorizontalAlignment="Left" Margin="46,377,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
