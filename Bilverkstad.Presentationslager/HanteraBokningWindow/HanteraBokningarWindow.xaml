@@ -7,9 +7,11 @@
         mc:Ignorable="d"
         Title="HanteraBokningWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Skapa bokning" HorizontalAlignment="Left" Margin="16,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.505,0.603" Click="Button_Click"/>
-        <Button Content="Ändra bokning" HorizontalAlignment="Left" Margin="16,51,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <DataGrid  x:Name= "Bokningar" Margin="123,0,0,0"/>
+        <Button Content="Skapa bokning" HorizontalAlignment="Left" Margin="16,96,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.505,0.603" Click="Button_Click"/>
+        <Button Content="Ändra bokning" HorizontalAlignment="Left" Margin="16,132,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <DataGrid x:Name="Bokningar" Margin="123,51,0,0" AutoGenerateColumns="True" SelectionMode="Single" SelectionUnit="FullRow"/>
+        <TextBox x:Name="txtSök" HorizontalAlignment="Left" Margin="123,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Sök" HorizontalAlignment="Left" Margin="261,14,0,0" VerticalAlignment="Top" Click="SökButton_Click"/>
     </Grid>
 
 </Window>
