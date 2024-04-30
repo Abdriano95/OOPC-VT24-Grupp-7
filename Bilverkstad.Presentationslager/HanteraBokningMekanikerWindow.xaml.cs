@@ -32,18 +32,18 @@ namespace Bilverkstad.Presentationslager
         }
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Bokningar.ItemsSource = _bokningController.GetBokning();  // Your method to fetch bookings
+            Bokningar.ItemsSource = _bokningController.GetBokning();  // Hämta bokningar
         }
         
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  // Assuming your data type is Bokning
+            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  
             if (selectedBooking != null)
             {
-                ÄndraBokningMekanikerWindow editWindow = new ÄndraBokningMekanikerWindow(selectedBooking);  // Assuming you have a window or dialog for editing
-                editWindow.ShowDialog();  // Show the edit window as a modal dialog
-                ReloadData();  // Refresh the data after editing
+                ÄndraBokningMekanikerWindow editWindow = new ÄndraBokningMekanikerWindow(selectedBooking);  
+                editWindow.ShowDialog();  
+                ReloadData();  
             }
             else
             {
@@ -65,7 +65,7 @@ namespace Bilverkstad.Presentationslager
                 try
                 {
                     var results = _bokningController.SökBokningar(searchTerm);
-                    // Assuming you have a DataGrid or some UI element to display bookings:
+                    
                     Bokningar.ItemsSource = results;
 
                     if (results.Count == 0)

@@ -22,7 +22,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             InitializeComponent();
             cmbSpecialiseringar.ItemsSource = Enum.GetValues(typeof(Specialiseringar));
             cmbSpecialiseringar.Items.Refresh();
-            cmbSpecialiseringar.DisplayMemberPath = null; // Using ToString to display enum names
+            cmbSpecialiseringar.DisplayMemberPath = null; 
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,8 +37,8 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                 var selectedSpecialisering = (Specialiseringar)cmbSpecialiseringar.SelectedItem;
                 var mechanics = bokningsController.GetMechanicsBySpecialisering(selectedSpecialisering);
                 cmbMekaniker.ItemsSource = mechanics;
-                cmbMekaniker.DisplayMemberPath = "FullständigtNamn";  // Make sure 'Name' is a property of Mekaniker
-                cmbMekaniker.SelectedValuePath = "AnställningsNummer";    // Make sure 'Id' is a property of Mekaniker
+                cmbMekaniker.DisplayMemberPath = "FullständigtNamn";  
+                cmbMekaniker.SelectedValuePath = "AnställningsNummer";    
                 cmbMekaniker.IsEnabled = mechanics.Any();
             }
         }
@@ -55,9 +55,9 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                     if (customerInfo != null && customerInfo.Fordon != null && customerInfo.Fordon.Any())
                     {
 
-                        cmbFordon.ItemsSource = customerInfo.Fordon;  // Bind the vehicles to the ComboBox
-                        cmbFordon.DisplayMemberPath = "RegNr";  // Adjust property name as per your vehicle properties
-                        cmbFordon.SelectedValuePath = "RegNr";  // Typically, the unique identifier of the vehicle
+                        cmbFordon.ItemsSource = customerInfo.Fordon;  // Bind fordon till comboboxen
+                        cmbFordon.DisplayMemberPath = "RegNr";  
+                        cmbFordon.SelectedValuePath = "RegNr";  
 
                     }
                     else
@@ -102,15 +102,13 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                         Status initialStatus = Status.Inlämnad;
 
                         Bokning nyBokning = new Bokning
-                        {
-                            // Properties set directly, no longer fetching inside click event
+                        {                            
                             InlämningsDatum = startDate,
                             UtlämningsDatum = endDate,
                             SyfteMedBesök = purpose,
                             BokningStatus = initialStatus
                         };
 
-                        // Call the comprehensive method to handle creation or updating of Bokning
                         bokningsController.CreateOrUpdateBokning(_kundId, selectedFordon.RegNr, recId, selectedMekanikerID.Value, selectedSpecialisering, nyBokning);
                         MessageBox.Show("Booking Created Successfully!");
                     }

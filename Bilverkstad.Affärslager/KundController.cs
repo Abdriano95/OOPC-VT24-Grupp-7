@@ -22,7 +22,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public IList<Kund> GetKund() // här är en metod för att lägga alla kunderi en lisa
+        public IList<Kund> GetKund() // Metod för att lägga alla kunder i en lisa
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -40,7 +40,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                // Include the Fordon navigation property to fetch vehicles along with the customer
+                
                 Kund kund = unitOfWork.Kund!.GetAll().Include(k => k.Fordon).FirstOrDefault(k => k.Id == id);
 
                 if (kund == null)
@@ -115,7 +115,7 @@ namespace Bilverkstad.Affärslager
                 }
                 else
                 {
-                    // Use repository update method
+                    
                     unitOfWork.Kund.Update(existingKund, kund);
                 }
                 unitOfWork.SaveChanges();

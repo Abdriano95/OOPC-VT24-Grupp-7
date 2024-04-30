@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using Bilverkstad.Affärslager;
-using Bilverkstad.Entitetlagret; // Assuming your entities are defined here
+using Bilverkstad.Entitetlagret; 
 
 namespace Bilverkstad.Presentationslager.HanteraBokningWindow
 {
@@ -11,7 +11,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
         private BokningsController bokningsController = new BokningsController();
         private MekanikerController mekan = new MekanikerController();  
 
-        private Bokning _selectedBokning; // Stores the retrieved booking object
+        private Bokning _selectedBokning; 
  
         public ÄndraBokningWindow(Bokning selectedBokning)
         {
@@ -30,12 +30,12 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             datePickerUtlämningsdatum.SelectedDate = bokning.UtlämningsDatum;
             txtSyfteMedBesok.Text = bokning.SyfteMedBesök;
 
-            // Load mechanics
-            cmbMekaniker.ItemsSource = mekan.GetMekaniker(); // Implement this method to fetch mechanics
-            cmbMekaniker.DisplayMemberPath = "FullständigtNamn"; // Assuming the mechanic has a FullName property
-            cmbMekaniker.SelectedValuePath = "AnställningsNummer"; // Make sure this is the key property in Mekaniker
+            // Hämta mekaniker
+            cmbMekaniker.ItemsSource = mekan.GetMekaniker(); 
+            cmbMekaniker.DisplayMemberPath = "FullständigtNamn"; 
+            cmbMekaniker.SelectedValuePath = "AnställningsNummer"; 
 
-            // Fetch and set the Mekaniker property of the bokning object
+            
             if (bokning.MekanikerId != null)
             {
                 var mekaniker = mekan.GetOneMekaniker(bokning.MekanikerId.Value);
@@ -50,22 +50,15 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             cmbMekaniker.ItemsSource = mechanics;
             cmbMekaniker.DisplayMemberPath = "FullständigtNamn";
             cmbMekaniker.SelectedValuePath = "AnställningsNummer";
-            cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId; // Ensure the originally assigned mechanic is selected
-            cmbMekaniker.IsEnabled = false; // Optional: Disable changes if required
+            cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId; 
+            cmbMekaniker.IsEnabled = false; 
         }
-
-
-
-        // Implement event handlers for modifying UI elements and managing selected repairs
-        // ... (e.g., handling changes in TextBoxes, Calendars, ComboBox, adding/removing items from ListBoxes)
 
         private void ÄndraBokningButton_Click(object sender, RoutedEventArgs e)
         {
 
             try
             {
-
-                // Manually update properties if necessary
                 _selectedBokning.SyfteMedBesök = txtSyfteMedBesok.Text;
                 _selectedBokning.InlämningsDatum = datePickerInlämningsdatum.SelectedDate.GetValueOrDefault();
                 _selectedBokning.UtlämningsDatum = datePickerUtlämningsdatum.SelectedDate.GetValueOrDefault();
@@ -83,7 +76,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
         private void FyllSpecBox()
         {
             cmbSpecialiseringar.ItemsSource = Enum.GetValues(typeof(Specialiseringar));
-            cmbSpecialiseringar.SelectedItem = _selectedBokning.Mekaniker?.Specialiseringar;  // Assuming Specialiseringar is an enum on Mekaniker
+            cmbSpecialiseringar.SelectedItem = _selectedBokning.Mekaniker?.Specialiseringar;  
         }
 
         private void TaBortBokningButton_Click(object sender, RoutedEventArgs e)
@@ -97,7 +90,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                     {
                         bokningsController.DeleteBokning(_selectedBokning.Id);
                         MessageBox.Show("Bokningen är borttagen.");
-                        this.Close(); // Optionally close the window or refresh data if it's a part of a larger interface
+                        this.Close(); 
                     }
                     catch (Exception ex)
                     {

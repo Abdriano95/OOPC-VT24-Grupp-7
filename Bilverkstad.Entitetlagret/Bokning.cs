@@ -16,21 +16,21 @@ public class Bokning
     public DateTime? UtlämningsDatum { get; set; }
     public string? SyfteMedBesök { get; set; }
     public Status? BokningStatus { get; set; }
-    //public int ReprationsId { get; set; }
+    
 
 
     [NotMapped]
-    public string MekanikerFullName { get; set; } // This will hold the mechanic's full name, set manually after fetching the data
+    public string MekanikerFullName { get; set; } 
 
     [ForeignKey("KundId")]
-    public virtual Kund? Kund { get; set; } //required 
+    public virtual Kund? Kund { get; set; } 
     [ForeignKey("FordonRegNr")]
-    public virtual Fordon? Fordon { get; set; } //required 
+    public virtual Fordon? Fordon { get; set; }  
     [ForeignKey("ReceptionistId")]
-    public virtual Receptionist? Receptionist { get; set; } // required 
+    public virtual Receptionist? Receptionist { get; set; }  
     [ForeignKey("MekanikerId")]
-    public virtual Mekaniker? Mekaniker { get; set; } // optional
-    public virtual ICollection<Reparation>? Reparation { get; set; } = new List<Reparation> (); // 1 till många required 
+    public virtual Mekaniker? Mekaniker { get; set; } 
+    public virtual ICollection<Reparation>? Reparation { get; set; } = new List<Reparation> ();  
 }
 
 

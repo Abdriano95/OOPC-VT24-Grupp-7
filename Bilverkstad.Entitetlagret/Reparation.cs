@@ -13,14 +13,11 @@ namespace Bilverkstad.Entitetlagret
         public int BokningsId { get; set; }
         public string? Åtgärd { get; set; }
 
-        public int ReservdelId { get; set; } // nytt
+        public int ReservdelId { get; set; } 
         public virtual Reservdel? Reservdelar { get; set; }
-        public Mekaniker? Mekaniker { get; set; } //required 
-        public virtual Bokning? Bokning { get; set; }  // required  
-        //public Reparation()
-        //{
-        //    Reservdelar = new List<Reservdel>();
-        //}
+        public Mekaniker? Mekaniker { get; set; } 
+        public virtual Bokning? Bokning { get; set; }   
+        
 
 
     }

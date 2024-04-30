@@ -24,7 +24,7 @@ namespace Bilverkstad.Presentationslager
         private BokningsController bokningsController = new BokningsController();
         private MekanikerController mekan = new MekanikerController();
 
-        private Bokning _selectedBokning; // Stores the retrieved booking object
+        private Bokning _selectedBokning; 
 
         public ÄndraBokningMekanikerWindow(Bokning selectedBokning)
         {

@@ -6,7 +6,7 @@ namespace Bilverkstad.Entitetlagret
     {
         public Auktoritet Auktoritet { get; set; }
 
-        [NotMapped] // This will hold the receptionist's full name, set manually after fetching the data
+        [NotMapped] 
         public string FullständigtNamn
         {
             get { return $"{Förnamn} {Efternamn}"; }

@@ -87,7 +87,7 @@ namespace Bilverkstad.Affärslager
                         .Include(b => b.Fordon)
                         .Include(b => b.Receptionist)
                         .Include(b => b.Mekaniker)
-                        .Include(b => b.Reparation)  // Ensure all relevant navigation properties are included
+                        .Include(b => b.Reparation)  // Försäkrar att alla relevanta navigations properties är inkluderade
                         .ToList();
                     foreach (var bokning in bokningar)
                     {
@@ -105,9 +105,9 @@ namespace Bilverkstad.Affärslager
             }
             catch (Exception ex)
             {
-                // Log the exception and handle it appropriately
-                // Consider how you want to handle failures: rethrow, return null, return an empty list, etc.
-                throw;  // Or handle more gracefully depending on your error handling strategy
+                
+                
+                throw;  
             }
         }
 
@@ -116,7 +116,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                // Include the Fordon navigation property to fetch vehicles along with the customer
+                // Inkluderar Fordon för att hämta fordon ihop med kund
                 Bokning bokning = unitOfWork.Bokning!.GetAll().Include(r => r.Reparation).FirstOrDefault(r => r.Id == id);
 
                 if (bokning == null)
@@ -168,16 +168,16 @@ namespace Bilverkstad.Affärslager
             using (var unitOfWork = new UnitOfWork())
             {
                 searchTerm = searchTerm.ToLower();
-                // Fetch all required data from the database
+                // Hämtar all data från databasen
                 var allBookings = unitOfWork.Bokning.GetAll()
                     .Include(b => b.Kund)
                     .Include(b => b.Fordon)
                     .Include(b => b.Reparation)
                     .Include(b => b.Receptionist)
                     .Include(b => b.Mekaniker)
-                    .ToList();  // Execute the database query here
+                    .ToList();  
 
-                // Perform the search in memory
+                
                 return allBookings.Where(b =>
                     (b.Kund.Förnamn != null && b.Kund.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Kund.Efternamn != null && b.Kund.Efternamn.ToLower().Contains(searchTerm)) ||
@@ -188,7 +188,7 @@ namespace Bilverkstad.Affärslager
                     (b.Receptionist.Efternamn != null && b.Receptionist.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Mekaniker.Förnamn != null && b.Mekaniker.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Mekaniker.Efternamn != null && b.Mekaniker.Efternamn.ToLower().Contains(searchTerm))
-                ).ToList();  // Filter the loaded data in memory
+                ).ToList();  
             }
         }
 

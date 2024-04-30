@@ -58,8 +58,6 @@ namespace Bilverkstad.Presentationslager
             {
                 användarNamn.Text = AnvändarSession.InloggadAnvändare.AnvändarNamn;
                 AnställningsID.Text = AnvändarSession.InloggadAnvändare.AnställningsNummer.ToString();
-
-
             }
         }
 
@@ -73,18 +71,17 @@ namespace Bilverkstad.Presentationslager
         }   
         private void ConfigureMainMenuBasedOnRole()
         {
-            // Clear existing items
             navigationComboBox.Items.Clear();
 
-            // Based on the type of _currentUser, add the appropriate items to the ComboBox
+            
             if (_nuvarandeAnvändare is Receptionist receptionist)
             {
-                // If receptionist is an admin, they can access everything
+                // om receptionist är admin har de åtkomst till allt
                 if (receptionist.Auktoritet == Auktoritet.Admin)
                 {
                     AddAllMenuItems();
                 }
-                else // If not an admin, add only receptionist-specific items
+                else // Om inte admin, bara vissa grejer
                 {
                     navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Kunder" });
                     navigationComboBox.Items.Add(new ComboBoxItem { Content = "Hantera Bokning" });
