@@ -13,14 +13,14 @@ namespace Bilverkstad.Datalager
             {
                 var kund1 = new Kund
                 {
-                    Förnamn = "Mohamud",
-                    Efternamn = "Abbass",
+                    Förnamn = "Markus",
+                    Efternamn = "Adamnsson",
                     Personnummer = "194506284783",
-                    Gatuadress = "La",
+                    Gatuadress = "Göteborgsvägen 4",
                     Postnummer = "4353",
-                    Ort = "Happaranda",
-                    Telefonnummer = "112",
-                    Epost = "Mohamud@hotmail.com",
+                    Ort = "Stockholm",
+                    Telefonnummer = "0735583876",
+                    Epost = "Markus@hotmail.com",
                     Fordon = new List<Fordon>
                     {
                         new Fordon { RegNr = "ABC123", Bilmärke = "Volvo", Modell = "X70" },
@@ -49,11 +49,11 @@ namespace Bilverkstad.Datalager
 
                 // Add employees
                 bilverkstad.AddRange(
-                    new Receptionist { Förnamn = "Abdulla", Efternamn = "Mehdi", Lösenord = "1", Auktoritet = Auktoritet.Admin },
+                    new Receptionist { Förnamn = "Abraham", Efternamn = "Andersson", Lösenord = "123", Auktoritet = Auktoritet.Admin },
                     new Mekaniker { Förnamn = "Karl", Efternamn = "Andersson", Specialiseringar = Specialiseringar.Motor, Lösenord = "pwd12345" },
                     new Mekaniker { Förnamn = "Eva", Efternamn = "Lund", Specialiseringar = Specialiseringar.Dackbyte, Lösenord = "pwd67890" },
                     new Receptionist { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123", Auktoritet = Auktoritet.Admin },
-                    new Receptionist { Förnamn = "Anna", Efternamn = "Nilsson", Lösenord = "adminpwd", Auktoritet = Auktoritet.NotAdmin }
+                    new Receptionist { Förnamn = "Anna", Efternamn = "Nilsson", Lösenord = "jagäringenadmin", Auktoritet = Auktoritet.NotAdmin }
                     
                 );
 
