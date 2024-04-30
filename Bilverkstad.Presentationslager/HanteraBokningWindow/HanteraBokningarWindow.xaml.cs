@@ -74,7 +74,7 @@ namespace Bilverkstad.Presentationslager
 
         private void txtSök_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SearchAndUpdateGrid();
+            //SearchAndUpdateGrid();
 
         }
         private void SearchAndUpdateGrid()

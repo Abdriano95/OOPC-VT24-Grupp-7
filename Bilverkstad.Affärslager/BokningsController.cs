@@ -83,7 +83,8 @@ namespace Bilverkstad.Affärslager
             .Include(b => b.Kund)
             .Include(b => b.Fordon)
             .Include(b => b.Receptionist)
-            .Include(b => b.Mekaniker) // Ensure all relevant navigation properties are included
+            .Include(b => b.Mekaniker)
+            .Include(b => b.Reparation)// Ensure all relevant navigation properties are included
             .ToList();
                 foreach (var bokning in bokningar)
                 {
@@ -98,6 +99,22 @@ namespace Bilverkstad.Affärslager
                     }
                 }
                 return bokningar;
+            }
+        }
+
+        public Bokning GetOneBokning(int id)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                // Include the Fordon navigation property to fetch vehicles along with the customer
+                Bokning bokning = unitOfWork.Bokning!.GetAll().Include(r => r.Reparation).FirstOrDefault(r => r.Id == id);
+
+                if (bokning == null)
+                {
+                    throw new KeyNotFoundException("Ingen bokning hittat med givet ID.");
+                }
+
+                return bokning;
             }
         }
         public List<Bokning> GetBokningarByAnställningsnummer(int anställningsnummer)
@@ -145,6 +162,7 @@ namespace Bilverkstad.Affärslager
                 var allBookings = unitOfWork.Bokning.GetAll()
                     .Include(b => b.Kund)
                     .Include(b => b.Fordon)
+                    .Include(b => b.Reparation)
                     .Include(b => b.Receptionist)
                     .Include(b => b.Mekaniker)
                     .ToList();  // Execute the database query here
@@ -155,6 +173,7 @@ namespace Bilverkstad.Affärslager
                     (b.Kund.Efternamn != null && b.Kund.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Fordon.RegNr != null && b.Fordon.RegNr.ToLower().Contains(searchTerm)) ||
                     (b.SyfteMedBesök != null && b.SyfteMedBesök.ToLower().Contains(searchTerm)) ||
+                    
                     (b.Receptionist.Förnamn != null && b.Receptionist.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Receptionist.Efternamn != null && b.Receptionist.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Mekaniker.Förnamn != null && b.Mekaniker.Förnamn.ToLower().Contains(searchTerm)) ||
