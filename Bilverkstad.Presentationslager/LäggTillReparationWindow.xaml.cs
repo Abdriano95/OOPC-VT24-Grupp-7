@@ -12,57 +12,46 @@ namespace Bilverkstad.Presentationslager
     {
         ReparationController reparationcontroller = new ReparationController();
         ReservdelController reservdelcontroller = new ReservdelController();
+        BokningsController bokningscontroller = new BokningsController();
         Reservdel reservdel = new Reservdel();
-        
-        
-        
-        public LäggTillReparationWindow()
+        private Bokning _selectedBokning;
+        Bokning updatedBokning = new Bokning();
+        int bokningsId;  
+
+        public LäggTillReparationWindow(Bokning bokning)
         {
             InitializeComponent();
+            updatedBokning = bokningscontroller.GetOneBokning(bokning.Id);
+            bokningsId = updatedBokning.Id; 
+            _selectedBokning = bokning;
             FillComboBoxWithEnums();
             LoadArtikelnummer();
             Reservdel.ItemsSource = reservdelcontroller.GetReservdel();
         }
-        //public void AddReparation_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var reparation = new Reparation
-        //    {
-        //        Åtgärd = txtÅtgärd.Text,
-        //        Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
-        //        //Reservdel = (Reservdel)cbArtikelnummer.SelectedItem,
-        //        Reservdel = (Reservdel)cbArtikelnummer.SelectedItem
-        //        // Reservdelar
-        //        // Mekaniker ID och kopplad till åtgärd
-        //        //Bokning ID
-        //    };
-
-        //    //reparation.Reservdelar.Add(reservdel);
-        //    //reparationcontroller.UpdateReparation(reparation);
-        //    reparationcontroller.AddReparation(reparation);
-
-        //    ResetForm();
-        //}
+        
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
 
-            ReservdelController test = new ReservdelController();
-            var reservdelen = test.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
-            //Reservdel reservdelen = new Reservdel();
-            /*reservdelen = cbArtikelnummer.SelectedItem as Reservdel;*/ // Här är något knas
+            ReservdelController ctrl = new ReservdelController();
+            var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
 
+            updatedBokning = bokningscontroller.GetOneBokning(bokningsId);
 
-            if (reservdelen != null)
+            if (updatedBokning != null)
             {
                 var reparation = new Reparation
                 {
                     Åtgärd = txtÅtgärd.Text,
                     Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
                     ReservdelId = reservdelen.Artikelnummer,
+                    BokningsId = _selectedBokning.Id,
 
                     // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
                 };
 
                 reparationcontroller.AddReparation(reparation);
+                updatedBokning.Reparation.Add(reparation);
+                bokningscontroller.UpdateBokning(updatedBokning);
                 
 
             }
@@ -85,23 +74,14 @@ namespace Bilverkstad.Presentationslager
                 cbArtikelnummer.Items.Add(reservdel.Artikelnummer);
             }
         }
-        //private void LoadArtikelnummer()
-        //{
-        //    var reservdelar = reservdelcontroller.GetReservdel();
-        //    cbArtikelnummer.ItemsSource = reservdelar;
-        //    cbArtikelnummer.DisplayMemberPath = "Artikelnummer"; // Ange egenskapen som ska visas i comboboxen
-        //}
 
-
-                
-       
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            if (cbArtikelnummer.SelectedIndex != null)
+            if (cbArtikelnummer.SelectedIndex != null) // Ändra detta så index blir korrekt från början!
             {
                 ReservdelController test = new ReservdelController();
-                var selectedReservdel2 = test.GetOneReservdel(cbArtikelnummer.SelectedIndex);
+                var selectedReservdel2 = test.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
                 
                 //Reservdel selectedReservdel2 = cbArtikelnummer.SelectedItem as Reservdel;
                 //Ändrade SelectedItem till SelectedIndex
@@ -134,6 +114,5 @@ namespace Bilverkstad.Presentationslager
         {
             cbReparationsstatus.ItemsSource = Enum.GetValues(typeof(Reparationsstatus));
         }
-        
     }
 }

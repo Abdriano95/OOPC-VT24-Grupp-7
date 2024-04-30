@@ -19,8 +19,8 @@ namespace Bilverkstad.Presentationslager
 
         public void LäggTillReparation_Clicked(object sender, RoutedEventArgs e)
         {
-            LäggTillReparationWindow läggTillReparationWindow = new LäggTillReparationWindow();
-            läggTillReparationWindow.Show();
+            //LäggTillReparationWindow läggTillReparationWindow = new LäggTillReparationWindow();
+            //läggTillReparationWindow.Show();
         }
 
         public void TaBortReparation_Clicked(object sender, RoutedEventArgs e)

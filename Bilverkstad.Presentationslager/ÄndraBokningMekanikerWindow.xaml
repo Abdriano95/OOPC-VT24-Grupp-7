@@ -11,9 +11,25 @@
         <TextBlock HorizontalAlignment="Left" Margin="585,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Information"/></TextBlock>
         <TextBox HorizontalAlignment="Left" Margin="585,143,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140" Height="117" x:Name="txtPurpose"/>
         <TextBlock HorizontalAlignment="Left" Margin="347,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Reparation"/></TextBlock>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="37,65,553,95"/>
+        <ListBox x:Name="bokningsListBox" Margin="37,65,553,95">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" Text="{Binding Id, StringFormat='Id: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding KundId, StringFormat='KundId: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding FordonRegNr, StringFormat='FordonRegNr: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding ReceptionistId, StringFormat='ReceptionistId: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding MekanikerId, StringFormat='MekanikerId: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding InlämningsDatum, StringFormat='InlämningsDatum: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding UtlämningsDatum, StringFormat='UtlämningsDatum: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding SyfteMedBesök, StringFormat='SyfteMedBesök: {0}'}"/>
+                        <TextBlock FontWeight="Bold" Text="{Binding BokningStatus, StringFormat='BokningStatus: {0}'}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <ListBox d:ItemsSource="{d:SampleData ItemCount=1}" Margin="286,65,301,95"/>
-        <Button Content="Lägg till reparation på bokning" HorizontalAlignment="Left" Margin="58,372,0,0" VerticalAlignment="Top"/>
+        <Button Content="Lägg till reparation på bokning" HorizontalAlignment="Left" Margin="58,372,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
         <TextBlock HorizontalAlignment="Left" Margin="286,38,0,0" TextWrapping="Wrap" Text="Befintliga reparationer" VerticalAlignment="Top"/>
         <Button Content="Ändra reparation för bokning" HorizontalAlignment="Center" Margin="0,372,0,0" VerticalAlignment="Top"/>

@@ -16,6 +16,7 @@ public class Bokning
     public DateTime? UtlämningsDatum { get; set; }
     public string? SyfteMedBesök { get; set; }
     public Status? BokningStatus { get; set; }
+    //public int ReprationsId { get; set; }
 
 
     [NotMapped]

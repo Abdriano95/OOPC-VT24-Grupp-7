@@ -44,10 +44,7 @@
 
 
 
-            <Button Grid.Row="16" Content="Lägg till Reparation" HorizontalAlignment="Left" Click="AddReparation_Click" Margin="10,168,0,10" Width="106" RenderTransformOrigin="0.509,0.507" Grid.RowSpan="2"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="173,22,0,0" Grid.Row="7" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="14,0,0,0" Grid.Row="16" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Använda reservdelar"/><LineBreak/><Run Language="sv-se"/></TextBlock>
-
+            <Button Grid.Row="16" Content="Lägg till Reparation" HorizontalAlignment="Left" Click="AddReparation_Click" Margin="5,54,0,87" Width="106" RenderTransformOrigin="0.509,0.507"/>
 
 
         </Grid>
