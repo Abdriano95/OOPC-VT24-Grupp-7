@@ -16,9 +16,9 @@ namespace Bilverkstad.Presentationslager
         {
             InitializeComponent();
             _bokningController = new BokningsController();
-            Bokningar.ItemsSource = _bokningController.GetBokning();
-
+            Window_Loaded(this, null);
         }
+
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Bokningar.ItemsSource = _bokningController.GetBokning();  // Your method to fetch bookings
@@ -74,7 +74,7 @@ namespace Bilverkstad.Presentationslager
 
         private void txtSök_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //SearchAndUpdateGrid();
+            SearchAndUpdateGrid();
 
         }
         private void SearchAndUpdateGrid()

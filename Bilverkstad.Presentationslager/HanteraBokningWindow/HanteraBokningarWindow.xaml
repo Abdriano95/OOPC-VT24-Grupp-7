@@ -14,7 +14,20 @@
                 <DataGridTextColumn Header="Boknings ID" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="Kund" Binding="{Binding Kund.FullständigtNamn}" />
                 <DataGridTextColumn Header="Fordon RegNr" Binding="{Binding Fordon.RegNr}" />
-                <DataGridTextColumn Header="Reparation" Binding="{Binding Reparation.ReparationsId}" />
+                <DataGridTemplateColumn Header="Reparationer">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding Reparation}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Reparations ID" Binding="{Binding ReparationsId}" />
+                                    <DataGridTextColumn Header="Åtgärd" Binding="{Binding Åtgärd}" />
+                                    <DataGridTextColumn Header="Status" Binding="{Binding Reparationsstatus}" />
+                                    <DataGridTextColumn Header="Reservdel" Binding="{Binding ReparationsId}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Receptionist" Binding="{Binding Receptionist.FullständigtNamn}" />
                 <DataGridTextColumn Header="Mekaniker" Binding="{Binding Mekaniker.FullständigtNamn}" />
                 <DataGridTextColumn Header="Syfte med besök" Binding="{Binding SyfteMedBesök}" />

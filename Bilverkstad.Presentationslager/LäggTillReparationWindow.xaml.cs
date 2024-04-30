@@ -1,5 +1,6 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,26 +16,28 @@ namespace Bilverkstad.Presentationslager
         BokningsController bokningscontroller = new BokningsController();
         Reservdel reservdel = new Reservdel();
         private Bokning _selectedBokning;
+        public int bokningsID;
         //Bokning updatedBokning = new Bokning();
-        int bokningsId;  
+
 
         public LäggTillReparationWindow(Bokning bokning)
         {
             InitializeComponent();
+            bokningsID = bokning.Id;
             _selectedBokning = bokning;
             this.DataContext = _selectedBokning;
+
             FillComboBoxWithEnums();
             LoadArtikelnummer();
             Reservdel.ItemsSource = reservdelcontroller.GetReservdel();
         }
-        
+
         public void AddReparation_Click(object sender, RoutedEventArgs e)
         {
 
             ReservdelController ctrl = new ReservdelController();
             var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
-
-            //_selectedBokning = bokningscontroller.GetOneBokning(bokningsId);
+            _selectedBokning = bokningscontroller.GetOneBokning(bokningsID);
 
             if (_selectedBokning != null)
             {
@@ -43,15 +46,19 @@ namespace Bilverkstad.Presentationslager
                     Åtgärd = txtÅtgärd.Text,
                     Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
                     ReservdelId = reservdelen.Artikelnummer,
-                    //BokningsId = _selectedBokning.Id,
+                    BokningsId = _selectedBokning.Id,
 
                     // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
                 };
-
-                //reparationcontroller.AddReparation(reparation);
+                reparationcontroller.AddReparation(reparation);
                 _selectedBokning.Reparation.Add(reparation);
                 bokningscontroller.UpdateBokning(_selectedBokning);
-                
+                var hanterabokningWindow = Application.Current.Windows.OfType<HanteraBokningMekanikerWindow>().FirstOrDefault();
+                if (hanterabokningWindow != null)
+                {
+                    hanterabokningWindow.ReloadData();
+                }
+
 
             }
             else
@@ -61,6 +68,7 @@ namespace Bilverkstad.Presentationslager
             }
 
         }
+
 
         private void LoadArtikelnummer()
         {
