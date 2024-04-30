@@ -45,6 +45,13 @@ namespace Bilverkstad.Datalager
                 .HasForeignKey(b => b.MekanikerId)
                 .OnDelete(DeleteBehavior.NoAction);// Prevent cascading delete
 
+            // Configure the Bokning-Reparation relationship
+            modelBuilder.Entity<Reparation>()
+                .HasOne(r => r.Bokning)
+                .WithMany(b => b.Reparation)
+                .HasForeignKey(r => r.BokningsId)
+                .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+
 
             //modelBuilder.Entity<Reservdel>()
             //    .Property(r => r.Artikelnummer)

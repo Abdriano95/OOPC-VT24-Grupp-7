@@ -15,15 +15,14 @@ namespace Bilverkstad.Presentationslager
         BokningsController bokningscontroller = new BokningsController();
         Reservdel reservdel = new Reservdel();
         private Bokning _selectedBokning;
-        Bokning updatedBokning = new Bokning();
+        //Bokning updatedBokning = new Bokning();
         int bokningsId;  
 
         public LäggTillReparationWindow(Bokning bokning)
         {
             InitializeComponent();
-            updatedBokning = bokningscontroller.GetOneBokning(bokning.Id);
-            bokningsId = updatedBokning.Id; 
             _selectedBokning = bokning;
+            this.DataContext = _selectedBokning;
             FillComboBoxWithEnums();
             LoadArtikelnummer();
             Reservdel.ItemsSource = reservdelcontroller.GetReservdel();
@@ -35,23 +34,23 @@ namespace Bilverkstad.Presentationslager
             ReservdelController ctrl = new ReservdelController();
             var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
 
-            updatedBokning = bokningscontroller.GetOneBokning(bokningsId);
+            //_selectedBokning = bokningscontroller.GetOneBokning(bokningsId);
 
-            if (updatedBokning != null)
+            if (_selectedBokning != null)
             {
                 var reparation = new Reparation
                 {
                     Åtgärd = txtÅtgärd.Text,
                     Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
                     ReservdelId = reservdelen.Artikelnummer,
-                    BokningsId = _selectedBokning.Id,
+                    //BokningsId = _selectedBokning.Id,
 
                     // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
                 };
 
-                reparationcontroller.AddReparation(reparation);
-                updatedBokning.Reparation.Add(reparation);
-                bokningscontroller.UpdateBokning(updatedBokning);
+                //reparationcontroller.AddReparation(reparation);
+                _selectedBokning.Reparation.Add(reparation);
+                bokningscontroller.UpdateBokning(_selectedBokning);
                 
 
             }
