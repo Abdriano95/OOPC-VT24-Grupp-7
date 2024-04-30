@@ -8,6 +8,7 @@ namespace Bilverkstad.Affärslager
     {
         public BokningsController() { }
 
+
         public void AddBokning(Bokning bokning)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -77,30 +78,39 @@ namespace Bilverkstad.Affärslager
 
         public IList<Bokning> GetBokning()
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
+            try
             {
-                var bokningar = unitOfWork.Bokning.GetAll()
-            .Include(b => b.Kund)
-            .Include(b => b.Fordon)
-            .Include(b => b.Receptionist)
-            .Include(b => b.Mekaniker)
-            .Include(b => b.Reparation)// Ensure all relevant navigation properties are included
-            .ToList();
-                foreach (var bokning in bokningar)
+                using (UnitOfWork unitOfWork = new UnitOfWork())
                 {
-                    if (bokning.Mekaniker != null)
+                    var bokningar = unitOfWork.Bokning.GetAll()
+                        .Include(b => b.Kund)
+                        .Include(b => b.Fordon)
+                        .Include(b => b.Receptionist)
+                        .Include(b => b.Mekaniker)
+                        .Include(b => b.Reparation)  // Ensure all relevant navigation properties are included
+                        .ToList();
+                    foreach (var bokning in bokningar)
                     {
-                        // Assuming Mekaniker has Förnamn and Efternamn properties
-                        bokning.MekanikerFullName = $"{bokning.Mekaniker.Förnamn} {bokning.Mekaniker.Efternamn}";
+                        if (bokning.Mekaniker != null)
+                        {
+                            bokning.MekanikerFullName = $"{bokning.Mekaniker.Förnamn} {bokning.Mekaniker.Efternamn}";
+                        }
+                        else
+                        {
+                            bokning.MekanikerFullName = "Not Assigned";
+                        }
                     }
-                    else
-                    {
-                        bokning.MekanikerFullName = "Not Assigned";
-                    }
+                    return bokningar;
                 }
-                return bokningar;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and handle it appropriately
+                // Consider how you want to handle failures: rethrow, return null, return an empty list, etc.
+                throw;  // Or handle more gracefully depending on your error handling strategy
             }
         }
+
 
         public Bokning GetOneBokning(int id)
         {

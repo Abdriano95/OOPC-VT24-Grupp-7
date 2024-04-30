@@ -39,12 +39,18 @@ namespace Bilverkstad.Presentationslager
             bokningsListBox.ItemsSource = new List<Bokning> { bokning };
         }
 
+        private void HämtaReparationsData(Reparation reparation)
+        {
+            reparationsListBox.ItemsSource = new List<Reparation> { reparation };
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
             LäggTillReparationWindow window = new LäggTillReparationWindow(_selectedBokning); // Skicka med bokning och i konstruktorn.
             window.Show();
         }
+
     }
-}   
+  }  
 
