@@ -11,9 +11,6 @@ namespace Bilverkstad.Entitetlagret
         public string? Namn { get; set; }
         public float Pris { get; set; }
 
-       
-
-
         //public override string ToString()
         //{
         //    return string.Concat(Artikelnummer, Namn, Pris);

@@ -32,7 +32,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
 
             // Load mechanics
             cmbMekaniker.ItemsSource = mekan.GetMekaniker(); // Implement this method to fetch mechanics
-            cmbMekaniker.DisplayMemberPath = "FullName"; // Assuming the mechanic has a FullName property
+            cmbMekaniker.DisplayMemberPath = "FullständigtNamn"; // Assuming the mechanic has a FullName property
             cmbMekaniker.SelectedValuePath = "AnställningsNummer"; // Make sure this is the key property in Mekaniker
 
             // Fetch and set the Mekaniker property of the bokning object
@@ -48,7 +48,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
         {
             var mechanics = bokningsController.GetMechanicsBySpecialisering(specialization);
             cmbMekaniker.ItemsSource = mechanics;
-            cmbMekaniker.DisplayMemberPath = "FullName";
+            cmbMekaniker.DisplayMemberPath = "FullständigtNamn";
             cmbMekaniker.SelectedValuePath = "AnställningsNummer";
             cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId; // Ensure the originally assigned mechanic is selected
             cmbMekaniker.IsEnabled = false; // Optional: Disable changes if required
@@ -111,6 +111,5 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             }
         }
 
-        
     }
 }

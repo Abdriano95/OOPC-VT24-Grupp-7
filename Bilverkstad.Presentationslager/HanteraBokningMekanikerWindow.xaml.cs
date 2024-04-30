@@ -65,7 +65,7 @@ namespace Bilverkstad.Presentationslager
             {
                 try
                 {
-                    var results = _bokningController.SearchBookings(searchTerm);
+                    var results = _bokningController.SökBokningar(searchTerm);
                     // Assuming you have a DataGrid or some UI element to display bookings:
                     Bokningar.ItemsSource = results;
 
