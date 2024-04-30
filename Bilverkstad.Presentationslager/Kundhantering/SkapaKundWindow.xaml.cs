@@ -46,7 +46,7 @@ namespace Bilverkstad.Presentationslager
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //kund = kundContoller.GetOneKund(lastAddedId);
+            
             LäggTillFordonWindow läggTillFordonWindow = new LäggTillFordonWindow(kund);
             läggTillFordonWindow.Show();
 

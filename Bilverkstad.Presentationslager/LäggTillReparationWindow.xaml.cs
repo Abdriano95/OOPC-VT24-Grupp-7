@@ -36,7 +36,7 @@ namespace Bilverkstad.Presentationslager
         {
 
             ReservdelController ctrl = new ReservdelController();
-            var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
+            var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex +1); // +1 för att index börjar på 0
             _selectedBokning = bokningscontroller.GetOneBokning(bokningsID);
 
             if (_selectedBokning != null)
@@ -46,9 +46,7 @@ namespace Bilverkstad.Presentationslager
                     Åtgärd = txtÅtgärd.Text,
                     Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
                     ReservdelId = reservdelen.Artikelnummer,
-                    BokningsId = _selectedBokning.Id,
-
-                    // Fyll i övriga egenskaper för reparationen här, t.ex. Mekaniker ID och kopplad till åtgärd
+                    BokningsId = _selectedBokning.Id,                   
                 };
                 reparationcontroller.AddReparation(reparation);
                 _selectedBokning.Reparation.Add(reparation);
@@ -62,8 +60,7 @@ namespace Bilverkstad.Presentationslager
 
             }
             else
-            {
-                // Om ingen reservdel är vald, visa ett meddelande eller vidta annan lämplig åtgärd
+            {                
                 MessageBox.Show("Vänligen välj en reservdelen.");
             }
 
@@ -75,7 +72,7 @@ namespace Bilverkstad.Presentationslager
             // Hämta alla reservdelar
             var reservdelar = reservdelcontroller.GetReservdel();
 
-            // Fyll ComboBoxen med artikelnummer från de tillgängliga reservdelarna
+            // Fyll ComboBoxen med artikelnummer 
             foreach (var reservdel in reservdelar)
             {
                 cbArtikelnummer.Items.Add(reservdel.Artikelnummer);
@@ -85,16 +82,14 @@ namespace Bilverkstad.Presentationslager
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            if (cbArtikelnummer.SelectedIndex != null) // Ändra detta så index blir korrekt från början!
+            if (cbArtikelnummer.SelectedIndex != null) 
             {
                 ReservdelController test = new ReservdelController();
                 var selectedReservdel2 = test.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
                 
-                //Reservdel selectedReservdel2 = cbArtikelnummer.SelectedItem as Reservdel;
-                //Ändrade SelectedItem till SelectedIndex
+                //Ändrade SelectedItem till SelectedIndex för att enkelt komma åt int enklare
                 if (selectedReservdel2 != null)
-                {
-                    // Gör något med den valda reservdelen
+                {                   
                     reservdel = selectedReservdel2;
                 }
                 else

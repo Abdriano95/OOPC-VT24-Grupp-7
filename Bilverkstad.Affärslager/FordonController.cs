@@ -54,7 +54,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                // Using FirstOrDefault to retrieve a single customer or null if not found
+                // FirstOrDefault för att hämta en kund
                 return unitOfWork.Kund!.GetAll()
                                      .Include(k => k.Fordon)
                                      .FirstOrDefault(k => k.Id == kundId);
@@ -70,17 +70,17 @@ namespace Bilverkstad.Affärslager
                     throw new InvalidOperationException("Fordon repository is not initialized.");
                 }
 
-                // Assuming RegNr is the primary key for Fordon
+                
                 Fordon? existingFordon = uow.Fordon.FindStringID(fordon.RegNr);
                 if (existingFordon == null)
                 {
                     throw new KeyNotFoundException("No Fordon found with the given RegNr to update.");
                 }
 
-                // Update properties; this assumes you have properties like Make, Model, etc.
+                
                 existingFordon.Bilmärke = fordon.Bilmärke;
                 existingFordon.Modell = fordon.Modell;
-                existingFordon.KundId = fordon.KundId; // Ensure all relevant properties are updated
+                existingFordon.KundId = fordon.KundId; 
 
                 uow.Fordon.Update(existingFordon, fordon);
                 uow.SaveChanges();
@@ -94,12 +94,12 @@ namespace Bilverkstad.Affärslager
                 var existingFordon = unitOfWork.Fordon.FindStringID(fordon.RegNr);
                 if (existingFordon != null)
                 {
-                    // Update existing record with new data
+                    
                     unitOfWork.Fordon.Update(existingFordon, fordon);
                 }
                 else
                 {
-                    // Add as a new record
+                    
                     unitOfWork.Fordon.Add(fordon);
                 }
                 unitOfWork.SaveChanges();

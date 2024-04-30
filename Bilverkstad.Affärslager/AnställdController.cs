@@ -70,9 +70,7 @@ namespace Bilverkstad.Affärslager
                 {
                     return null;
                 }
-
-                // Depending on how your discriminator values are set up, these strings might change.
-                // The following "is" checks are assuming that the discriminator values are the names of the types as strings.
+                
                 if (anställd is Receptionist)
                 {
                     return anställd as Receptionist;
@@ -81,9 +79,8 @@ namespace Bilverkstad.Affärslager
                 {
                     return anställd as Mekaniker;
                 }
-                // Add additional checks for other subtypes as necessary.
 
-                return anställd; // If it's neither a Receptionist nor a Mekaniker, return the base type.
+                return anställd; // Om det är varken Receptionist eller Mekaniker, return anställd.
             }
         }
 

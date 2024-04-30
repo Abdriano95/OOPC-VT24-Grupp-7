@@ -21,7 +21,7 @@ namespace Bilverkstad.Presentationslager
 
         public void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Bokningar.ItemsSource = _bokningController.GetBokning();  // Your method to fetch bookings
+            Bokningar.ItemsSource = _bokningController.GetBokning();  // För att hämta bokningar
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -33,12 +33,12 @@ namespace Bilverkstad.Presentationslager
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  // Assuming your data type is Bokning
+            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  
             if (selectedBooking != null)
             {
-                ÄndraBokningWindow editWindow = new ÄndraBokningWindow(selectedBooking);  // Assuming you have a window or dialog for editing
-                editWindow.ShowDialog();  // Show the edit window as a modal dialog
-                ReloadData();  // Refresh the data after editing
+                ÄndraBokningWindow editWindow = new ÄndraBokningWindow(selectedBooking);  
+                editWindow.ShowDialog();  
+                ReloadData();  // refresh 
             }
             else
             {
@@ -63,7 +63,7 @@ namespace Bilverkstad.Presentationslager
 
                 if (results.Count == 0)
                 {
-                    MessageBox.Show("No bookings found.");  // This will show if no bookings match the search term or if there are no bookings at all
+                    MessageBox.Show("No bookings found.");  
                 }
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace Bilverkstad.Presentationslager
             }
             else
             {
-                // Optionally, display all bookings when search term is cleared
+                
                 var allBookings = _bokningController.GetBokning();
                 Bokningar.ItemsSource = allBookings;
             }

@@ -17,7 +17,7 @@ namespace Bilverkstad.Entitetlagret
         public string? Telefonnummer { get; set; }
         public string? Epost { get; set; }
 
-        [NotMapped] // This will hold the customer's full name, set manually after fetching the data
+        [NotMapped] // Inte instanieras i databasen
         public string? FullständigtNamn
         {
             get
@@ -33,14 +33,6 @@ namespace Bilverkstad.Entitetlagret
             Fordon = new List<Fordon>();
         }
 
-
-        //public Kund(int kundnummer, string förnamn, string efternamn, string personnummer)
-        //{
-        //    this.kundnummer = kundnummer;
-        //    this.förnamn = förnamn;
-        //    this.efternamn = efternamn;
-        //    this.personnummer = personnummer;
-        //}
 
         public override string ToString()
         {
