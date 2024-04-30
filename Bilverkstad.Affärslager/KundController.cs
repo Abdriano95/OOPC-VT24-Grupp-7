@@ -122,6 +122,28 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        public List<Kund> SökKunder(string sökterm)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                sökterm = sökterm.ToLower();
+                //Hämta all data från databasen
+                var allaKunder = unitOfWork.Kund.GetAll().Include(k => k.Fordon).ToList();
+
+                return allaKunder.Where(k =>
+                      (k.Förnamn != null && k.Förnamn.ToLower().Contains(sökterm)) ||
+                      (k.Efternamn != null && k.Efternamn.ToLower().Contains(sökterm)) ||
+                      (k.Personnummer != null && k.Personnummer.ToLower().Contains(sökterm)) ||
+                      (k.Gatuadress != null && k.Gatuadress.ToLower().Contains(sökterm)) ||
+                      (k.Postnummer != null && k.Postnummer.ToLower().Contains(sökterm)) ||
+                      (k.Ort != null && k.Ort.ToLower().Contains(sökterm)) ||
+                      (k.Telefonnummer != null && k.Telefonnummer.ToLower().Contains(sökterm)) ||
+                      (k.Epost != null && k.Epost.ToLower().Contains(sökterm)))
+                      .ToList();
+            }
+        }
+        }
+
 
     }
-}
+

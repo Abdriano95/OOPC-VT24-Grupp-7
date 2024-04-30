@@ -7,22 +7,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ComboBox x:Name="navigationComboBox" Margin="10" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" SelectionChanged="NavigationComboBox_SelectionChanged">
-            <ComboBoxItem Content="Hantera Kunder"/>
-            <ComboBoxItem Content="Hantera Anställda"/>
+        <!-- Huvudgrid layout-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <ComboBoxItem Content="Hantera Bokning"/>
-    
+        <!-- Top Grid för användarinfo-->
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="221"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto" MinWidth="252"/>
+            </Grid.ColumnDefinitions>
+            <!-- Användarnamn-->
+            <TextBlock Text="Användare: " VerticalAlignment="Center" Margin="10,0,10,0" Height="16"/>
+            <TextBlock x:Name="användarNamn" Margin="80,0,10,0" VerticalAlignment="Center" FontWeight="Bold" Height="16"/>
+            <!-- AnställningsID-->
+            <TextBlock Text="Anställningsnummer: " VerticalAlignment="Center" Grid.Column="1" Margin="10,0,16,0" Height="16"/>
+            <TextBlock x:Name="AnställningsID" Grid.Column="1" HorizontalAlignment="Left" Margin="128,12,0,0" VerticalAlignment="Top" Height="18"/>
 
-            <ComboBoxItem Content="Hantera Reservdelar"/>
-            <ComboBoxItem Content="Hantera Reparationer"/>
+            <!-- Logga ut-->
+            <Button x:Name="LoggaUt" Margin="178,10,0,10" HorizontalAlignment="Left" Content="Logga ut" Click="LoggaUt_Click" Grid.Column="2" Width="65" RenderTransformOrigin="0.5,0.5"/>
 
-
-        </ComboBox>
-        <TextBlock HorizontalAlignment="Left" Margin="613,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Inloggad so"/><Run Language="sv-se" Text="m:"/><Run Text=" "/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="580,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Anställningsnummer"/><Run Language="sv-se" Text=":"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="användarNamn" HorizontalAlignment="Left" Margin="696,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-        <TextBlock x:Name="AnställningsID" HorizontalAlignment="Left" Margin="698,30,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-        <Button Content="Logga ut" HorizontalAlignment="Left" Margin="707,54,0,0" VerticalAlignment="Top" Click="LoggaUt_Click"/>
+        </Grid>
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="Kunder">
+                
+            </TabItem>
+            
+        </TabControl>
     </Grid>
+
 </Window>

@@ -23,7 +23,7 @@ namespace Bilverkstad.Presentationslager
         {
             Bokningar.ItemsSource = _bokningController.GetBokning();  // Your method to fetch bookings
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SkapaBokning_Click(object sender, RoutedEventArgs e)
         {
             SkapaBokningWindow skapaBokningWindow = new SkapaBokningWindow();
             skapaBokningWindow.Show();
@@ -31,7 +31,7 @@ namespace Bilverkstad.Presentationslager
 
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ÄndraBokning_Click(object sender, RoutedEventArgs e)
         {
             Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  // Assuming your data type is Bokning
             if (selectedBooking != null)
@@ -46,6 +46,8 @@ namespace Bilverkstad.Presentationslager
             }
 
         }
+
+
 
         private void ReloadData()
         {

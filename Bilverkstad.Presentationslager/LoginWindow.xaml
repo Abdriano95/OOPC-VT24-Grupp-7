@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="Jocke och Abbes Bilverkstad" Height="285" Width="489">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="215,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Login"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="100,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="Anställnings"/><Run Text=" I"/><Run Language="sv-se" Text="D"/></TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="130,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Language="sv-se" Text="Lösenord"/></TextBlock>
         <TextBox x:Name="txtAnvändarid" HorizontalAlignment="Left" Margin="190,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" Height="17"/>

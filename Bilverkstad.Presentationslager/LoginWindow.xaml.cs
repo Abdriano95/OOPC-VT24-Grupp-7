@@ -37,7 +37,6 @@ namespace Bilverkstad.Presentationslager
             if (_anställdController.ValideraInlogg(användarid, lösenord))
             {
                 AnvändarSession.InloggadAnvändare = new Användare { AnvändarNamn = anställd.Förnamn +" "+ anställd.Efternamn, AnställningsNummer = anställd.AnställningsNummer };
-
                 MainWindow mainWindow = new MainWindow(anställd);
                 mainWindow.Show();
                 this.Close();
