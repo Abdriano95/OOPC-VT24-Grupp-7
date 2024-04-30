@@ -52,9 +52,8 @@ namespace Bilverkstad.Presentationslager
 
         }
 
-        private void ReloadData()
+        public void ReloadData()
         {
-            _bokningController = new BokningsController();
             Bokningar.ItemsSource = _bokningController.GetBokning();
         }
 

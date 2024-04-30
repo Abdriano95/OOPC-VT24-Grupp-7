@@ -9,7 +9,34 @@
     <Grid>
         
         <Button Content="Öppna Bokning" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <DataGrid x:Name="Bokningar" Margin="123,51,0,0" AutoGenerateColumns="True" SelectionMode="Single" SelectionUnit="FullRow"/>
+        <DataGrid x:Name="Bokningar" Margin="123,51,0,0" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Boknings ID" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Kund" Binding="{Binding Kund.FullständigtNamn}" />
+                <DataGridTextColumn Header="Fordon RegNr" Binding="{Binding Fordon.RegNr}" />
+                <DataGridTemplateColumn Header="Reparationer">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DataGrid ItemsSource="{Binding Reparation}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Reparations ID" Binding="{Binding ReparationsId}" />
+                                    <DataGridTextColumn Header="Åtgärd" Binding="{Binding Åtgärd}" />
+                                    <DataGridTextColumn Header="Status" Binding="{Binding Reparationsstatus}" />
+                                    <DataGridTextColumn Header="Reservdel" Binding="{Binding ReservdelId}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Receptionist" Binding="{Binding Receptionist.FullständigtNamn}" />
+                <DataGridTextColumn Header="Mekaniker" Binding="{Binding Mekaniker.FullständigtNamn}" />
+                <DataGridTextColumn Header="Syfte med besök" Binding="{Binding SyfteMedBesök}" />
+                <DataGridTextColumn Header="Inlämningsdatum" Binding="{Binding InlämningsDatum}" />
+                <DataGridTextColumn Header="Utlämningsdatum" Binding="{Binding UtlämningsDatum}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding BokningStatus}" />
+
+            </DataGrid.Columns>
+        </DataGrid>
         <TextBox x:Name="txtSök" HorizontalAlignment="Left" Margin="123,16,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button Content="Sök" HorizontalAlignment="Left" Margin="261,14,0,0" VerticalAlignment="Top" Click="SökButton_Click"/>
     </Grid>
