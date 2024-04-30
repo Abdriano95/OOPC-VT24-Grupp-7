@@ -1,4 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager
@@ -12,7 +13,7 @@ namespace Bilverkstad.Presentationslager
         {
             InitializeComponent();
             ReparationController reparationController = new ReparationController();
-
+            reparation.ItemsSource = reparationController.GetReparation();
         }
     }
 }

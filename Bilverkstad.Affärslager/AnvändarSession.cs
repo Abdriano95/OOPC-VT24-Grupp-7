@@ -12,7 +12,7 @@ namespace Bilverkstad.Affärslager
 
         public static void Logout()
         {
-            InloggadAnvändare = null; // Rensar sessionen
+            InloggadAnvändare = null; // Rensar sessionen 
         }
     }
 
