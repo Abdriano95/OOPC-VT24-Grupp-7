@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Bilverkstad.Presentationslager;component/Views/Resources/DataGridStyles.xaml" />
+                <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/DataGridStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- General Styles -->
@@ -103,7 +103,7 @@
                     </GroupBox>
 
                     <!-- Reparation Information -->
-                    <GroupBox Header="Reparation Information" Foreground="#D7DADD" Background="#1B3C51" Margin="0,20,0,0" Visibility="{Binding IsMechanic, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <GroupBox Header="Reparation Information" Foreground="#D7DADD" Background="#1B3C51" Margin="0,20,0,0" Visibility="{Binding IsMechanic}">
                         <StackPanel Margin="10">
                             <TextBlock Text="Reparations Status" Style="{StaticResource LabelStyle}" />
                             <ComboBox x:Name="ReparationsstatusComboBox"
