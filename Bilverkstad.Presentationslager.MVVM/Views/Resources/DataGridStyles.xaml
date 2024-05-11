@@ -1,0 +1,92 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Sorting Icons -->
+    <Geometry x:Key="AscendingIconGeometry">M 0 6 L 3 0 L 6 6 Z</Geometry>
+    <Geometry x:Key="DescendingIconGeometry">M 0 0 L 3 6 L 6 0 Z</Geometry>
+
+    <!-- Ascending/Descending Path Styles -->
+    <Style x:Key="SortPathStyle" TargetType="Path">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Height" Value="8" />
+        <Setter Property="Margin" Value="3,0,0,0" />
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Fill" Value="White" />
+    </Style>
+
+    <!-- DataGrid Column Header Template -->
+    <ControlTemplate x:Key="CustomColumnHeaderTemplate" TargetType="DataGridColumnHeader">
+        <Grid Background="Transparent">
+            <Border Background="#1B3C51" CornerRadius="8" BorderBrush="#444" BorderThickness="0,0,0,1">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <Canvas x:Name="SortGlyph" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5,0,0,0">
+                <Path x:Name="AscendingSortIcon" Data="{StaticResource AscendingIconGeometry}" Style="{StaticResource SortPathStyle}" Visibility="Collapsed" />
+                <Path x:Name="DescendingSortIcon" Data="{StaticResource DescendingIconGeometry}" Style="{StaticResource SortPathStyle}" Visibility="Collapsed" />
+            </Canvas>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="SortDirection" Value="Ascending">
+                <Setter TargetName="AscendingSortIcon" Property="Visibility" Value="Visible" />
+                <Setter TargetName="DescendingSortIcon" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="SortDirection" Value="Descending">
+                <Setter TargetName="AscendingSortIcon" Property="Visibility" Value="Collapsed" />
+                <Setter TargetName="DescendingSortIcon" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- DataGrid Styles -->
+    <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="Background" Value="#1B3C51" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="BorderBrush" Value="#D7DADD" />
+        <Setter Property="AlternatingRowBackground" Value="#2E4B61" />
+        <Setter Property="RowBackground" Value="#1B3C51" />
+        <Setter Property="HorizontalGridLinesBrush" Value="#444" />
+        <Setter Property="VerticalGridLinesBrush" Value="#444" />
+        <Setter Property="ColumnHeaderStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="#1B3C51" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="Padding" Value="10,5" />
+                    <Setter Property="BorderBrush" Value="#444" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="Template" Value="{StaticResource CustomColumnHeaderTemplate}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CellStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Padding" Value="5" />
+                    <Setter Property="BorderBrush" Value="#444" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#3B6B8B" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#3B6B8B" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

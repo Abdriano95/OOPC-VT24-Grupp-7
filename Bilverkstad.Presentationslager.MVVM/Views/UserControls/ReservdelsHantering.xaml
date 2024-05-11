@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Bilverkstad.Presentationslager.Views.UserControls.ReservdelsHantering"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bilverkstad.Presentationslager.Views.UserControls"
+             mc:Ignorable="d" 
+
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Bilverkstad.Presentationslager;component/Views/Resources/DataGridStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- General Styles -->
+            <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="#D7DADD" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#1B3C51" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="5,0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border Background="#5A6A75"
+            CornerRadius="10"
+            Padding="20"
+            BorderBrush="#1B3C51"
+            BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Form Panel (Left) -->
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="0,0,10,0">
+                    <!-- Reservdel Information -->
+                    <GroupBox Header="Reservdel Information" Foreground="#D7DADD" Background="#1B3C51">
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Artikelnummer" Style="{StaticResource LabelStyle}" />
+                            <TextBox x:Name="ArtikelnummerTextBox"
+                                     Background="#1B3C51"
+                                     Foreground="White"
+                                     BorderBrush="#D7DADD" />
+
+                            <TextBlock Text="Namn" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
+                            <TextBox x:Name="NamnTextBox"
+                                     Background="#1B3C51"
+                                     Foreground="White"
+                                     BorderBrush="#D7DADD" />
+
+                            <TextBlock Text="Pris" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
+                            <TextBox x:Name="PrisTextBox"
+                                     Background="#1B3C51"
+                                     Foreground="White"
+                                     BorderBrush="#D7DADD" />
+
+                            <!-- Add/Edit/Delete Buttons -->
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Button Content="Add" Style="{StaticResource ButtonStyle}" Click="AddReservdel_Click" />
+                                <Button Content="Edit/Update" Style="{StaticResource ButtonStyle}" Click="EditReservdel_Click" />
+                                <Button Content="Delete" Style="{StaticResource ButtonStyle}" Click="DeleteReservdel_Click" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Data Grid Panel (Right) -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Reservdelar" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" Margin="0,0,0,10" />
+                <DataGrid x:Name="ReservdelarDataGrid"
+                          AutoGenerateColumns="True"
+                          Style="{StaticResource DataGridStyle}"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          Height="500"
+                          VerticalScrollBarVisibility="Visible" />
+
+
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
