@@ -8,8 +8,17 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Views\Resources\BilverkstadLogo.png" />
+	</ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+    <ProjectReference Include="..\Bilverkstad.Affärslager\Bilverkstad.Affärslager.csproj" />
+    <ProjectReference Include="..\Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj" />
   </ItemGroup>
 
 </Project>
