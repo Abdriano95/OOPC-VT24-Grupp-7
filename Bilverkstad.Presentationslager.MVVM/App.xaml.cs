@@ -1,5 +1,6 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Presentationslager.MVVM.ViewModels;
+using Bilverkstad.Presentationslager.MVVM.Views.Windows;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM

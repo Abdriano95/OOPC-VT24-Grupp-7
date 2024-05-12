@@ -4,6 +4,5 @@
              xmlns:local="clr-namespace:Bilverkstad.Presentationslager.MVVM"
              StartupUri="/Views/Windows/LoginWindow.xaml">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

@@ -6,90 +6,42 @@
         xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
         mc:Ignorable="d"
         Title="Jocke och Abbes Bilverkstad"
-        Height="400"
-        Width="837"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        Background="Transparent"
-        ResizeMode="NoResize">
-    <!--<Window.DataContext>
-        <vm:MainViewModel x:Name="ViewModel"/>
-    </Window.DataContext>-->
+        Height="452"
+        Width="830"
+        Background="#1B3C51"
+        WindowStartupLocation="CenterScreen">
 
-    <!-- Outer Border to create the rounded corners -->
-    <Border Background="#1B3C51"
-            CornerRadius="20"
-            Padding="10"
-            BorderBrush="#5A6A75"
-            BorderThickness="1">
+    <!-- Main Grid Layout -->
+    <Grid Grid.Row="1" Margin="0,8,2,0">
+        <!-- Grid with two columns -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
 
-        <Grid Margin="10,2,10,10">
-            <!-- Top Grid Row for Title Bar and Custom Close Button -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <!-- Title Bar with Close Button -->
-            <DockPanel Grid.Row="0"
-                       HorizontalAlignment="Right">
-                <Button Content="—"
-                        Foreground="White"
-                        Background="#1B3C51"
-                        BorderBrush="#1B3C51"
-                        Width="37"
-                        Height="29"
-                        FontWeight="Bold"
-                        Click="MinimizeWindow_Click"
-                        Cursor="Hand"
-                        Margin="0,0,5,0"
-                        BorderThickness="0" />
-                <Button Content="X"
-                        Foreground="White"
-                        Background="#1B3C51"
-                        BorderBrush="#1B3C51"
-                        Width="37"
-                        Height="29"
-                        FontWeight="Bold"
-                        Command="{Binding CloseCommand}"
-                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                        Cursor="Hand"
-                        Margin="0,0,5,0"
-                        BorderThickness="0" />
-            </DockPanel>
-
-            <!-- Main Grid Layout -->
-            <Grid Grid.Row="1" Margin="0,8,2,0">
-                <!-- Grid with two columns -->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- Logo Section -->
-                <Border Background="GhostWhite"
+        <!-- Logo Section -->
+        <Border Background="GhostWhite"
                         CornerRadius="10"
                         Margin="0,0,10,0">
-                    <Image Source="/Views/Resources/BilverkstadLogo.png"
+            <Image Source="/Views/Resources/BilverkstadLogo.png"
                            Stretch="Uniform"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"/>
-                </Border>
+        </Border>
 
-                <!-- Form Section -->
-                <Border Grid.Column="1"
+        <!-- Form Section -->
+        <Border Grid.Column="1"
                         Background="GhostWhite"
                         CornerRadius="10"
                         Padding="20"
                         Margin="10,0,0,0">
-                    <StackPanel>
-                        <!-- Username Field -->
-                        <TextBlock Text="AnställningsID"
+            <StackPanel>
+                <!-- Username Field -->
+                <TextBlock Text="AnställningsID"
                                    Margin="0,0,0,10"
                                    FontWeight="SemiBold"
                                    Foreground="#1B3C51"/>
-                        <TextBox x:Name="txtAnvändarid"
+                <TextBox x:Name="txtAnvändarid"
                                  Height="44"
                                  FontSize="14"
                                  Padding="10"
@@ -99,12 +51,12 @@
                                  Foreground="Black"
                                  Margin="0,0,0,20"/>
 
-                        <!-- Password Field -->
-                        <TextBlock Text="Lösenord"
+                <!-- Password Field -->
+                <TextBlock Text="Lösenord"
                                    Margin="0,0,0,10"
                                    FontWeight="SemiBold"
                                    Foreground="#1B3C51"/>
-                        <PasswordBox x:Name="txtLösenord"
+                <PasswordBox x:Name="txtLösenord"
                                      Height="43"
                                      FontSize="14"
                                      Padding="10"
@@ -115,8 +67,8 @@
                                      PasswordChar="●"
                                      Margin="0,0,0,20"/>
 
-                        <!-- Login Button -->
-                        <Button x:Name="LoginButton"
+                <!-- Login Button -->
+                <Button x:Name="LoginButton"
                                 Content="Logga in"
                                 Height="40"
                                 FontSize="16"
@@ -124,32 +76,10 @@
                                 Background="#1B3C51"
                                 Foreground="White"
                                 Cursor="Hand"
-                                
                                 BorderThickness="0"
                                 Margin="0,0,0,20"/>
 
-                        <!-- Sign Up Link -->
-                        <StackPanel Orientation="Horizontal"
-                                    HorizontalAlignment="Left">
-                            <TextBlock Text="Har du inget konto?"
-                                       Foreground="Coral"/>
-                            <TextBlock Text=" Registrera dig"
-                                       Foreground="DarkBlue"
-                                       Cursor="Hand"
-                                       MouseLeftButtonUp="RegistreraDig_Click"
-                                       Margin="5,0,0,0"/>
-                        </StackPanel>
-
-                        <!-- Forgot Password Link -->
-                        <TextBlock Text="Glömt ditt lösenord?"
-                                   Foreground="Coral"
-                                   Cursor="Hand"
-                                   HorizontalAlignment="Left"
-                                   Margin="0,10,0,0"
-                                   MouseLeftButtonUp="GlömtLösenord_Click"/>
-                    </StackPanel>
-                </Border>
-            </Grid>
-        </Grid>
-    </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
 </Window>

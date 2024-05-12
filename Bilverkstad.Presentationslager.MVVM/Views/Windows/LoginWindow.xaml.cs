@@ -1,4 +1,4 @@
-﻿using Bilverkstad.Presentationslager.MVVM.Services;
+﻿using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
@@ -6,13 +6,13 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window,ICloseable
+    public partial class LoginWindow : Window
     {
         public LoginWindow()
-        {
-            InitializeComponent();
-        }
-
+    {
+        InitializeComponent();
+        //this.DataContext = new LoginViewModel(windowService);
+    }
        
 
         private void GlömtLösenord_Click(object sender, RoutedEventArgs e)
