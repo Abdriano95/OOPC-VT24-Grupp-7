@@ -20,5 +20,6 @@ namespace Bilverkstad.Presentationslager.MVVM
         {
             InitializeComponent();
         }
+        //hej
     }
 }
