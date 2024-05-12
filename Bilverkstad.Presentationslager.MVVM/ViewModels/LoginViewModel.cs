@@ -1,7 +1,6 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
-using Bilverkstad.Presentationslager.MVVM.Services;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Windows.Input;
 
@@ -10,15 +9,15 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
     public class LoginViewModel : MainViewModel
     {
         private readonly AnställdController _anställdController;
-        private readonly WindowService _windowService;
+        
 
         public LoginViewModel() { }
             
 
-        public LoginViewModel(AnställdController anställdController, WindowService windowService)
+        public LoginViewModel(AnställdController anställdController)
         {
             _anställdController = anställdController;
-            _windowService = windowService;
+            
             LoginCommand = new RelayCommand(Login);
         }
 
@@ -46,13 +45,11 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 AnvändarSession.InloggadAnvändare = new Användare { AnvändarNamn = anställd.Förnamn + " " + anställd.Efternamn, AnställningsNummer = anställd.AnställningsNummer };
 
-                _windowService.Show(new MainViewModel(anställd));
-                _windowService.CloseWindow(this);
-                _windowService.Show("Welcome!");
+                
             }
             else
             {
-                _windowService.Show("Incorrect username or password");
+                
             }
         }
     }

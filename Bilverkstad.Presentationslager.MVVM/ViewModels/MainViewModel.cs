@@ -2,7 +2,7 @@
 using Bilverkstad.Presentationslager.MVVM.Commands;
 using System.Windows.Input;
 using Bilverkstad.Presentationslager.MVVM.Models;
-using Bilverkstad.Presentationslager.MVVM.Services;
+
 
 namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
@@ -17,11 +17,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private bool isModified = false;
         public bool IsModified { get { return isModified; } set { isModified = value; OnPropertyChanged(); } }
 
-        private ICommand closeCommand = null!;
-        public ICommand CloseCommand => closeCommand ??= closeCommand = new RelayCommand<ICloseable>((closeable) =>
-        {
-                closeable.Close();  
-        });
+       
 
     }
     
