@@ -1,9 +1,8 @@
 ﻿using Bilverkstad.Entitetlagret;
-using Bilverkstad.Presentationslager.Commands;
-using Bilverkstad.Presentationslager.Models;
-using Bilverkstad.Presentationslager.Services;
-
+using Bilverkstad.Presentationslager.MVVM.Commands;
 using System.Windows.Input;
+using Bilverkstad.Presentationslager.MVVM.Models;
+using Bilverkstad.Presentationslager.MVVM.Services;
 
 namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {

@@ -3,7 +3,7 @@
 using System.Windows.Controls;
 
 
-namespace Bilverkstad.Presentationslager.Views.UserControls
+namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
 {
     /// <summary>
     /// Interaction logic for KundHantering.xaml
