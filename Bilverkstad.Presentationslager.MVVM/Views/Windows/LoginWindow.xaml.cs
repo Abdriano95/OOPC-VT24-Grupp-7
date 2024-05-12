@@ -1,8 +1,7 @@
-﻿using Bilverkstad.Presentationslager.Services;
-using Bilverkstad.Presentationslager.Views.UserControls;
+﻿using Bilverkstad.Presentationslager.MVVM.Services;
 using System.Windows;
 
-namespace Bilverkstad.Presentationslager.Views.Windows
+namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml

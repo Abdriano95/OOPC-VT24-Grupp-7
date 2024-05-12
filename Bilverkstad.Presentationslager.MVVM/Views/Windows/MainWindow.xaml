@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.Views.UserControls"
+        xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
         mc:Ignorable="d"
         Title="Jocke och Abbes Bilverkstad"
         Height="600"
@@ -120,29 +120,17 @@
 
                 <!-- Bokning Tab -->
                 <TabItem Header="Bokningar">
-                    
+                    <userControl:BokningsHantering/>
                 </TabItem>
 
                 <!-- Reservdelar Tab -->
                 <TabItem Header="Reservdelar">
-                    <!--<userControls:ReservdelsHantering/>-->
-
+                    <userControl:ReservdelsHantering/>
                 </TabItem>
 
                 <!-- Personal Tab -->
                 <TabItem Header="Personal">
-                    <!--<userControls:PersonalHantering/>-->
-                </TabItem>
-
-                <!-- Test Tab -->
-                <TabItem Header="Test">
-                    <StackPanel Margin="10">
-                        <TextBlock Text="Personalinformation"
-                   FontWeight="Bold"
-                   FontSize="16"
-                   Margin="0,0,0,10"/>
-                        <!-- Add your content for 'Test' here -->
-                    </StackPanel>
+                    <userControl:PersonalHantering/>
                 </TabItem>
             </TabControl>
         </Grid>
