@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Bilverkstad.Presentationslager.Models
 {
-    internal class Class2
+    public class Class2
     {
+
     }
 }
