@@ -4,14 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
+        xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
         mc:Ignorable="d"
         Title="Jocke och Abbes Bilverkstad"
         Height="600"
         Width="950"
         WindowStartupLocation="CenterScreen"
         Background="#1B3C51">
-
-
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
 
 
     <Grid Margin="10">
@@ -33,11 +35,11 @@
 
             <!-- Användarnamn -->
             <TextBlock Text="Användare: " VerticalAlignment="Center" Margin="10,0,102,0" Height="16" Foreground="#1B3C51"/>
-            <TextBlock x:Name="användarNamn" Margin="75,0,27,0" VerticalAlignment="Center" FontWeight="Bold" Height="16" Foreground="#1B3C51"/>
+            <TextBlock Text="{Binding AnvändarNamn}" Margin="75,0,27,0" VerticalAlignment="Center" FontWeight="Bold" Height="16" Foreground="#1B3C51"/>
 
             <!-- AnställningsID -->
             <TextBlock Text="Anställningsnummer: " VerticalAlignment="Center" Grid.Column="1" Margin="19,0,63,0" Height="16" Foreground="#1B3C51"/>
-            <TextBlock x:Name="AnstallningsID" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Height="16" Foreground="#1B3C51" Width="56" Margin="136,0,0,0" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+            <TextBlock Text="{Binding AnställningsNummer}"  HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" Height="16" Foreground="#1B3C51" Width="56" Margin="136,0,0,0" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
                 <TextBlock.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="1"/>
@@ -54,6 +56,7 @@
             <!-- Logga Ut -->
             <Button x:Name="LoggaUt"
                         Content="Logga ut"
+                        Command="{Binding LogoutCommand}"
                         Grid.Column="3"
                         Margin="100,0,0,0"
                         HorizontalAlignment="Left"
@@ -69,7 +72,8 @@
         </Grid>
 
         <!-- Tab Control with Pages -->
-        <TabControl Grid.Row="1"
+        <TabControl     
+                        Grid.Row="1"
                         Background="Silver"
                         Foreground="#D7DADD"
                         Padding="10"

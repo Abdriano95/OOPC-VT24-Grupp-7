@@ -4,15 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
+        xmlns:customcontrols="clr-namespace:Bilverkstad.Presentationslager.MVVM.CustomControls"
         mc:Ignorable="d"
         Title="Jocke och Abbes Bilverkstad"
         Height="400"
         Width="837"
         WindowStartupLocation="CenterScreen"
         Background="#1B3C51">
-           
 
-        <Grid Margin="10,2,10,10">
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/> 
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
+
+    <Grid Margin="10,2,10,10">
             
             <!-- Main Grid Layout -->
             <Grid Grid.Row="1" Margin="0,8,2,0">
@@ -45,6 +57,7 @@
                                    FontWeight="SemiBold"
                                    Foreground="#1B3C51"/>
                         <TextBox x:Name="txtAnvändarid"
+                                 Text="{Binding UserId}"
                                  Height="44"
                                  FontSize="14"
                                  Padding="10"
@@ -59,19 +72,13 @@
                                    Margin="0,0,0,10"
                                    FontWeight="SemiBold"
                                    Foreground="#1B3C51"/>
-                        <PasswordBox x:Name="txtLösenord"
-                                     Height="43"
-                                     FontSize="14"
-                                     Padding="10"
-                                     Background="Silver"
-                                     BorderBrush="#D7DADD"
-                                     BorderThickness="1"
-                                     Foreground="Black"
-                                     PasswordChar="●"
-                                     Margin="0,0,0,20"/>
+                    <customcontrols:BindablePasswordBox Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                                        Height="43"                                   
+                                                        Margin="0,0,0,20"/>
 
                         <!-- Login Button -->
                         <Button x:Name="LoginButton"
+                                Command="{Binding LoginCommand}"
                                 Content="Logga in"
                                 Height="40"
                                 FontSize="16"
@@ -79,7 +86,6 @@
                                 Background="#1B3C51"
                                 Foreground="White"
                                 Cursor="Hand"
-                                
                                 BorderThickness="0"
                                 Margin="0,0,0,20"/>
 
