@@ -14,20 +14,20 @@ namespace Bilverkstad.Presentationslager.MVVM
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            var loginWindow = new LoginWindow();
-            loginWindow.Show();
-            loginWindow.IsVisibleChanged += (s, e) =>
-            {
-                if (!loginWindow.IsVisible && loginWindow.IsLoaded && AnvändarSession.InloggadAnvändare != null)
-                {
-                    var mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    loginWindow.Close();
-                }
-            };
-        }
+        //public void Application_Startup(object sender, StartupEventArgs e)
+        //{
+        //    var loginWindow = new LoginWindow();
+        //    loginWindow.Show();
+        //    loginWindow.IsVisibleChanged += (s, e) =>
+        //    {
+        //        if (!loginWindow.IsVisible && loginWindow.IsLoaded && AnvändarSession.InloggadAnvändare != null)
+        //        {
+        //            var mainWindow = new MainWindow();
+        //            mainWindow.Show();
+        //            loginWindow.Close();
+        //        }
+        //    };
+        //}
 
     }
 

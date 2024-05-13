@@ -33,32 +33,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 {
                     if (window is MainWindow)
                     {
-                       window.Hide();
+                        
+                        LoginWindow loginWindow = new LoginWindow();
+                        loginWindow.Show();
+                        window.Close();
                         break;
                     }
                 }
 
-                // Öppnar login-fönstret
-                var loginWindow = new LoginWindow();
-                loginWindow.Show();
-                loginWindow.IsVisibleChanged += (s, e) =>
-                {
-                    if (!loginWindow.IsVisible && loginWindow.IsLoaded && AnvändarSession.InloggadAnvändare != null)
-                    {
-
-                        foreach (Window window in Application.Current.Windows)
-                        {
-                            if (window is MainWindow)
-                            {
-                                // window.Close();
-                                window.Show();
-                                break;
-                            }
-                        }
-
-                        loginWindow.Close();
-                    }
-                };
+                
+             
             });
         });
 
