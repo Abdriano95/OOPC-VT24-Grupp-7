@@ -19,7 +19,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
 
-    
+
 
     <Grid Margin="10">
         <!-- Top Grid Row for Title Bar and Custom Close Button -->
@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="Auto" MinWidth="175" />
                 <ColumnDefinition Width="Auto" MinWidth="196.847" />
                 <ColumnDefinition />
-                <ColumnDefinition Width="Auto" MinWidth="236.317" />
+                <ColumnDefinition Width="Auto" MinWidth="361.153" />
             </Grid.ColumnDefinitions>
 
             <!-- Användarnamn -->
@@ -63,7 +63,7 @@
                         Content="Logga ut"
                         Command="{Binding LogoutCommand}"
                         Grid.Column="3"
-                        Margin="100,0,0,0"
+                        Margin="245,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Background="#1B3C51"
@@ -73,7 +73,7 @@
                         BorderThickness="0"
                         Width="96"
                         Cursor="Hand" Height="30"/>
-            <Image Source="/Views/Resources/BilverkstadLogo.png" Grid.Column="2" HorizontalAlignment="Left" Height="52" VerticalAlignment="Center" Width="112" Margin="14,0,0,0"/>
+            <Image Source="/Views/Resources/BilverkstadLogo.png" Grid.Column="2" HorizontalAlignment="Center" Height="52" VerticalAlignment="Center" Width="112"/>
         </Grid>
 
         <!-- Tab Control with Pages -->
@@ -88,7 +88,7 @@
             <TabItem Header="Kunder" Visibility="{Binding ShowWelcomeTab, Converter={StaticResource BooleanToVisibility}}">
                 <userControl:WelcomePage/>
             </TabItem>
-            
+
             <!-- Kunder Tab -->
             <TabItem Header="Kunder" Visibility="{Binding ShowKunderTab, Converter={StaticResource BooleanToVisibility}}">
                 <userControl:KundHantering/>
