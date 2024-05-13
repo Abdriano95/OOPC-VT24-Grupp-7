@@ -12,8 +12,5 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
             InitializeComponent();
         }
 
-       
-
-        //Hej abbe
     }
 }
