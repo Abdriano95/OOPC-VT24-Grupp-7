@@ -1,6 +1,7 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
+using Bilverkstad.Presentationslager.MVVM.Views.Windows;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Windows;
 using System.Windows.Input;
@@ -54,7 +55,24 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                         AnvändarNamn = anställd.Förnamn + " " + anställd.Efternamn,
                         AnställningsNummer = anställd.AnställningsNummer
                     };
-                    IsViewVisible = false;
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        foreach (Window window in Application.Current.Windows)
+                        {
+                            if (window is LoginWindow)
+                            {
+
+                                MainWindow mainWindow = new MainWindow();
+                                mainWindow.Show();
+                                window.Close();
+                                break;
+                            }
+                        }
+
+
+
+                    });
                     // Trigger the LoginSuccessful event
                     LoginSuccessful?.Invoke();
                 }
