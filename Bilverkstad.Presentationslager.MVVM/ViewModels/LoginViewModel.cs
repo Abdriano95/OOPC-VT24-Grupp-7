@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
-    public class LoginViewModel : MainViewModel
+    public class LoginViewModel : BaseViewModel
     {
         public AnställdController _anställdController = new AnställdController();
 
@@ -33,12 +33,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set { _password = value; OnPropertyChanged(nameof(Password)); }
         }
 
-        private bool _isViewVisible;
-        public bool IsViewVisible
-        {
-            get { return _isViewVisible; }
-            set { _isViewVisible = value; OnPropertyChanged(nameof(IsViewVisible)); }
-        }
+        
 
         private ICommand _loginCommand = null!;
         public ICommand LoginCommand => _loginCommand ??= _loginCommand = new RelayCommand(() =>
