@@ -1,11 +1,14 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Bilverkstad.Presentationslager.MVVM.ViewModels
@@ -14,6 +17,40 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
     {
         private KundController _kundcontroller;
         private FordonController _fordoncontroller;
+
+        private ObservableCollection<Kund> _kunder;
+
+        public ObservableCollection<Kund> Kunder
+        {
+            get { return _kunder; }
+            set
+            {
+                _kunder = value;
+                OnPropertyChanged(nameof(Kunder));
+            }
+        }
+
+        private void LoadKunder()
+        {
+            // Hämta kunder från databasen 
+            using (var dbContext = new BilverkstadContext())
+            {
+                Kunder = new ObservableCollection<Kund>(dbContext.Kund.ToList());
+            }
+        }
+
+        private Kund _valdKund;
+
+        public Kund ValdKund
+        {
+            get { return _valdKund; }
+            set
+            {
+                _valdKund = value;
+                OnPropertyChanged(nameof(ValdKund));
+            }
+        }
+
 
         private string _personnummer = "";
         public string Personnummer
@@ -98,6 +135,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         { 
             _kundcontroller = new KundController(); 
             _fordoncontroller = new FordonController();
+            LoadKunder();
         }
 
         private ICommand? _läggTillKund;
@@ -124,9 +162,22 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             };
             kund.Fordon.Add(fordon);
             _kundcontroller.AddKund(kund);
-               
+            MessageBox.Show("Kund tillagd.");
+
         });
-        public ICommand TaBortKund { get; }
+        public ICommand? _taBortKund;
+        public ICommand TaBortKundCommand => _taBortKund ??= _taBortKund = new RelayCommand(() =>
+        {
+            if (ValdKund != null)
+            {
+                
+                _kundcontroller.DeleteKund(ValdKund);
+                Kunder.Remove(ValdKund); // Ta bort kunden från ObservableCollection för att uppdatera datagriden
+                ValdKund = null; // Nollställ ValdKund efter borttagning
+                MessageBox.Show("Kund borttagen.");
+            }
+        }, () => ValdKund != null);
+    
         public ICommand UpdateKund { get; }
     }
 }

@@ -178,7 +178,7 @@
                             BorderThickness="1"
                             Cursor="Hand" Margin="1,1,0,0" Grid.Row="3"/>
 
-                    <Button Command="{Binding TaBortKund}"
+                    <Button Command="{Binding TaBortKundCommand}"
                             Content="Ta bort"
                             Grid.Column="3"
                             Background="#1B3C51"
@@ -211,6 +211,8 @@
                     <!-- Data Grid for Customers -->
                     <DataGrid Grid.Row="1" 
                           x:Name="KunderDataGrid"
+                          ItemsSource="{Binding Kunder}"
+                          SelectedItem="{Binding ValdKund, Mode=TwoWay}"
                           AutoGenerateColumns="True"
                           Style="{StaticResource DataGridStyle}"
                           BorderBrush="#D7DADD"
