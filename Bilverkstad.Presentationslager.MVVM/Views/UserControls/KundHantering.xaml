@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Transparent">
+
+    <UserControl.DataContext>
+        <vm:KundHanteringViewModel/>
+    </UserControl.DataContext>
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -46,7 +52,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Personnummer"/>
+                             Text="{Binding Personnummer, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Förnamn -->
                     <TextBox Grid.Column="1"
                              Margin="0,0,0,10"
@@ -54,7 +60,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Förnamn"/>
+                             Text="{Binding Förnamn, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Efternamn -->
                     <TextBox Grid.Column="0"
                              Grid.Row="2"
@@ -63,7 +69,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Efternamn"/>
+                             Text="{Binding Efternamn, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Gatuadress -->
                     <TextBox Grid.Column="1"
                              Grid.Row="2"
@@ -72,7 +78,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Gatuadress"/>
+                             Text="{Binding Gatuadress, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Postnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="3"
@@ -81,7 +87,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Postnummer"/>
+                             Text="{Binding Postnummer, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Ort -->
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
@@ -90,7 +96,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Ort"/>
+                             Text="{Binding Ort, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Telefonnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="4"
@@ -99,7 +105,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Telefonnummer"/>
+                             Text="{Binding Telefonnummer, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- E-post -->
                     <TextBox Grid.Column="1"
                              Grid.Row="4"
@@ -108,7 +114,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="E-post"/>
+                             Text="{Binding Epost, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Fordon -->
                     <TextBlock Grid.Column="2"
@@ -125,7 +131,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Registreringsnummer"/>
+                             Text="{Binding RegNr, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Bilmärke -->
                     <TextBox Grid.Column="2"
                              Grid.Row="3"
@@ -134,7 +140,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Bilmärke"/>
+                             Text="{Binding Bilmärke, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Modell -->
                     <TextBox Grid.Column="2"
                              Grid.Row="4"
@@ -143,10 +149,10 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Modell"/>
+                             Text="{Binding Modell, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Buttons -->
-                    <Button x:Name="LäggTill"
+                    <Button Command="{Binding LäggTillKundCommand}"
                             Content="Lägg till kund"
                             Grid.Column="3"
                             Grid.Row="2"
@@ -161,7 +167,7 @@
                     <Grid Grid.Column="3" Grid.Row="1"/>
 
                     <Button 
-                            x:Name="Ändra"
+                            Command="{Binding UpdateKund}"
                             Content="Ändra"
                             Grid.Column="3"
                             Background="#1B3C51"
@@ -172,7 +178,7 @@
                             BorderThickness="1"
                             Cursor="Hand" Margin="1,1,0,0" Grid.Row="3"/>
 
-                    <Button x:Name="TaBort"
+                    <Button Command="{Binding TaBortKund}"
                             Content="Ta bort"
                             Grid.Column="3"
                             Background="#1B3C51"
