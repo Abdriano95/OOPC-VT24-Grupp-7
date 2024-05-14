@@ -1,5 +1,4 @@
 ﻿using Bilverkstad.Affärslager;
-using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
 using System;
@@ -18,25 +17,11 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private KundController _kundcontroller;
         private FordonController _fordoncontroller;
 
-        private ObservableCollection<Kund> _kunder;
-
-        public ObservableCollection<Kund> Kunder
-        {
-            get { return _kunder; }
-            set
-            {
-                _kunder = value;
-                OnPropertyChanged(nameof(Kunder));
-            }
-        }
+        
 
         private void LoadKunder()
-        {
-            // Hämta kunder från databasen 
-            using (var dbContext = new BilverkstadContext())
-            {
-                Kunder = new ObservableCollection<Kund>(dbContext.Kund.ToList());
-            }
+        {            
+            KundData = _kundcontroller.GetKundWithFordon();     
         }
 
         private Kund _valdKund;
@@ -47,6 +32,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set
             {
                 _valdKund = value;
+                // När en kund väljs, kopiera dess attributvärden till egenskaperna
+                if (_valdKund != null)
+                {
+                    Personnummer = _valdKund.Personnummer;
+                    Förnamn = _valdKund.Förnamn;
+                    Efternamn = _valdKund.Efternamn;
+                    Gatuadress = _valdKund.Gatuadress;
+                    Postnummer = _valdKund.Postnummer;
+                    Ort = _valdKund.Ort;
+                    Telefonnummer = _valdKund.Telefonnummer;
+                    Epost = _valdKund.Epost;
+                }
                 OnPropertyChanged(nameof(ValdKund));
             }
         }
@@ -124,6 +121,14 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set => SetProperty(ref _modell, value);
         }
 
+
+        public IList<Kund> _kunddata;
+        public IList<Kund> KundData
+        {
+            get => _kunddata;
+            set => SetProperty(ref _kunddata, value);
+        }
+
         private string _sök = "";
         public string Sök
         {
@@ -153,16 +158,31 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Telefonnummer = Telefonnummer,
                 Epost = Epost
             };
-            var fordon = new Fordon();
-            fordon = new Fordon
+            var fordon = new Fordon
             {
                 RegNr = RegNr,
                 Bilmärke = Bilmärke,
-                Modell = Modell   
+                Modell = Modell
             };
+
+            // Lägg till det nya fordonet på den valda kunden
             kund.Fordon.Add(fordon);
             _kundcontroller.AddKund(kund);
+            LoadKunder();
             MessageBox.Show("Kund tillagd.");
+
+            // Nollställ textbox-värden
+            Personnummer = "";
+            Förnamn = "";
+            Efternamn = "";
+            Gatuadress = "";
+            Postnummer = "";
+            Ort = "";
+            Telefonnummer = "";
+            Epost = "";
+            RegNr = "";
+            Bilmärke = "";
+            Modell = "";
 
         });
         public ICommand? _taBortKund;
@@ -172,12 +192,77 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 
                 _kundcontroller.DeleteKund(ValdKund);
-                Kunder.Remove(ValdKund); // Ta bort kunden från ObservableCollection för att uppdatera datagriden
+                KundData.Remove(ValdKund); // Ta bort kunden från IList för att uppdatera datagriden
                 ValdKund = null; // Nollställ ValdKund efter borttagning
+                LoadKunder();
                 MessageBox.Show("Kund borttagen.");
+
+                // Nollställ textbox-värden
+                Personnummer = "";
+                Förnamn = "";
+                Efternamn = "";
+                Gatuadress = "";
+                Postnummer = "";
+                Ort = "";
+                Telefonnummer = "";
+                Epost = "";
             }
         }, () => ValdKund != null);
-    
-        public ICommand UpdateKund { get; }
+
+        public ICommand? _updateKund;
+
+        public ICommand UpdateKundCommand => _updateKund ??= _updateKund = new RelayCommand(() =>
+        {
+            if (ValdKund != null)
+            {
+                ValdKund.Personnummer = Personnummer;
+                ValdKund.Förnamn = Förnamn;
+                ValdKund.Efternamn = Efternamn;
+                ValdKund.Gatuadress = Gatuadress;
+                ValdKund.Postnummer = Postnummer;
+                ValdKund.Ort = Ort;
+                ValdKund.Telefonnummer = Telefonnummer;
+                ValdKund.Epost = Epost;
+                _kundcontroller.UpdateKund(ValdKund);
+                
+                LoadKunder();
+                MessageBox.Show("Kund uppdaterad.");
+
+                // Nollställ textbox-värden
+                Personnummer = "";
+                Förnamn = "";
+                Efternamn = "";
+                Gatuadress = "";
+                Postnummer = "";
+                Ort = "";
+                Telefonnummer = "";
+                Epost = "";
+                ValdKund = null; // Nollställ ValdKund efter borttagning
+            }
+        }, () => ValdKund != null);
+
+        public ICommand? _läggTillFordonPåKundCommand;
+
+        public ICommand LäggTillFordonPåKundCommand => _läggTillFordonPåKundCommand ??= _läggTillFordonPåKundCommand = new RelayCommand(() =>
+        {
+            if (ValdKund != null)
+            {
+                var nyttFordon = new Fordon
+                {
+                    RegNr = RegNr,
+                    Bilmärke = Bilmärke,
+                    Modell = Modell
+                };
+
+                // Lägg till det nya fordonet på den valda kunden
+                ValdKund.Fordon.Add(nyttFordon);
+
+                // Uppdatera kunden i databasen med det nya fordonet
+                _kundcontroller.AddOrUpdateKund(ValdKund);
+                LoadKunder();
+                MessageBox.Show("Fordon tillagd.");
+            }
+
+        }, () => ValdKund != null); 
     }
 }

@@ -11,7 +11,7 @@
     <UserControl.DataContext>
         <vm:KundHanteringViewModel/>
     </UserControl.DataContext>
-    
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,7 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Border Background="#5A6A75"
             CornerRadius="10"
             Padding="20"
@@ -52,7 +52,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Personnummer, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Personnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Förnamn -->
                     <TextBox Grid.Column="1"
                              Margin="0,0,0,10"
@@ -60,7 +60,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Förnamn, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Förnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Efternamn -->
                     <TextBox Grid.Column="0"
                              Grid.Row="2"
@@ -69,7 +69,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Efternamn, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Efternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Gatuadress -->
                     <TextBox Grid.Column="1"
                              Grid.Row="2"
@@ -78,7 +78,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Gatuadress, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Gatuadress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Postnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="3"
@@ -87,7 +87,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Postnummer, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Postnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Ort -->
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
@@ -96,7 +96,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Ort, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Ort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- Telefonnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="4"
@@ -105,7 +105,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Telefonnummer, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Telefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <!-- E-post -->
                     <TextBox Grid.Column="1"
                              Grid.Row="4"
@@ -114,7 +114,7 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Epost, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Epost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Fordon -->
                     <TextBlock Grid.Column="2"
@@ -163,11 +163,22 @@
                             BorderBrush="White"
                             BorderThickness="0"
                             Cursor="Hand" Margin="1,1,0,0"/>
+                    
+                    <Button Command="{Binding LäggTillFordonPåKundCommand}"
+                            Content="Lägg till fordon på kund"
+                            Grid.Column="3"
+                            Background="#1B3C51"
+                            FontSize="14"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderBrush="White"
+                            BorderThickness="0"
+                            Cursor="Hand" Margin="1,-9,0,10"/>
 
                     <Grid Grid.Column="3" Grid.Row="1"/>
 
                     <Button 
-                            Command="{Binding UpdateKund}"
+                            Command="{Binding UpdateKundCommand}"
                             Content="Ändra"
                             Grid.Column="3"
                             Background="#1B3C51"
@@ -211,9 +222,9 @@
                     <!-- Data Grid for Customers -->
                     <DataGrid Grid.Row="1" 
                           x:Name="KunderDataGrid"
-                          ItemsSource="{Binding Kunder}"
+                          ItemsSource="{Binding KundData}"
                           SelectedItem="{Binding ValdKund, Mode=TwoWay}"
-                          AutoGenerateColumns="True"
+                          AutoGenerateColumns="False"
                           Style="{StaticResource DataGridStyle}"
                           BorderBrush="#D7DADD"
                           Height="250"
@@ -221,7 +232,32 @@
                           SelectionMode="Single"
                           SelectionUnit="FullRow"
                           VerticalScrollBarVisibility="Visible"
-                          HorizontalScrollBarVisibility="Visible"/>
+                          HorizontalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kundnummer" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}" />
+                            <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" />
+                            <DataGridTextColumn Header="Personnummer" Binding="{Binding Personnummer}" />
+                            <DataGridTextColumn Header="Gatuadress" Binding="{Binding Gatuadress}" />
+                            <DataGridTextColumn Header="Postnummer" Binding="{Binding Postnummer}" />
+                            <DataGridTextColumn Header="Ort" Binding="{Binding Ort}" />
+                            <DataGridTextColumn Header="Telefonnummer" Binding="{Binding Telefonnummer}" />
+                            <DataGridTextColumn Header="Epost" Binding="{Binding Epost}" />
+                            <DataGridTemplateColumn Header="Fordon">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Fordon}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding RegNr}" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                 </Grid>
 
