@@ -1,6 +1,4 @@
 ﻿using Bilverkstad.Entitetlagret;
-using System;
-using System.Linq;
 
 namespace Bilverkstad.Datalager
 {
@@ -54,7 +52,7 @@ namespace Bilverkstad.Datalager
                     new Mekaniker { Förnamn = "Eva", Efternamn = "Lund", Specialiseringar = Specialiseringar.Dackbyte, Lösenord = "pwd67890" },
                     new Receptionist { Förnamn = "Lisa", Efternamn = "Karlsson", Lösenord = "Lösenord123", Auktoritet = Auktoritet.Admin },
                     new Receptionist { Förnamn = "Anna", Efternamn = "Nilsson", Lösenord = "jagäringenadmin", Auktoritet = Auktoritet.NotAdmin }
-                    
+
                 );
 
                 // Add spare parts

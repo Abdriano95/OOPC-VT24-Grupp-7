@@ -1,6 +1,5 @@
 ﻿using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
-using Microsoft.EntityFrameworkCore;
 
 namespace Bilverkstad.Affärslager
 {
@@ -54,7 +53,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                
+
                 if (reparation.ReparationsId == 0)
                 {
                     unitOfWork.Reparation.Add(reparation);

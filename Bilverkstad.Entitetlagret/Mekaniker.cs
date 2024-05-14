@@ -7,7 +7,7 @@ namespace Bilverkstad.Entitetlagret
         public Specialiseringar Specialiseringar { get; set; }
         public virtual ICollection<Bokning> Bokningar { get; set; } = new List<Bokning>();
 
-        [NotMapped]  
+        [NotMapped]
         public string FullständigtNamn
         {
             get { return $"{Förnamn} {Efternamn}"; }

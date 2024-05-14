@@ -70,17 +70,17 @@ namespace Bilverkstad.Affärslager
                     throw new InvalidOperationException("Fordon repository is not initialized.");
                 }
 
-                
+
                 Fordon? existingFordon = uow.Fordon.FindStringID(fordon.RegNr);
                 if (existingFordon == null)
                 {
                     throw new KeyNotFoundException("No Fordon found with the given RegNr to update.");
                 }
 
-                
+
                 existingFordon.Bilmärke = fordon.Bilmärke;
                 existingFordon.Modell = fordon.Modell;
-                existingFordon.KundId = fordon.KundId; 
+                existingFordon.KundId = fordon.KundId;
 
                 uow.Fordon.Update(existingFordon, fordon);
                 uow.SaveChanges();
@@ -94,12 +94,12 @@ namespace Bilverkstad.Affärslager
                 var existingFordon = unitOfWork.Fordon.FindStringID(fordon.RegNr);
                 if (existingFordon != null)
                 {
-                    
+
                     unitOfWork.Fordon.Update(existingFordon, fordon);
                 }
                 else
                 {
-                    
+
                     unitOfWork.Fordon.Add(fordon);
                 }
                 unitOfWork.SaveChanges();

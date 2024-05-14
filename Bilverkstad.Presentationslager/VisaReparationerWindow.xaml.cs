@@ -1,5 +1,4 @@
 ﻿using Bilverkstad.Affärslager;
-using Bilverkstad.Entitetlagret;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager

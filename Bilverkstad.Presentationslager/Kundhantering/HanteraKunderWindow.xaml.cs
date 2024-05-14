@@ -19,7 +19,7 @@ namespace Bilverkstad.Presentationslager
             VisaKunderWindow visaKunderWindow = new VisaKunderWindow();
             visaKunderWindow.Show();
         }
-       
+
 
         public void LäggTillKund_Clicked(object sender, RoutedEventArgs e)
         {

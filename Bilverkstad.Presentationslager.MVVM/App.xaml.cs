@@ -1,11 +1,10 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Presentationslager.MVVM.Services;
 using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using Bilverkstad.Presentationslager.MVVM.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using System.Configuration;
-using System.Data;
+using System;
 using System.Windows;
-using Bilverkstad.Presentationslager.MVVM.Views;
 
 namespace Bilverkstad.Presentationslager.MVVM
 {
@@ -14,21 +13,42 @@ namespace Bilverkstad.Presentationslager.MVVM
     /// </summary>
     public partial class App : Application
     {
-        //public void Application_Startup(object sender, StartupEventArgs e)
-        //{
-        //    var loginWindow = new LoginWindow();
-        //    loginWindow.Show();
-        //    loginWindow.IsVisibleChanged += (s, e) =>
-        //    {
-        //        if (!loginWindow.IsVisible && loginWindow.IsLoaded && AnvändarSession.InloggadAnvändare != null)
-        //        {
-        //            var mainWindow = new MainWindow();
-        //            mainWindow.Show();
-        //            loginWindow.Close();
-        //        }
-        //    };
-        //}
+        private IServiceProvider _serviceProvider;
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
+            ViewModelLocator.Initialize(_serviceProvider);
+
+            try
+            {
+                ShowInitialWindow();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while starting the application: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Current.Shutdown();
+            }
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IWindowService, WindowService>();
+            services.AddSingleton<AnställdController>();
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<LoginWindow>();
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<MainWindow>();
+        }
+
+        private void ShowInitialWindow()
+        {
+            var loginWindow = _serviceProvider.GetRequiredService<LoginWindow>();
+            loginWindow.Show();
+        }
     }
 
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bilverkstad.Affärslager
+﻿namespace Bilverkstad.Affärslager
 {
     public static class AnvändarSession
     {
-        public static Användare InloggadAnvändare { get; set; }
+        public static Användare? InloggadAnvändare { get; set; }
 
         public static void Logout()
         {
@@ -16,9 +10,9 @@ namespace Bilverkstad.Affärslager
         }
     }
 
-    public class Användare 
+    public class Användare
     {
-        public string AnvändarNamn { get; set; }
+        public string? AnvändarNamn { get; set; }
         public int AnställningsNummer { get; set; }
     }
 }

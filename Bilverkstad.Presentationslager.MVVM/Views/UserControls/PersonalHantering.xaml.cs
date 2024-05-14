@@ -16,8 +16,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         public PersonalHantering()
         {
             InitializeComponent();
-            LoadSampleData();
-            TypComboBox.SelectionChanged += TypComboBox_SelectionChanged;
         }
 
         private void LoadSampleData()

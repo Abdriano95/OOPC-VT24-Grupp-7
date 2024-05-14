@@ -13,7 +13,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         public KundHantering()
         {
             InitializeComponent();
-            LoadSampleData();
         }
 
         private void LoadSampleData()

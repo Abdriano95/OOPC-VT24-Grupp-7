@@ -20,8 +20,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         public BokningsHantering()
         {
             InitializeComponent();
-            LoadSampleData();
-            LoadCustomers();
         }
 
         public void LäggTillBokning_Click(object sender, RoutedEventArgs e)

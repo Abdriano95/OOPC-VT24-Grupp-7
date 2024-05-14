@@ -9,9 +9,9 @@ public class Fordon
     public string? Bilmärke { get; set; }
     public string? Modell { get; set; }
     public int KundId { get; set; }
-    public virtual Kund? Kund { get; set; } 
+    public virtual Kund? Kund { get; set; }
 
-    
+
 
     public override string ToString()
     {

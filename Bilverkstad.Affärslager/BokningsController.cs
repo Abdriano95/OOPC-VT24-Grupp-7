@@ -105,9 +105,9 @@ namespace Bilverkstad.Affärslager
             }
             catch (Exception ex)
             {
-                
-                
-                throw;  
+
+
+                throw;
             }
         }
 
@@ -175,20 +175,20 @@ namespace Bilverkstad.Affärslager
                     .Include(b => b.Reparation)
                     .Include(b => b.Receptionist)
                     .Include(b => b.Mekaniker)
-                    .ToList();  
+                    .ToList();
 
-                
+
                 return allBookings.Where(b =>
                     (b.Kund.Förnamn != null && b.Kund.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Kund.Efternamn != null && b.Kund.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Fordon.RegNr != null && b.Fordon.RegNr.ToLower().Contains(searchTerm)) ||
                     (b.SyfteMedBesök != null && b.SyfteMedBesök.ToLower().Contains(searchTerm)) ||
-                    
+
                     (b.Receptionist.Förnamn != null && b.Receptionist.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Receptionist.Efternamn != null && b.Receptionist.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Mekaniker.Förnamn != null && b.Mekaniker.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Mekaniker.Efternamn != null && b.Mekaniker.Efternamn.ToLower().Contains(searchTerm))
-                ).ToList();  
+                ).ToList();
             }
         }
 

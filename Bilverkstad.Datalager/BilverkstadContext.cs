@@ -1,5 +1,4 @@
 ﻿using Bilverkstad.Entitetlagret;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bilverkstad.Datalager
@@ -20,7 +19,7 @@ namespace Bilverkstad.Datalager
             optionsBuilder.UseSqlServer(@"Server=sqlutb2-db.hb.se,56077;Database=oopc2407;Trusted_Connection=True;User Id=oopc2407;Password=VNW786;Integrated Security=False;Encrypt=False");
             base.OnConfiguring(optionsBuilder);
         }
-        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,7 +42,7 @@ namespace Bilverkstad.Datalager
             // Configure the Bokning-Mekaniker relationship
             modelBuilder.Entity<Mekaniker>()
                 .HasMany(m => m.Bokningar)
-                .WithOne(b => b.Mekaniker) 
+                .WithOne(b => b.Mekaniker)
                 .HasForeignKey(b => b.MekanikerId)
                 .OnDelete(DeleteBehavior.NoAction);// Prevent cascading delete
 
