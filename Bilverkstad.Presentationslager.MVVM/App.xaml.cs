@@ -21,7 +21,6 @@ namespace Bilverkstad.Presentationslager.MVVM
             var services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
-            ViewModelLocator.Initialize(_serviceProvider);
 
             try
             {
