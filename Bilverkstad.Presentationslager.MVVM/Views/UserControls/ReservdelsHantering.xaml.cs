@@ -14,7 +14,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         public ReservdelsHantering()
         {
             InitializeComponent();
-            LoadSampleData();
         }
 
         private void LoadSampleData()
@@ -99,6 +98,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
             PrisTextBox.Clear();
         }
 
-       
+
     }
 }

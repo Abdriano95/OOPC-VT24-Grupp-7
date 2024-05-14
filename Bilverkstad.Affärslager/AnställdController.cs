@@ -55,7 +55,7 @@ namespace Bilverkstad.Affärslager
             {
                 var anställd = unitOfWork.Anställd.Find(anställningsNummer);
                 if (anställd != null && anställd.Lösenord == password)
-                { 
+                {
                     return true;
                 }
                 return false;
@@ -70,7 +70,7 @@ namespace Bilverkstad.Affärslager
                 {
                     return null;
                 }
-                
+
                 if (anställd is Receptionist)
                 {
                     return anställd as Receptionist;

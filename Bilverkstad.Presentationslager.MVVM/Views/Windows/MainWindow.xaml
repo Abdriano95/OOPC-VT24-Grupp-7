@@ -11,13 +11,14 @@
         Width="950"
         WindowStartupLocation="CenterScreen"
         Background="#1B3C51">
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
 
 
 

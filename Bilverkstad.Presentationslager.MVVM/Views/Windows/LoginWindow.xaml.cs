@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Bilverkstad.Presentationslager.MVVM.ViewModels;
+using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
 {
@@ -11,6 +12,5 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
         {
             InitializeComponent();
         }
-
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Presentationslager.HanteraBokningWindow;
 using System.Windows;
-using Bilverkstad.Entitetlagret;
 using System.Windows.Controls;
 
 namespace Bilverkstad.Presentationslager
@@ -33,11 +32,11 @@ namespace Bilverkstad.Presentationslager
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;  
+            Bokning selectedBooking = Bokningar.SelectedItem as Bokning;
             if (selectedBooking != null)
             {
-                ÄndraBokningWindow editWindow = new ÄndraBokningWindow(selectedBooking);  
-                editWindow.ShowDialog();  
+                ÄndraBokningWindow editWindow = new ÄndraBokningWindow(selectedBooking);
+                editWindow.ShowDialog();
                 ReloadData();  // refresh 
             }
             else
@@ -63,7 +62,7 @@ namespace Bilverkstad.Presentationslager
 
                 if (results.Count == 0)
                 {
-                    MessageBox.Show("No bookings found.");  
+                    MessageBox.Show("No bookings found.");
                 }
             }
             catch (Exception ex)
@@ -92,7 +91,7 @@ namespace Bilverkstad.Presentationslager
             }
             else
             {
-                
+
                 var allBookings = _bokningController.GetBokning();
                 Bokningar.ItemsSource = allBookings;
             }

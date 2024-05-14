@@ -6,7 +6,7 @@ namespace Bilverkstad.Entitetlagret
     {
         public Auktoritet Auktoritet { get; set; }
 
-        [NotMapped] 
+        [NotMapped]
         public string FullständigtNamn
         {
             get { return $"{Förnamn} {Efternamn}"; }

@@ -17,7 +17,7 @@ namespace Bilverkstad.Presentationslager
         }
         public void AddReservdel_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (FindName("txtPris") is TextBox txtPris)
             {
                 // Försök att konvertera texten till float
@@ -33,7 +33,7 @@ namespace Bilverkstad.Presentationslager
                 }
                 else
                 {
-                    
+
                     MessageBox.Show("Felaktigt prisformat. Vänligen ange ett giltigt tal.");
                 }
             }

@@ -22,7 +22,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             InitializeComponent();
             cmbSpecialiseringar.ItemsSource = Enum.GetValues(typeof(Specialiseringar));
             cmbSpecialiseringar.Items.Refresh();
-            cmbSpecialiseringar.DisplayMemberPath = null; 
+            cmbSpecialiseringar.DisplayMemberPath = null;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -37,8 +37,8 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                 var selectedSpecialisering = (Specialiseringar)cmbSpecialiseringar.SelectedItem;
                 var mechanics = bokningsController.GetMechanicsBySpecialisering(selectedSpecialisering);
                 cmbMekaniker.ItemsSource = mechanics;
-                cmbMekaniker.DisplayMemberPath = "FullständigtNamn";  
-                cmbMekaniker.SelectedValuePath = "AnställningsNummer";    
+                cmbMekaniker.DisplayMemberPath = "FullständigtNamn";
+                cmbMekaniker.SelectedValuePath = "AnställningsNummer";
                 cmbMekaniker.IsEnabled = mechanics.Any();
             }
         }
@@ -56,8 +56,8 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                     {
 
                         cmbFordon.ItemsSource = customerInfo.Fordon;  // Bind fordon till comboboxen
-                        cmbFordon.DisplayMemberPath = "RegNr";  
-                        cmbFordon.SelectedValuePath = "RegNr";  
+                        cmbFordon.DisplayMemberPath = "RegNr";
+                        cmbFordon.SelectedValuePath = "RegNr";
 
                     }
                     else
@@ -102,7 +102,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                         Status initialStatus = Status.Inlämnad;
 
                         Bokning nyBokning = new Bokning
-                        {                            
+                        {
                             InlämningsDatum = startDate,
                             UtlämningsDatum = endDate,
                             SyfteMedBesök = purpose,

@@ -20,7 +20,7 @@ namespace Bilverkstad.Affärslager
                 Reservdel reservdel = unitOfWork.Reservdel!.Find(Artikelnummer);
 
                 if (reservdel == null)
-                {                    
+                {
                     throw new Exception("Reservdel med angivet artikelnummer hittades inte.");
                 }
 

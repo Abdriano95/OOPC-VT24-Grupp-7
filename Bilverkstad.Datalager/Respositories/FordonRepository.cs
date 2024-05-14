@@ -18,7 +18,7 @@ namespace Bilverkstad.Datalager.Respositories
             {
                 existingFordon.Bilmärke = fordon.Bilmärke;
                 existingFordon.Modell = fordon.Modell;
-                
+
                 Update(existingFordon);
             }
             else

@@ -40,7 +40,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                
+
                 Kund kund = unitOfWork.Kund!.GetAll().Include(k => k.Fordon).FirstOrDefault(k => k.Id == id);
 
                 if (kund == null)
@@ -115,7 +115,7 @@ namespace Bilverkstad.Affärslager
                 }
                 else
                 {
-                    
+
                     unitOfWork.Kund.Update(existingKund, kund);
                 }
                 unitOfWork.SaveChanges();

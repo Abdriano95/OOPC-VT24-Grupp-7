@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -19,6 +20,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Bilverkstad.Affärslager\Bilverkstad.Affärslager.csproj" />
     <ProjectReference Include="..\Bilverkstad.Entitetlagret\Bilverkstad.Entitetlagret.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\Windows\LoginWindow.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+    <Page Update="Views\Windows\MainWindow.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>

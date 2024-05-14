@@ -11,6 +11,6 @@ namespace Bilverkstad.Entitetlagret
         public string? Namn { get; set; }
         public float Pris { get; set; }
 
-        
+
     }
 }

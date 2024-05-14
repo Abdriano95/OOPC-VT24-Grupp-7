@@ -1,6 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -36,7 +35,7 @@ namespace Bilverkstad.Presentationslager
         {
 
             ReservdelController ctrl = new ReservdelController();
-            var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex +1); // +1 för att index börjar på 0
+            var reservdelen = ctrl.GetOneReservdel(cbArtikelnummer.SelectedIndex + 1); // +1 för att index börjar på 0
             _selectedBokning = bokningscontroller.GetOneBokning(bokningsID);
 
             if (_selectedBokning != null)
@@ -46,7 +45,7 @@ namespace Bilverkstad.Presentationslager
                     Åtgärd = txtÅtgärd.Text,
                     Reparationsstatus = (Reparationsstatus)cbReparationsstatus.SelectedItem,
                     ReservdelId = reservdelen.Artikelnummer,
-                    BokningsId = _selectedBokning.Id,                   
+                    BokningsId = _selectedBokning.Id,
                 };
                 reparationcontroller.AddReparation(reparation);
                 _selectedBokning.Reparation.Add(reparation);
@@ -60,7 +59,7 @@ namespace Bilverkstad.Presentationslager
 
             }
             else
-            {                
+            {
                 MessageBox.Show("Vänligen välj en reservdelen.");
             }
 
@@ -82,14 +81,14 @@ namespace Bilverkstad.Presentationslager
         private void cbArtikelnummer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            if (cbArtikelnummer.SelectedIndex != null) 
+            if (cbArtikelnummer.SelectedIndex != null)
             {
                 ReservdelController test = new ReservdelController();
-                var selectedReservdel2 = test.GetOneReservdel(cbArtikelnummer.SelectedIndex +1);
-                
+                var selectedReservdel2 = test.GetOneReservdel(cbArtikelnummer.SelectedIndex + 1);
+
                 //Ändrade SelectedItem till SelectedIndex för att enkelt komma åt int enklare
                 if (selectedReservdel2 != null)
-                {                   
+                {
                     reservdel = selectedReservdel2;
                 }
                 else

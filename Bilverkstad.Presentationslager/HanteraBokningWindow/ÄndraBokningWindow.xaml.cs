@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
 using System.Windows;
-using Bilverkstad.Affärslager;
-using Bilverkstad.Entitetlagret; 
 
 namespace Bilverkstad.Presentationslager.HanteraBokningWindow
 {
     public partial class ÄndraBokningWindow : Window
     {
         private BokningsController bokningsController = new BokningsController();
-        private MekanikerController mekan = new MekanikerController();  
+        private MekanikerController mekan = new MekanikerController();
 
-        private Bokning _selectedBokning; 
- 
+        private Bokning _selectedBokning;
+
         public ÄndraBokningWindow(Bokning selectedBokning)
         {
             InitializeComponent();
@@ -31,11 +29,11 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             txtSyfteMedBesok.Text = bokning.SyfteMedBesök;
 
             // Hämta mekaniker
-            cmbMekaniker.ItemsSource = mekan.GetMekaniker(); 
-            cmbMekaniker.DisplayMemberPath = "FullständigtNamn"; 
-            cmbMekaniker.SelectedValuePath = "AnställningsNummer"; 
+            cmbMekaniker.ItemsSource = mekan.GetMekaniker();
+            cmbMekaniker.DisplayMemberPath = "FullständigtNamn";
+            cmbMekaniker.SelectedValuePath = "AnställningsNummer";
 
-            
+
             if (bokning.MekanikerId != null)
             {
                 var mekaniker = mekan.GetOneMekaniker(bokning.MekanikerId.Value);
@@ -50,8 +48,8 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
             cmbMekaniker.ItemsSource = mechanics;
             cmbMekaniker.DisplayMemberPath = "FullständigtNamn";
             cmbMekaniker.SelectedValuePath = "AnställningsNummer";
-            cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId; 
-            cmbMekaniker.IsEnabled = false; 
+            cmbMekaniker.SelectedValue = _selectedBokning.MekanikerId;
+            cmbMekaniker.IsEnabled = false;
         }
 
         private void ÄndraBokningButton_Click(object sender, RoutedEventArgs e)
@@ -76,7 +74,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
         private void FyllSpecBox()
         {
             cmbSpecialiseringar.ItemsSource = Enum.GetValues(typeof(Specialiseringar));
-            cmbSpecialiseringar.SelectedItem = _selectedBokning.Mekaniker?.Specialiseringar;  
+            cmbSpecialiseringar.SelectedItem = _selectedBokning.Mekaniker?.Specialiseringar;
         }
 
         private void TaBortBokningButton_Click(object sender, RoutedEventArgs e)
@@ -90,7 +88,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
                     {
                         bokningsController.DeleteBokning(_selectedBokning.Id);
                         MessageBox.Show("Bokningen är borttagen.");
-                        this.Close(); 
+                        this.Close();
                     }
                     catch (Exception ex)
                     {

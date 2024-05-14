@@ -68,12 +68,12 @@ namespace Bilverkstad.Presentationslager
             LoginWindow loginWindow = new LoginWindow();
             loginWindow.Show();
             this.Close();
-        }   
+        }
         private void ConfigureMainMenuBasedOnRole()
         {
             navigationComboBox.Items.Clear();
 
-            
+
             if (_nuvarandeAnvändare is Receptionist receptionist)
             {
                 // om receptionist är admin har de åtkomst till allt

@@ -1,5 +1,4 @@
 ﻿using Bilverkstad.Entitetlagret;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,31 +15,31 @@ public class Bokning
     public DateTime? UtlämningsDatum { get; set; }
     public string? SyfteMedBesök { get; set; }
     public Status? BokningStatus { get; set; }
-    
+
 
 
     [NotMapped]
-    public string MekanikerFullName { get; set; } 
+    public string MekanikerFullName { get; set; }
 
     [ForeignKey("KundId")]
-    public virtual Kund? Kund { get; set; } 
+    public virtual Kund? Kund { get; set; }
     [ForeignKey("FordonRegNr")]
-    public virtual Fordon? Fordon { get; set; }  
+    public virtual Fordon? Fordon { get; set; }
     [ForeignKey("ReceptionistId")]
-    public virtual Receptionist? Receptionist { get; set; }  
+    public virtual Receptionist? Receptionist { get; set; }
     [ForeignKey("MekanikerId")]
-    public virtual Mekaniker? Mekaniker { get; set; } 
-    public virtual ICollection<Reparation>? Reparation { get; set; } = new List<Reparation> ();  
+    public virtual Mekaniker? Mekaniker { get; set; }
+    public virtual ICollection<Reparation>? Reparation { get; set; } = new List<Reparation>();
 }
 
 
 
 
-    //public Bokning(int bokningsNr,Kund BokadKund)
-    //{
-    //	this.bokningsNr = bokningsNr;
-    //	this.BokadKund = BokadKund;
-    //}
+//public Bokning(int bokningsNr,Kund BokadKund)
+//{
+//	this.bokningsNr = bokningsNr;
+//	this.BokadKund = BokadKund;
+//}
 
 
 
