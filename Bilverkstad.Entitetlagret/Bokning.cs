@@ -33,16 +33,6 @@ public class Bokning
 }
 
 
-
-
-//public Bokning(int bokningsNr,Kund BokadKund)
-//{
-//	this.bokningsNr = bokningsNr;
-//	this.BokadKund = BokadKund;
-//}
-
-
-
 public enum Status
 {
     Inlämnad = 1,

@@ -22,6 +22,18 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        public List<Kund> SearchKunder(string searchText)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Kund!
+                    .GetAll()
+                    .Include(k => k.Fordon)
+                    .Where(k => k.Förnamn.Contains(searchText) || k.Personnummer.Contains(searchText) || k.Efternamn.Contains(searchText))
+                    .ToList();
+            }
+        }
+
         public IList<Kund> GetKund() // Metod för att lägga alla kunder i en lisa
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())

@@ -11,7 +11,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public AnställdController _anställdController;
+        private AnställdController _anställdController;
         private IWindowService _windowService;
 
         private string _userId = "";
