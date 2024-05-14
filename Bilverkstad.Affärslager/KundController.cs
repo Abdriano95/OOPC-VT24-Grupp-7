@@ -26,11 +26,24 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return unitOfWork.Kund!
-                    .GetAll()
-                    .Include(k => k.Fordon)
-                    .Where(k => k.Förnamn.Contains(searchText) || k.Personnummer.Contains(searchText) || k.Efternamn.Contains(searchText))
-                    .ToList();
+
+                if (!string.IsNullOrWhiteSpace(searchText)) {
+                    return unitOfWork.Kund!
+                       .GetAll()
+                       .Include(k => k.Fordon)
+                       .Where(k => k.Förnamn.Contains(searchText) || k.Efternamn.Contains(searchText) || k.Personnummer.Contains(searchText))
+                       .ToList();
+
+                }
+                else
+                {
+                    return unitOfWork.Kund!
+                       .GetAll()
+                       .Include(k => k.Fordon)
+                       .ToList();
+                }
+
+
             }
         }
 

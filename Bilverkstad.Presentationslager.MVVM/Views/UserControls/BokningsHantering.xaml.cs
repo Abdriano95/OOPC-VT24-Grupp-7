@@ -1,6 +1,4 @@
-﻿using Bilverkstad.Entitetlagret;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 
 namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
@@ -11,7 +9,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
     public partial class BokningsHantering : UserControl
     {
 
-        public string UserRole { get; set; } // Receptionist, Mechanic, Admin
         public BokningsHantering()
         {
             InitializeComponent();

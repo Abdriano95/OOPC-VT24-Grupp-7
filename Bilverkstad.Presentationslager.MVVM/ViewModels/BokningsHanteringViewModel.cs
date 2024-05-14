@@ -11,6 +11,15 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public string AnvändarNamn => AnvändarSession.InloggadAnvändare.AnvändarNamn;
         public int AnställningsNummer => AnvändarSession.InloggadAnvändare.AnställningsNummer;
 
+        private bool _isDropDownOpen;
+        public bool IsDropDownOpen
+        {
+            get => _isDropDownOpen;
+            set => SetProperty(ref _isDropDownOpen, value);
+        }
+
+        private bool _updatingFromSelection = false;
+
         private ObservableCollection<Kund> _kundSuggestions;
 
         public ObservableCollection<Kund> KundSuggestions
@@ -22,7 +31,19 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public Kund SelectedKund
         {
             get => _selectedKund;
-            set => SetProperty(ref _selectedKund, value);
+            set
+            {
+                if (SetProperty(ref _selectedKund, value) && !_updatingFromSelection)
+                {
+
+                    if (value != null)
+                    {
+                        _updatingFromSelection = true;
+                        SearchText = value.FullständigtNamn;
+                        _updatingFromSelection = false;
+                    }
+                }
+            }
         }
 
         private bool _isReceptionist;
@@ -95,9 +116,10 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             get => _searchText;
             set
             {
-                if (SetProperty(ref _searchText, value))
+                if (SetProperty(ref _searchText, value)  && !_updatingFromSelection)
                 {
                     UpdateKundSuggestions();
+                    IsDropDownOpen = !string.IsNullOrEmpty(value);
                 }
             }
         }
