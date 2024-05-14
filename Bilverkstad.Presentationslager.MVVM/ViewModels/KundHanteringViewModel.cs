@@ -251,16 +251,22 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 {
                     RegNr = RegNr,
                     Bilmärke = Bilmärke,
-                    Modell = Modell
+                    Modell = Modell,
+                    KundId = ValdKund.Id
                 };
 
+                _fordoncontroller.AddFordon(nyttFordon);
                 // Lägg till det nya fordonet på den valda kunden
                 ValdKund.Fordon.Add(nyttFordon);
 
                 // Uppdatera kunden i databasen med det nya fordonet
-                _kundcontroller.AddOrUpdateKund(ValdKund);
+                _kundcontroller.UpdateKund(ValdKund);
                 LoadKunder();
                 MessageBox.Show("Fordon tillagd.");
+            }
+            else
+            {
+                MessageBox.Show("Vänligen välj en kund innan du lägger till ett fordon.");
             }
 
         }, () => ValdKund != null); 
