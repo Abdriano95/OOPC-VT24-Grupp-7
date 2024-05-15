@@ -14,7 +14,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private KundController _kundcontroller;
         private FordonController _fordoncontroller;
 
-
+        // KONSTRUKTOR
+        public KundHanteringViewModel()
+        {
+            _kundcontroller = new KundController();
+            _fordoncontroller = new FordonController();
+            LoadKunder();
+            KundData = new ObservableCollection<Kund>(_kundcontroller.GetKundWithFordon());
+            FiltreradeKunder = CollectionViewSource.GetDefaultView(KundData);
+            FiltreradeKunder.Filter = KundFilter;
+        }
 
         private void LoadKunder()
         {
@@ -45,6 +54,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+        // PROPERTIES
 
         private string _personnummer = "";
         public string Personnummer
@@ -149,18 +159,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
-
-        // KONSTRUKTOR
-        public KundHanteringViewModel()
-        {
-            _kundcontroller = new KundController();
-            _fordoncontroller = new FordonController();
-            LoadKunder();
-            KundData = new ObservableCollection<Kund>(_kundcontroller.GetKundWithFordon());
-            FiltreradeKunder = CollectionViewSource.GetDefaultView(KundData);
-            FiltreradeKunder.Filter = KundFilter;
-        }
-
         // SÖKFUNKTION
 
         private bool KundFilter(object obj)
@@ -175,7 +173,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                        kund.Telefonnummer.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        kund.Epost.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        kund.Id.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
-                       kund.Fordon.Any(f => f.RegNr.Contains(Söktext, StringComparison.OrdinalIgnoreCase)); ;
+                       kund.Fordon.Any(f => f.RegNr.Contains(Söktext, StringComparison.OrdinalIgnoreCase)); 
             }
             
             return false;
