@@ -51,12 +51,12 @@
             <ScrollViewer Grid.Column="0"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
-                
+
                 <StackPanel Margin="0,0,10,0">
                     <!-- Reservdel Information -->
                     <GroupBox Header="Reservdel Information" Foreground="#D7DADD" Background="#1B3C51" Height="233">
                         <StackPanel Margin="10">
-                            
+
                             <TextBlock Text="Namn" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
                             <TextBox Text="{Binding Namn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Background="#1B3C51"
@@ -73,9 +73,12 @@
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <Button Content="Lägg till" Style="{StaticResource ButtonStyle}" Command="{Binding LäggTillReservdelCommand}" />
                                 <Button Content="Ändra" Style="{StaticResource ButtonStyle}" Command="{Binding UpdateReservdelCommand}"/>
-                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}" Command="{Binding TaBortReservdelCommand}"/>
+                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}" Command="{Binding TaBortReservdelCommand}" Width="84"/>
                             </StackPanel>
-                            
+                            <TextBlock Text="Sök" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Text="{Binding Söktext, UpdateSourceTrigger = PropertyChanged}"
+                                     Background="White" Width="301" Height="17"/>
+
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
