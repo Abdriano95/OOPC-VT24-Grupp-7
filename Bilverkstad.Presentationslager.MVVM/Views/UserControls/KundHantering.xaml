@@ -52,7 +52,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Personnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Personnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange personnummer (10 eller 12 siffror)"/>
                     <!-- Förnamn -->
                     <TextBox Grid.Column="1"
                              Margin="0,0,0,10"
@@ -60,7 +61,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Förnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Förnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange förnamn"/>
                     <!-- Efternamn -->
                     <TextBox Grid.Column="0"
                              Grid.Row="2"
@@ -69,7 +71,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Efternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Efternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange efternamn"/>
                     <!-- Gatuadress -->
                     <TextBox Grid.Column="1"
                              Grid.Row="2"
@@ -78,7 +81,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Gatuadress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Gatuadress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange gatuadress"/>
                     <!-- Postnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="3"
@@ -87,7 +91,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Postnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Postnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange postnummer"/>
                     <!-- Ort -->
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
@@ -96,7 +101,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Ort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Ort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange ort"/>
                     <!-- Telefonnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="4"
@@ -105,7 +111,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Telefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Telefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange telefonnummer (10 eller 12 siffror)"/>
                     <!-- E-post -->
                     <TextBox Grid.Column="1"
                              Grid.Row="4"
@@ -114,7 +121,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Epost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Epost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange epost"/>
 
                     <!-- Fordon -->
                     <TextBlock Grid.Column="2"
@@ -131,7 +139,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding RegNr, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding RegNr, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange registreringsnummer (6 tecken)"/>
                     <!-- Bilmärke -->
                     <TextBox Grid.Column="2"
                              Grid.Row="3"
@@ -140,7 +149,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Bilmärke, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Bilmärke, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange bilmärke"/>
                     <!-- Modell -->
                     <TextBox Grid.Column="2"
                              Grid.Row="4"
@@ -149,8 +159,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="{Binding Modell, UpdateSourceTrigger=PropertyChanged}"/>
-
+                             Text="{Binding Modell, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange bilmodell"/>
                     <!-- Buttons -->
                     <Button Command="{Binding LäggTillKundCommand}"
                             Content="Lägg till kund"
@@ -179,7 +189,7 @@
 
                     <Button 
                             Command="{Binding UpdateKundCommand}"
-                            Content="Ändra"
+                            Content="Ändra kund"
                             Grid.Column="3"
                             Background="#1B3C51"
                             Foreground="White"
@@ -190,7 +200,7 @@
                             Cursor="Hand" Margin="1,1,0,0" Grid.Row="3"/>
 
                     <Button Command="{Binding TaBortKundCommand}"
-                            Content="Ta bort"
+                            Content="Ta bort kund"
                             Grid.Column="3"
                             Background="#1B3C51"
                             Foreground="White"

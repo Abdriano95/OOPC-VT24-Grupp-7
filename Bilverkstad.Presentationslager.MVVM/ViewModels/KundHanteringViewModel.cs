@@ -318,12 +318,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     return;
                 }
 
-                if (IsDuplicateKund(Personnummer))
-                {
-                    MessageBox.Show("En kund med detta personnummer finns redan.");
-                    return;
-                }
-
                 if (!IsTelefonnummerValid(Telefonnummer))
                 {
                     MessageBox.Show("Telefonnumret måste vara 10 eller 12 tecken långt.");
