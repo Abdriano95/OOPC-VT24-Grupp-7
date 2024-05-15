@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
-        xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
+        xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels" d:DataContext="{d:DesignInstance Type=vm:BokningsHanteringViewModel}"
         mc:Ignorable="d"
         Title="Bilverkstadsystem"
         Height="600"
@@ -15,11 +15,6 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
-
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
-
 
 
     <Grid Margin="10">
@@ -97,7 +92,7 @@
 
             <!-- Bokning Tab -->
             <TabItem Header="Bokningar" Visibility="{Binding ShowBokningarTab, Converter={StaticResource BooleanToVisibility}}">
-                <userControl:BokningsHantering/>
+                
             </TabItem>
 
             <!-- Reservdelar Tab -->

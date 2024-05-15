@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-
+using Bilverkstad.Presentationslager.MVVM.ViewModels;
 namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
 {
     /// <summary>
@@ -10,6 +10,7 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

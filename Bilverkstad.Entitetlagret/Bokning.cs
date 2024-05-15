@@ -17,7 +17,6 @@ public class Bokning
     public Status? BokningStatus { get; set; }
 
 
-
     [NotMapped]
     public string MekanikerFullName { get; set; }
 

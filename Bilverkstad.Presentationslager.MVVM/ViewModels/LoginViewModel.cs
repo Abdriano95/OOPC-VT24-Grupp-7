@@ -50,7 +50,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private ICommand _loginCommand = null!;
         public ICommand LoginCommand => _loginCommand ??= _loginCommand = new RelayCommand(() =>
         {
-            UserId = UserId.Trim();
+            //UserId = UserId.Trim();
             if (!int.TryParse(UserId, out int id))
             {
                 _userMessageService.ShowMessage("Ogiltig användarID");
