@@ -137,8 +137,27 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        public bool IsMekanikerAvailable(int mekanikerId, DateTime inlämningsDatum, DateTime utlämningsDatum)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var bokningar = unitOfWork.Bokning.Get(b => b.MekanikerId == mekanikerId).ToList();
+                foreach (var bokning in bokningar)
+                {
+                    if (inlämningsDatum >= bokning.InlämningsDatum && inlämningsDatum <= bokning.UtlämningsDatum)
+                    {
+                        return false;
+                    }
+                    if (utlämningsDatum >= bokning.InlämningsDatum && utlämningsDatum <= bokning.UtlämningsDatum)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
 
-        public IList<Mekaniker> GetMechanicsBySpecialisering(Specialiseringar specialisering)
+        public IList<Mekaniker> GetMekanikerBySpecialisering(Specialiseringar specialisering)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
