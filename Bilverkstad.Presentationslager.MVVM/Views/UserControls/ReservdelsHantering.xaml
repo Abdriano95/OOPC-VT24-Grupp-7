@@ -2,11 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"              
+             xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
              mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Transparent">
 
-             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:ReservdelHanteringViewModel/>
+    </UserControl.DataContext>
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -46,34 +51,31 @@
             <ScrollViewer Grid.Column="0"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
+                
                 <StackPanel Margin="0,0,10,0">
                     <!-- Reservdel Information -->
-                    <GroupBox Header="Reservdel Information" Foreground="#D7DADD" Background="#1B3C51">
+                    <GroupBox Header="Reservdel Information" Foreground="#D7DADD" Background="#1B3C51" Height="233">
                         <StackPanel Margin="10">
-                            <TextBlock Text="Artikelnummer" Style="{StaticResource LabelStyle}" />
-                            <TextBox x:Name="ArtikelnummerTextBox"
-                                     Background="#1B3C51"
-                                     Foreground="White"
-                                     BorderBrush="#D7DADD" />
-
+                            
                             <TextBlock Text="Namn" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <TextBox x:Name="NamnTextBox"
+                            <TextBox Text="{Binding Namn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Background="#1B3C51"
                                      Foreground="White"
                                      BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Pris" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <TextBox x:Name="PrisTextBox"
+                            <TextBox Text="{Binding Pris, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      Background="#1B3C51"
                                      Foreground="White"
                                      BorderBrush="#D7DADD" />
 
                             <!-- Add/Edit/Delete Buttons -->
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <Button Content="Add" Style="{StaticResource ButtonStyle}" Click="AddReservdel_Click" />
-                                <Button Content="Edit/Update" Style="{StaticResource ButtonStyle}" Click="EditReservdel_Click" />
-                                <Button Content="Delete" Style="{StaticResource ButtonStyle}" Click="DeleteReservdel_Click" />
+                                <Button Content="Lägg till" Style="{StaticResource ButtonStyle}" Command="{Binding LäggTillReservdelCommand}" />
+                                <Button Content="Ändra" Style="{StaticResource ButtonStyle}"/>
+                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}"/>
                             </StackPanel>
+                            
                         </StackPanel>
                     </GroupBox>
                 </StackPanel>
@@ -83,6 +85,8 @@
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Reservdelar" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" Margin="0,0,0,10" />
                 <DataGrid x:Name="ReservdelarDataGrid"
+                          ItemsSource="{Binding ReservdelData}"
+                          SelectedItem="{Binding ValdReservdel, Mode=TwoWay}"
                           AutoGenerateColumns="True"
                           Style="{StaticResource DataGridStyle}"
                           IsReadOnly="True"
