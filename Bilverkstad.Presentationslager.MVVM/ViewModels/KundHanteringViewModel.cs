@@ -174,8 +174,10 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                        kund.Personnummer.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        kund.Telefonnummer.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        kund.Epost.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
-                       kund.Id.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase);
+                       kund.Id.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
+                       kund.Fordon.Any(f => f.RegNr.Contains(Söktext, StringComparison.OrdinalIgnoreCase)); ;
             }
+            
             return false;
         }
 
