@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-
 namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
 {
     /// <summary>

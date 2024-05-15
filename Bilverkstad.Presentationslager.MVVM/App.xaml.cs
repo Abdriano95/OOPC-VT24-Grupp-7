@@ -12,7 +12,7 @@ namespace Bilverkstad.Presentationslager.MVVM
     /// </summary>
     public partial class App : Application
     {
-        private IServiceProvider _serviceProvider;
+        private IServiceProvider? _serviceProvider;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -23,7 +23,7 @@ namespace Bilverkstad.Presentationslager.MVVM
 
             try
             {
-                ShowInitialWindow();
+                ShowInitialWindow(Get_serviceProvider());
             }
             catch (Exception ex)
             {
@@ -35,6 +35,7 @@ namespace Bilverkstad.Presentationslager.MVVM
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IWindowService, WindowService>();
+            services.AddSingleton<IUserMessageService, UserMessageService>();
             services.AddSingleton<AnställdController>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<LoginWindow>();
@@ -42,7 +43,12 @@ namespace Bilverkstad.Presentationslager.MVVM
             services.AddTransient<MainWindow>();
         }
 
-        private void ShowInitialWindow()
+        private IServiceProvider? Get_serviceProvider()
+        {
+            return _serviceProvider;
+        }
+
+        private void ShowInitialWindow(IServiceProvider? _serviceProvider)
         {
             var loginWindow = _serviceProvider.GetRequiredService<LoginWindow>();
             loginWindow.Show();

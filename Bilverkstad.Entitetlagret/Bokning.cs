@@ -17,7 +17,6 @@ public class Bokning
     public Status? BokningStatus { get; set; }
 
 
-
     [NotMapped]
     public string MekanikerFullName { get; set; }
 
@@ -31,16 +30,6 @@ public class Bokning
     public virtual Mekaniker? Mekaniker { get; set; }
     public virtual ICollection<Reparation>? Reparation { get; set; } = new List<Reparation>();
 }
-
-
-
-
-//public Bokning(int bokningsNr,Kund BokadKund)
-//{
-//	this.bokningsNr = bokningsNr;
-//	this.BokadKund = BokadKund;
-//}
-
 
 
 public enum Status

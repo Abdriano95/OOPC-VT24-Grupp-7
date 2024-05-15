@@ -44,7 +44,7 @@ namespace Bilverkstad.Presentationslager.HanteraBokningWindow
 
         private void HämtaMekanikerTillBokningen(Specialiseringar specialization)
         {
-            var mechanics = bokningsController.GetMechanicsBySpecialisering(specialization);
+            var mechanics = bokningsController.GetMekanikerBySpecialisering(specialization);
             cmbMekaniker.ItemsSource = mechanics;
             cmbMekaniker.DisplayMemberPath = "FullständigtNamn";
             cmbMekaniker.SelectedValuePath = "AnställningsNummer";

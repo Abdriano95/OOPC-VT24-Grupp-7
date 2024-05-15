@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
+        xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls" 
         xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
         mc:Ignorable="d"
-        Title="Jocke och Abbes Bilverkstad"
-        Height="600"
-        Width="950"
+        Title="Bilverkstadsystem"
+        Height="829"
+        Width="1642"
         WindowStartupLocation="CenterScreen"
         Background="#1B3C51">
 
@@ -19,7 +19,6 @@
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
-
 
 
     <Grid Margin="10">
