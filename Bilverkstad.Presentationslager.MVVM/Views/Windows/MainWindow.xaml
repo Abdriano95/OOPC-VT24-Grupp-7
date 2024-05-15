@@ -6,7 +6,7 @@
         xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
         xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
         mc:Ignorable="d"
-        Title="Jocke och Abbes Bilverkstad"
+        Title="Bilverkstadsystem"
         Height="600"
         Width="950"
         WindowStartupLocation="CenterScreen"

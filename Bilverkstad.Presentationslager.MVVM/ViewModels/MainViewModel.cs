@@ -20,14 +20,12 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public bool ShowReservdelarTab { get; set; } = true;
         public bool ShowPersonalTab { get; set; } = true;
 
-
         public MainViewModel()
         {
             _anställdController = new AnställdController();
             _windowService = new WindowService();
             DetermineVisabilityTab();
         }
-
 
         private ICommand? _logoutCommand;
         public ICommand LogoutCommand => _logoutCommand ??= new RelayCommand(() =>

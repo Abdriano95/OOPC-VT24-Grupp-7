@@ -1,4 +1,5 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Presentationslager.MVVM.Converters;
 using Bilverkstad.Presentationslager.MVVM.Services;
 using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using Bilverkstad.Presentationslager.MVVM.Views.Windows;
@@ -36,6 +37,7 @@ namespace Bilverkstad.Presentationslager.MVVM
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IWindowService, WindowService>();
+            services.AddSingleton<IUserMessageService, UserMessageService>();
             services.AddSingleton<AnställdController>();
             services.AddTransient<LoginViewModel>();
             services.AddTransient<LoginWindow>();

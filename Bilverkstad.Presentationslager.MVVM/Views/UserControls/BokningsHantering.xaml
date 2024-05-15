@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
+             xmlns:converters="clr-namespace:Bilverkstad.Presentationslager.MVVM.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xtk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
@@ -42,26 +43,26 @@
                                       IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                       ClickMode="Press"
                                       Visibility="Collapsed"/>
-                                <!-- Make the button invisible -->
+
                                 <TextBox x:Name="PART_EditableTextBox"
-                                 HorizontalAlignment="Stretch"
-                                 VerticalAlignment="Center"
-                                 Margin="3"
-                                 Focusable="True"
-                                 Background="Silver"
-                                 Foreground="{TemplateBinding Foreground}"
-                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                 Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Center"
+                                         Margin="3"
+                                         Focusable="True"
+                                         Background="Silver"
+                                         Foreground="{TemplateBinding Foreground}"
+                                         BorderBrush="{TemplateBinding BorderBrush}"
+                                         Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
                                 <Popup Name="Popup"
-                               Placement="Bottom"
-                               IsOpen="{TemplateBinding IsDropDownOpen}"
-                               AllowsTransparency="True"
-                               Focusable="False"
-                               PopupAnimation="Slide">
+                                                   Placement="Bottom"
+                                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                                   AllowsTransparency="True"
+                                                   Focusable="False"
+                                                   PopupAnimation="Slide">
                                     <Border x:Name="DropDownBorder"
-                                    Background="White"
-                                    BorderBrush="#D7DADD"
-                                    BorderThickness="1">
+                                                     Background="White"
+                                                     BorderBrush="#D7DADD"
+                                                     BorderThickness="1">
                                         <ScrollViewer Margin="4,6,4,6">
                                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                                         </ScrollViewer>
@@ -72,7 +73,11 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
+            <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter"/>
+            <converters:EmptyCollectionToBoolConverter x:Key="EmptyCollectionToBoolConverter"/>
+            <DataTemplate x:Key="EnumTemplate">
+                <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}" />
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -99,9 +104,7 @@
 
                         <StackPanel Margin="10">
                             <TextBlock Text="Sök och välj kund" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="KundComboBox"
-                                        Style="{StaticResource SearchBoxStyle}"
-                                        ItemsSource="{Binding KundSuggestions}"
+                            <ComboBox   ItemsSource="{Binding KundSuggestions}"
                                         SelectedItem="{Binding SelectedKund}"
                                         IsTextSearchEnabled="False"
                                         DisplayMemberPath="FullständigtNamn"
@@ -109,21 +112,46 @@
                                         Foreground="#1B3C51"
                                         BorderBrush="#D7DADD"
                                         IsEditable="True"
+                                        Style="{StaticResource SearchBoxStyle}"
                                         IsDropDownOpen="{Binding IsDropDownOpen}"
                                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                             </ComboBox>
 
                             <TextBlock Text="Fordon" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="CustomerVehiclesComboBox" Background="#1B3C51" Foreground="Black" BorderBrush="#D7DADD" />
+                            <ComboBox 
+                                     x:Name="KundFordonComboBox"
+                                     ItemsSource="{Binding KundFordon}"
+                                     SelectedItem="{Binding SelectedFordon}"
+                                     DisplayMemberPath="RegNr"
+                                     Background="#1B3C51" 
+                                     Foreground="Black" 
+                                     BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Syfte med besök" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <TextBox x:Name="BookingPurposeTextBox" Background="#1B3C51" Foreground="White" BorderBrush="#D7DADD" AcceptsReturn="True" Height="80" />
+                            <TextBox Text="{Binding SyfteMedBesök, UpdateSourceTrigger=PropertyChanged}" 
+                                     Background="White" 
+                                     Foreground="#1B3C51" 
+                                     BorderBrush="#D7DADD" 
+                                     AcceptsReturn="True" 
+                                     Height="80" 
+                                     ToolTip="Ange syftet med besöket"/>
 
                             <TextBlock Text="Specialisering" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="SpecializationComboBox" Background="#1B3C51" Foreground="Black" BorderBrush="#D7DADD" />
+                            <ComboBox ItemsSource="{Binding Specialiseringar}"
+                                      SelectedItem="{Binding SelectedSpecialisering}"
+                                      IsSynchronizedWithCurrentItem="True"
+                                      Background="#1B3C51" 
+                                      Foreground="Black" 
+                                      BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Välj mekaniker" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="MechanicComboBox" Background="#1B3C51" Foreground="Black" BorderBrush="#D7DADD" />
+                            <ComboBox ItemsSource="{Binding Mekanikers}"
+                                      SelectedItem="{Binding SelectedMekaniker}"
+                                      IsEnabled="{Binding Mekanikers.Count > 0}"
+                                      DisplayMemberPath="FullständigtNamn"
+                                      Background="#1B3C51" 
+                                      Foreground="Black" 
+                                      BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Inlämningsdatum" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
                             <xtk:DateTimePicker x:Name="DropOffDateTimePicker"

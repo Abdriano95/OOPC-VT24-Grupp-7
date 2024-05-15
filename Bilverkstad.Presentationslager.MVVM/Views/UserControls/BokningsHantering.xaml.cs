@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Bilverkstad.Presentationslager.MVVM.ViewModels;
+using System.Windows.Controls;
 
 
 namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
@@ -12,6 +13,7 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         public BokningsHantering()
         {
             InitializeComponent();
+            DataContext = new BokningsHanteringViewModel();
         }
 
     }

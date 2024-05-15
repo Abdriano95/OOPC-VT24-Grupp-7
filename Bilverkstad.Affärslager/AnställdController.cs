@@ -9,7 +9,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return (IList<Anställd>)unitOfWork.Anställd.GetAll().ToList();
+                return unitOfWork.Anställd.GetAll().ToList();
             }
         }
 
@@ -51,20 +51,30 @@ namespace Bilverkstad.Affärslager
 
         public bool ValideraInlogg(int anställningsNummer, string password)
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
+            try 
             {
-                var anställd = unitOfWork.Anställd.Find(anställningsNummer);
-                if (anställd != null && anställd.Lösenord == password)
+                using (UnitOfWork unitOfWork = new UnitOfWork())
                 {
-                    return true;
+                    var anställd = unitOfWork.Anställd.Find(anställningsNummer);
+                    if (anställd != null && anställd.Lösenord == password)
+                    {
+                        return true;
+                    }
                 }
-                return false;
             }
+            catch (Exception ex)
+            {
+                throw new Exception("Fel vid inloggning", ex);
+            }
+
+            return false;
         }
         public Anställd GetSubTypeAnställd(int anställningsNummer)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
+
+
                 Anställd anställd = unitOfWork.Anställd.Find(anställningsNummer);
                 if (anställd == null)
                 {

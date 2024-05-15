@@ -138,7 +138,7 @@ namespace Bilverkstad.Affärslager
         }
 
 
-        public IList<Mekaniker> GetMechanicsBySpecialisering(Specialiseringar specialisering)
+        public IList<Mekaniker> GetMekanikerBySpecialisering(Specialiseringar specialisering)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
