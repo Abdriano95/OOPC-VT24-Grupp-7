@@ -1,5 +1,4 @@
-﻿using Bilverkstad.Presentationslager.MVVM.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM.Views.Windows
 {

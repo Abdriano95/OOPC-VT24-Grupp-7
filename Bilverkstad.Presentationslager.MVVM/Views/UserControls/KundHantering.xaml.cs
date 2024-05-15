@@ -1,5 +1,4 @@
-﻿using Bilverkstad.Entitetlagret;
-using Bilverkstad.Presentationslager.MVVM.ViewModels;
+﻿using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using System.Windows.Controls;
 
 
@@ -14,6 +13,6 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         {
             InitializeComponent();
             DataContext = new KundHanteringViewModel();
-        }   
+        }
     }
 }

@@ -3,7 +3,6 @@ using Bilverkstad.Presentationslager.MVVM.Services;
 using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using Bilverkstad.Presentationslager.MVVM.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM

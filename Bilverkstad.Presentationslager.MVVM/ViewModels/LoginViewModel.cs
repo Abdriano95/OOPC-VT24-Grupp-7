@@ -2,8 +2,6 @@
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
 using Bilverkstad.Presentationslager.MVVM.Services;
-using Bilverkstad.Presentationslager.MVVM.Views.Windows;
-using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -52,7 +50,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
                     _windowService.OpenWindow("MainWindow");
                     _windowService.CloseWindow("LoginWindow");
-                    
+
                 }
                 else
                 {

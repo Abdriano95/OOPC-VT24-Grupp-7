@@ -1,13 +1,10 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Bilverkstad.Presentationslager.MVVM.ViewModels
@@ -17,11 +14,11 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private KundController _kundcontroller;
         private FordonController _fordoncontroller;
 
-        
+
 
         private void LoadKunder()
-        {            
-            KundData = _kundcontroller.GetKundWithFordon();     
+        {
+            KundData = _kundcontroller.GetKundWithFordon();
         }
 
         private Kund _valdKund;
@@ -121,6 +118,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set => SetProperty(ref _modell, value);
         }
 
+        private string _söktext;
+        public string Söktext
+        {
+            get => _söktext;
+            set
+            {
+                _söktext = value;
+                OnPropertyChanged(nameof(Söktext));
+                FiltreraKunder();
+            }
+        }
+
 
         public IList<Kund> _kunddata;
         public IList<Kund> KundData
@@ -129,23 +138,85 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set => SetProperty(ref _kunddata, value);
         }
 
-        private string _sök = "";
-        public string Sök
+        private ICollectionView _filtreradeKunder;
+        public ICollectionView FiltreradeKunder
         {
-            get => _sök;
-            set => SetProperty(ref _sök, value);
+            get => _filtreradeKunder;
+            private set
+            {
+                _filtreradeKunder = value;
+                OnPropertyChanged(nameof(FiltreradeKunder));
+            }
         }
-        
-        public KundHanteringViewModel() 
-        { 
-            _kundcontroller = new KundController(); 
+
+
+        // KONSTRUKTOR
+        public KundHanteringViewModel()
+        {
+            _kundcontroller = new KundController();
             _fordoncontroller = new FordonController();
             LoadKunder();
+            KundData = new ObservableCollection<Kund>(_kundcontroller.GetKundWithFordon());
+            FiltreradeKunder = CollectionViewSource.GetDefaultView(KundData);
+            FiltreradeKunder.Filter = KundFilter;
         }
+
+        // SÖKFUNKTION
+
+        private bool KundFilter(object obj)
+        {
+            if (obj is Kund kund)
+            {
+
+                return string.IsNullOrEmpty(Söktext) ||
+                       kund.Förnamn.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
+                       kund.Efternamn.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
+                       kund.Personnummer.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
+                       kund.Telefonnummer.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
+                       kund.Epost.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
+                       kund.Id.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase);
+            }
+            return false;
+        }
+
+        private void FiltreraKunder()
+        {
+            FiltreradeKunder.Refresh(); // Uppdatera CollectionView när söktexten ändras
+        }
+
+
+
+        // LÄGG TILL KUND MED FORDON
 
         private ICommand? _läggTillKund;
         public ICommand LäggTillKundCommand => _läggTillKund ??= _läggTillKund = new RelayCommand(() =>
         {
+
+            if (string.IsNullOrWhiteSpace(Personnummer) || string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
+            {
+                MessageBox.Show("Personnummer, förnamn och efternamn är obligatoriska fält.");
+                return;
+            }
+
+            if (!IsPersonnummerValid(Personnummer))
+            {
+                MessageBox.Show("Personnummer måste vara 10 eller 12 tecken långt.");
+                return;
+            }
+
+            if (IsDuplicateKund(Personnummer))
+            {
+                MessageBox.Show("En kund med detta personnummer finns redan.");
+                return;
+            }
+
+            if (!IsTelefonnummerValid(Telefonnummer))
+            {
+                MessageBox.Show("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                return;
+            }
+
+
             var kund = new Kund();
             kund = new Kund
             {
@@ -158,39 +229,57 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Telefonnummer = Telefonnummer,
                 Epost = Epost
             };
-            var fordon = new Fordon
+
+            if (!string.IsNullOrWhiteSpace(RegNr))
             {
-                RegNr = RegNr,
-                Bilmärke = Bilmärke,
-                Modell = Modell
-            };
+                if (!IsRegNrValid(RegNr))
+                {
+                    MessageBox.Show("Registreringsnumret måste vara 6 tecken långt.");
+                    return;
+                }
 
-            // Lägg till det nya fordonet på den valda kunden
-            kund.Fordon.Add(fordon);
-            _kundcontroller.AddKund(kund);
-            LoadKunder();
-            MessageBox.Show("Kund tillagd.");
+                if (IsDuplicateRegNr(RegNr))
+                {
+                    MessageBox.Show("Ett fordon med detta registreringsnummer finns redan.");
+                    return;
+                }
 
-            // Nollställ textbox-värden
-            Personnummer = "";
-            Förnamn = "";
-            Efternamn = "";
-            Gatuadress = "";
-            Postnummer = "";
-            Ort = "";
-            Telefonnummer = "";
-            Epost = "";
-            RegNr = "";
-            Bilmärke = "";
-            Modell = "";
+                var fordon = new Fordon
+                {
+                    RegNr = RegNr,
+                    Bilmärke = Bilmärke,
+                    Modell = Modell
+                };
 
+                // Lägg till det nya fordonet på den valda kunden
+                kund.Fordon.Add(fordon);
+                _kundcontroller.AddKund(kund);
+                LoadKunder();
+                MessageBox.Show("Kund tillagd.");
+
+                // Nollställ textbox-värden
+                Personnummer = "";
+                Förnamn = "";
+                Efternamn = "";
+                Gatuadress = "";
+                Postnummer = "";
+                Ort = "";
+                Telefonnummer = "";
+                Epost = "";
+                RegNr = "";
+                Bilmärke = "";
+                Modell = "";
+
+            }
         });
+
+        // TA BORT KUND
+
         public ICommand? _taBortKund;
         public ICommand TaBortKundCommand => _taBortKund ??= _taBortKund = new RelayCommand(() =>
         {
             if (ValdKund != null)
             {
-                
                 _kundcontroller.DeleteKund(ValdKund);
                 KundData.Remove(ValdKund); // Ta bort kunden från IList för att uppdatera datagriden
                 ValdKund = null; // Nollställ ValdKund efter borttagning
@@ -209,12 +298,38 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }, () => ValdKund != null);
 
+        // UPPDATERA KUND
+
         public ICommand? _updateKund;
 
         public ICommand UpdateKundCommand => _updateKund ??= _updateKund = new RelayCommand(() =>
         {
             if (ValdKund != null)
             {
+                if (string.IsNullOrWhiteSpace(Personnummer) || string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
+                {
+                    MessageBox.Show("Personnummer, förnamn och efternamn är obligatoriska fält.");
+                    return;
+                }
+
+                if (!IsPersonnummerValid(Personnummer))
+                {
+                    MessageBox.Show("Personnummer måste vara 10 eller 12 tecken långt.");
+                    return;
+                }
+
+                if (IsDuplicateKund(Personnummer))
+                {
+                    MessageBox.Show("En kund med detta personnummer finns redan.");
+                    return;
+                }
+
+                if (!IsTelefonnummerValid(Telefonnummer))
+                {
+                    MessageBox.Show("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                    return;
+                }
+
                 ValdKund.Personnummer = Personnummer;
                 ValdKund.Förnamn = Förnamn;
                 ValdKund.Efternamn = Efternamn;
@@ -224,7 +339,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 ValdKund.Telefonnummer = Telefonnummer;
                 ValdKund.Epost = Epost;
                 _kundcontroller.UpdateKund(ValdKund);
-                
+
                 LoadKunder();
                 MessageBox.Show("Kund uppdaterad.");
 
@@ -238,37 +353,86 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Telefonnummer = "";
                 Epost = "";
                 ValdKund = null; // Nollställ ValdKund efter borttagning
+
             }
         }, () => ValdKund != null);
+
+
+
+        // LÄGG TILL ETT NYTT FORDON PÅ KUND
 
         public ICommand? _läggTillFordonPåKundCommand;
 
         public ICommand LäggTillFordonPåKundCommand => _läggTillFordonPåKundCommand ??= _läggTillFordonPåKundCommand = new RelayCommand(() =>
         {
-            if (ValdKund != null)
-            {
-                var nyttFordon = new Fordon
-                {
-                    RegNr = RegNr,
-                    Bilmärke = Bilmärke,
-                    Modell = Modell,
-                    KundId = ValdKund.Id
-                };
-
-                _fordoncontroller.AddFordon(nyttFordon);
-                // Lägg till det nya fordonet på den valda kunden
-                ValdKund.Fordon.Add(nyttFordon);
-
-                // Uppdatera kunden i databasen med det nya fordonet
-                _kundcontroller.UpdateKund(ValdKund);
-                LoadKunder();
-                MessageBox.Show("Fordon tillagd.");
-            }
-            else
+            if (ValdKund == null)
             {
                 MessageBox.Show("Vänligen välj en kund innan du lägger till ett fordon.");
+                return;
             }
 
-        }, () => ValdKund != null); 
+            if (string.IsNullOrWhiteSpace(RegNr))
+            {
+                MessageBox.Show("Registreringsnummer är obligatoriskt.");
+                return;
+            }
+
+            if (!IsRegNrValid(RegNr))
+            {
+                MessageBox.Show("Registreringsnumret måste vara 6 tecken långt.");
+                return;
+            }
+
+            if (IsDuplicateRegNr(RegNr))
+            {
+                MessageBox.Show("Ett fordon med detta registreringsnummer finns redan.");
+                return;
+            }
+
+            var nyttFordon = new Fordon
+            {
+                RegNr = RegNr,
+                Bilmärke = Bilmärke,
+                Modell = Modell,
+                KundId = ValdKund.Id
+            };
+
+            _fordoncontroller.AddFordon(nyttFordon);
+            // Lägg till det nya fordonet på den valda kunden
+            ValdKund.Fordon.Add(nyttFordon);
+
+            // Uppdatera kunden i databasen med det nya fordonet
+            _kundcontroller.UpdateKund(ValdKund);
+            LoadKunder();
+            MessageBox.Show("Fordon tillagd.");
+
+        }, () => ValdKund != null);
+
+        // FELHANTERING 
+
+        private bool IsPersonnummerValid(string personnummer)
+        {
+            return personnummer.Length == 10 || personnummer.Length == 12;
+        }
+
+        private bool IsTelefonnummerValid(string telefonnummer)
+        {
+            return telefonnummer.Length == 10 || telefonnummer.Length == 12;
+        }
+
+        private bool IsRegNrValid(string regNr)
+        {
+            return regNr.Length == 6;
+        }
+
+        private bool IsDuplicateKund(string personnummer)
+        {
+            return KundData.Any(k => k.Personnummer == personnummer);
+        }
+
+        private bool IsDuplicateRegNr(string regNr)
+        {
+            return KundData.SelectMany(k => k.Fordon).Any(f => f.RegNr == regNr);
+        }
     }
 }

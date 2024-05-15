@@ -216,8 +216,8 @@
                              Background="White"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
-                             BorderThickness="1"
-                             Text="Sök"/>
+                             BorderThickness="1"                             
+                             Text="{Binding Söktext, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Data Grid for Customers -->
                     <DataGrid Grid.Row="1" 

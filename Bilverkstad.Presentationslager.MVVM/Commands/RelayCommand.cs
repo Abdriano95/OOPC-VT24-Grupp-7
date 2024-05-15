@@ -32,7 +32,7 @@ namespace Bilverkstad.Presentationslager.MVVM.Commands
         public override void Execute(object? parameter)
         {
             //Safe cast
-            T? typedParameter = default(T); 
+            T? typedParameter = default(T);
             if (parameter is T)
             {
                 typedParameter = (T)parameter;
@@ -43,7 +43,7 @@ namespace Bilverkstad.Presentationslager.MVVM.Commands
         public override bool CanExecute(object? parameter)
         {
             // Safe cast
-            T? typedParameter = default(T); 
+            T? typedParameter = default(T);
             if (parameter is T)
             {
                 typedParameter = (T)parameter;
