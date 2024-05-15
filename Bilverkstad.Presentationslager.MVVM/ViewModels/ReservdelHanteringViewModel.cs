@@ -24,6 +24,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         }
 
         // PROPERTIES
+        // test
 
         private string _namn = "";
         public string Namn
