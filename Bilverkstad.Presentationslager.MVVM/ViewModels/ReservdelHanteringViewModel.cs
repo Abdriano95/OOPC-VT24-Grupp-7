@@ -146,33 +146,64 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             Pris = 0;
         });
 
+
         // TA BORT RESERVDEL
 
         public ICommand? _taBortReservdel;
         public ICommand TaBortReservdelCommand => _taBortReservdel ??= _taBortReservdel = new RelayCommand(() =>
         {
-            //    if (ValdKund != null)
-            //    {
-            //        _kundcontroller.DeleteKund(ValdKund);
-            //        KundData.Remove(ValdKund); // Ta bort kunden från IList för att uppdatera datagriden
-            //        ValdKund = null; // Nollställ ValdKund efter borttagning
-            //        LoadKunder();
-            //        MessageBox.Show("Kund borttagen.");
+            if (ValdReservdel != null)
+            {
+                _reservdelcontroller.DeleteReservdel(ValdReservdel);
+                ReservdelData.Remove(ValdReservdel); // Ta bort reservdelen från IList för att uppdatera datagriden
+                ValdReservdel = null; // Nollställ ValdReservdel efter borttagning
+                LoadReservdelar();
+                MessageBox.Show("Reservdel borttagen.");
 
-            //        // Nollställ textbox-värden
-            //        Personnummer = "";
-            //        Förnamn = "";
-            //        Efternamn = "";
-            //        Gatuadress = "";
-            //        Postnummer = "";
-            //        Ort = "";
-            //        Telefonnummer = "";
-            //        Epost = "";
-            //    }
-            //}, () => ValdKund != null);
-        });
+                // Nollställ textbox-värden
+                Namn = "";
+                Pris = 0;
+                
+            }
+        }, () => ValdReservdel != null);
 
-        //haha
+
+        // UPPDATERA RESERVDEL
+
+        public ICommand? _updateReservdel;
+
+        public ICommand UpdateReservdelCommand => _updateReservdel ??= _updateReservdel = new RelayCommand(() =>
+        {
+            if (ValdReservdel != null)
+            {
+                if (string.IsNullOrWhiteSpace(Namn))
+                {
+                    MessageBox.Show("Namn och pris är obligatoriska fält.");
+                    return;
+                }
+                if (Pris == 0 || float.IsNegative(Pris))
+                {
+                    MessageBox.Show("Pris måste vara ett positivt värde.");
+                    return;
+                }
+
+                ValdReservdel.Namn = Namn;
+                ValdReservdel.Pris = Pris;
+                
+                _reservdelcontroller.UpdateReservdel(ValdReservdel);
+
+                LoadReservdelar();
+                MessageBox.Show("Reservdel uppdaterad.");
+
+                // Nollställ textbox-värden
+                Namn = "";
+                Pris = 0;
+                
+                ValdReservdel = null; // Nollställ ValdReservdel efter borttagning
+
+            }
+        }, () => ValdReservdel != null);
+
         // FELHANTERING 
 
         private bool IsDuplicateReservdel(string namn)
