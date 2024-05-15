@@ -171,6 +171,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             //}, () => ValdKund != null);
         });
 
+        //haha
         // FELHANTERING 
 
         private bool IsDuplicateReservdel(string namn)
