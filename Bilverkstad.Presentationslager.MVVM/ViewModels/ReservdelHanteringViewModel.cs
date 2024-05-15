@@ -131,6 +131,17 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 
             };
 
+            if (string.IsNullOrWhiteSpace(Namn))
+            {
+                MessageBox.Show("Namn och pris är obligatoriska fält.");
+                return;
+            }
+            if (Pris == 0 || float.IsNegative(Pris))
+            {
+                MessageBox.Show("Pris måste vara ett positivt värde.");
+                return;
+            }
+
             if (IsDuplicateReservdel(Namn))
             {
                 MessageBox.Show("En reservdel med detta namn finns redan.");
@@ -186,8 +197,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     MessageBox.Show("Pris måste vara ett positivt värde.");
                     return;
                 }
+                
 
-                ValdReservdel.Namn = Namn;
+                ValdReservdel.Namn = Namn.ToLower();
                 ValdReservdel.Pris = Pris;
                 
                 _reservdelcontroller.UpdateReservdel(ValdReservdel);
@@ -208,7 +220,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         private bool IsDuplicateReservdel(string namn)
         {
-            return ReservdelData.Any(r => r.Namn == namn);
+            return ReservdelData.Any(r => r.Namn.ToLower() == namn);
         }
 
     }

@@ -426,7 +426,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         private bool IsDuplicateRegNr(string regNr)
         {
-            return KundData.SelectMany(k => k.Fordon).Any(f => f.RegNr == regNr);
+            return KundData.SelectMany(k => k.Fordon).Any(f => f.RegNr.ToLower() == regNr);
         }
     }
 }
