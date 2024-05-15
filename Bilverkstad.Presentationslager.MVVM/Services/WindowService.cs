@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM.Services
 {

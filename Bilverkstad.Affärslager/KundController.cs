@@ -27,7 +27,8 @@ namespace Bilverkstad.Affärslager
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
 
-                if (!string.IsNullOrWhiteSpace(searchText)) {
+                if (!string.IsNullOrWhiteSpace(searchText))
+                {
                     return unitOfWork.Kund!
                        .GetAll()
                        .Include(k => k.Fordon)

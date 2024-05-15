@@ -10,7 +10,7 @@ namespace Bilverkstad.Presentationslager.MVVM.Converters
         {
             if (value is ICollection collection)
             {
-                return collection.Count > 0; 
+                return collection.Count > 0;
             }
             return false;
         }

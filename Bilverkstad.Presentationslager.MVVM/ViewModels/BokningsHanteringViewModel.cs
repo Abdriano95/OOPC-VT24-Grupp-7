@@ -9,13 +9,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
     public class BokningsHanteringViewModel : BaseViewModel
     {
+        // Service och kontrollers för bokningshantering/reparation
         private readonly AnställdController _anställdController;
         private readonly KundController _kundController;
         private readonly BokningsController _bokningsController;
         private readonly IUserMessageService _messageService;
-        public string AnvändarNamn => AnvändarSession.InloggadAnvändare.AnvändarNamn;
-        public int AnställningsNummer => AnvändarSession.InloggadAnvändare.AnställningsNummer;
 
+        // Konstruktor
         public BokningsHanteringViewModel()
         {
             _messageService = new UserMessageService();
@@ -23,28 +23,79 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             _kundController = new KundController();
             _bokningsController = new BokningsController();
             KundSuggestions = new ObservableCollection<Kund>();
+            Bokningar = new ObservableCollection<Bokning>();
             Mekanikers = new ObservableCollection<Mekaniker>();
             Specialiseringar = new ObservableCollection<Specialiseringar>(Enum.GetValues(typeof(Specialiseringar)).Cast<Specialiseringar>());
+            LoadBokningarForReceptionist();
             DetermineUserType();
         }
+        // Properties för Användare och visar relvanta GroupBoxar för användaren (Mekaniker får en vy, Receptionist får en annan)
+        public string AnvändarNamn => AnvändarSession.InloggadAnvändare.AnvändarNamn;
+        public int AnställningsNummer => AnvändarSession.InloggadAnvändare.AnställningsNummer;
 
+        Anställd _nuvarandeAnvändare = new Anställd();
+
+        private bool _isReceptionist;
+        public bool IsReceptionist
+        {
+            get => _isReceptionist;
+            set => SetProperty(ref _isReceptionist, value);
+        }
+
+        private bool _isMekaniker;
+        public bool IsMekaniker
+        {
+            get => _isMekaniker;
+            set => SetProperty(ref _isMekaniker, value);
+        }
+        // Properties - För sökfält och dropdown för kunder
         private bool _isDropDownOpen;
         public bool IsDropDownOpen
         {
             get => _isDropDownOpen;
             set => SetProperty(ref _isDropDownOpen, value);
         }
-
         private bool _updatingFromSelection = false;
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                if (SetProperty(ref _searchText, value))
+                {
+                    if (!_updatingFromSelection) // Only update suggestions and check text if not updating from selection
+                    {
+                        UpdateKundSuggestions(); // Refreshes the customers list shown in the dropdown
+                        IsDropDownOpen = !string.IsNullOrEmpty(value);
+                        CheckAndResetSearchText(value);
+                    }
+                }
+            }
+        }
+        // Collections
+        private ObservableCollection<Bokning> _bokningar;
+        public ObservableCollection<Bokning> Bokningar
+        {
+            get => _bokningar;
+            set => SetProperty(ref _bokningar, value);
+        }
 
         private ObservableCollection<Kund> _kundSuggestions;
-
         public ObservableCollection<Kund> KundSuggestions
         {
             get => _kundSuggestions;
             private set => SetProperty(ref _kundSuggestions, value);
         }
-
+        private ObservableCollection<Mekaniker> _mekanikers;
+        public ObservableCollection<Mekaniker> Mekanikers
+        {
+            get => _mekanikers;
+            set => SetProperty(ref _mekanikers, value);
+        }
+        private ObservableCollection<Fordon> _kundFordon;
+        public ObservableCollection<Specialiseringar> Specialiseringar { get; private set; }
+        // Properties för valda objekt
         private Kund _selectedKund;
         public Kund SelectedKund
         {
@@ -67,29 +118,54 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 }
             }
         }
+        public List<string> BokningStatusar => Enum.GetNames(typeof(Status)).ToList();
 
-        private bool _isReceptionist;
-        public bool IsReceptionist
+        private Specialiseringar _selectedSpecialisering;
+        public Specialiseringar SelectedSpecialisering
         {
-            get => _isReceptionist;
-            set => SetProperty(ref _isReceptionist, value);
+            get => _selectedSpecialisering;
+            set
+            {
+                if (SetProperty(ref _selectedSpecialisering, value))
+                {
+                    LoadMekanikerForSpecialisering();
+                }
+            }
+        }
+        private Mekaniker _selectedMekaniker;
+        public Mekaniker SelectedMekaniker
+        {
+            get => _selectedMekaniker;
+            set => SetProperty(ref _selectedMekaniker, value);
         }
 
-        private bool _isMekaniker;
-        public bool IsMekaniker
+        private Bokning _selectedBokningForReceptionist;
+        public Bokning SelectedBokningForReceptionist
         {
-            get => _isMekaniker;
-            set => SetProperty(ref _isMekaniker, value);
+            get => _selectedBokningForReceptionist;
+            set
+            {
+                if (SetProperty(ref _selectedBokningForReceptionist, value))
+                {
+                    if (value != null)
+                    {
+                        _nuvarandeAnvändare = value.Receptionist;
+                        SelectedKund = value.Kund;
+                        SelectedFordon = value.Fordon;
+                        SelectedMekaniker = value.Mekaniker;
+                        InlämningsDatum = value.InlämningsDatum;
+                        UtlämningsDatum = value.UtlämningsDatum;
+                        SelectedSpecialisering = value.Mekaniker.Specialiseringar;
+                        SelectedSyfteMedBesök = value.SyfteMedBesök;
+                        SelectedBokningStatus = (Status)value.BokningStatus;
+                    }
+                }
+            }
         }
 
-        private int _kundId;
-        public int KundId
-        {
-            get => _kundId;
-            set => SetProperty(ref _kundId, value);
-        }
 
-        private ObservableCollection<Fordon> _kundFordon;
+
+        // Properties för bokning
         public ObservableCollection<Fordon> KundFordon
         {
             get => _kundFordon;
@@ -97,29 +173,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         }
 
 
-        private string _selectedFordon;
-        public string SelectedFordon
+
+        private Fordon _selectedFordon;
+        public Fordon SelectedFordon
         {
             get => _selectedFordon;
             set => SetProperty(ref _selectedFordon, value);
         }
 
-        private int _receptionistId;
-        public int ReceptionistId
-        {
-            get => _receptionistId;
-            set => SetProperty(ref _receptionistId, value);
-        }
 
-        private int? _mekanikerId;
-        public int? MekanikerId
-        {
-            get => _mekanikerId;
-            set => SetProperty(ref _mekanikerId, value);
-        }
 
-        private DateTime _inlämningsDatum;
-        public DateTime InlämningsDatum
+        private DateTime? _inlämningsDatum;
+        public DateTime? InlämningsDatum
         {
             get => _inlämningsDatum;
             set => SetProperty(ref _inlämningsDatum, value);
@@ -133,37 +198,75 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set => SetProperty(ref _utlämningsDatum, value);
         }
 
-        private string _syfteMedBesök;
-        public string SyfteMedBesök
+        private string _SelectedSyfteMedBesök;
+        public string SelectedSyfteMedBesök
         {
-            get => _syfteMedBesök;
+            get => _SelectedSyfteMedBesök;
+            set => SetProperty(ref _SelectedSyfteMedBesök, value);
+
+        }
+        private Status _selectedBokningStatus;
+        public Status SelectedBokningStatus
+        {
+            get => _selectedBokningStatus;
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) 
+                if (_selectedBokningStatus != value)
                 {
-                    _messageService.ShowMessage("Syftet med besöket kan inte vara tomt."); 
-                    return; 
+                    _selectedBokningStatus = value;
+                    OnPropertyChanged(nameof(SelectedBokningStatus));
                 }
-
-                SetProperty(ref _syfteMedBesök, value);
             }
         }
+        //ADD Commands
 
-        public ObservableCollection<Specialiseringar> Specialiseringar { get; private set; }
-
-        private Specialiseringar _selectedSpecialisering;
-        public Specialiseringar SelectedSpecialisering
+        private ICommand _addBokningCommand = null!;
+        public ICommand AddBokningCommand => _addBokningCommand ??= _addBokningCommand = new RelayCommand(() =>
         {
-            get => _selectedSpecialisering;
-            set 
+            if (SelectedKund == null || SelectedFordon == null || SelectedMekaniker == null ||
+                string.IsNullOrWhiteSpace(SelectedSyfteMedBesök) || InlämningsDatum == null || UtlämningsDatum == null)
             {
-                if (SetProperty(ref _selectedSpecialisering, value))
-                {
-                    LoadMekanikerForSpecialisering();
-                }
+                _messageService.ShowMessage("Alla fält måste vara i fyllda för att skapa en bokning.");
+                return;
             }
-        }
 
+            if (InlämningsDatum < DateTime.Today)
+            {
+                _messageService.ShowMessage("Du kan inte skapa en bokning i tidigare datum än idag.");
+                return;
+            }
+
+            Bokning nyBokning = new Bokning
+            {
+
+                KundId = SelectedKund.Id,
+                FordonRegNr = SelectedFordon.RegNr,
+                ReceptionistId = AnställningsNummer,
+                MekanikerId = SelectedMekaniker?.AnställningsNummer,
+                InlämningsDatum = InlämningsDatum ?? DateTime.Now,
+                UtlämningsDatum = UtlämningsDatum,
+                SyfteMedBesök = SelectedSyfteMedBesök,
+                BokningStatus = SelectedBokningStatus,
+            };
+            _bokningsController.AddBokning(nyBokning);
+            LoadBokningarForReceptionist();
+            _messageService.ShowMessage("Bokningen är skapad.");
+        });
+
+        private RelayCommand refreshFieldsCommand;
+        public ICommand RefreshFieldsCommand => refreshFieldsCommand ??= new RelayCommand(RefreshFields);
+
+        private void RefreshFields()
+        {
+            SelectedKund = null;
+            SelectedFordon = null;
+            SelectedMekaniker = null;
+            InlämningsDatum = null;
+            UtlämningsDatum = null;
+            SelectedSyfteMedBesök = string.Empty;
+            SelectedBokningStatus = Status.Inlämnad;
+        }
+        // Metoder för att uppdatera, hämta data och validera om användaren är mekaniker eller receptionist
         private void LoadMekanikerForSpecialisering()
         {
             Mekanikers.Clear();
@@ -177,39 +280,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
-
-        private ObservableCollection<Mekaniker> _mekanikers;
-        public ObservableCollection<Mekaniker> Mekanikers
+        private void LoadBokningarForReceptionist()
         {
-            get => _mekanikers;
-            set => SetProperty(ref _mekanikers, value);
-        }
 
-
-        private Mekaniker _selectedMekaniker;
-        public Mekaniker SelectedMekaniker
-        {
-            get => _selectedMekaniker;
-            set => SetProperty(ref _selectedMekaniker, value);
-        }
-
-        private string _searchText;
-        public string SearchText
-        {
-            get => _searchText;
-            set
+            Bokningar.Clear();
+            var bookings = _bokningsController.GetBokning();
+            foreach (var booking in bookings)
             {
-                if (SetProperty(ref _searchText, value))
-                {
-                    if (!_updatingFromSelection) // Only update suggestions and check text if not updating from selection
-                    {
-                        UpdateKundSuggestions(); // Refreshes the customers list shown in the dropdown
-                        IsDropDownOpen = !string.IsNullOrEmpty(value);
-                        CheckAndResetSearchText(value);
-                    }
-                }
+                Bokningar.Add(booking);
             }
+
         }
+
 
         private void CheckAndResetSearchText(string newText)
         {
@@ -227,9 +309,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 }
             }
         }
-
-
-       
 
         private void UpdateKundSuggestions()
         {
@@ -259,7 +338,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         public void DetermineUserType()
         {
-            Anställd _nuvarandeAnvändare = new Anställd();
             _nuvarandeAnvändare = _anställdController.GetSubTypeAnställd(AnställningsNummer);
 
             if (_nuvarandeAnvändare is Receptionist receptionist)
@@ -282,8 +360,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 IsReceptionist = false;
             }
         }
-        }
-
 
     }
-
+}

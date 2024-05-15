@@ -51,7 +51,7 @@ namespace Bilverkstad.Affärslager
 
         public bool ValideraInlogg(int anställningsNummer, string password)
         {
-            try 
+            try
             {
                 using (UnitOfWork unitOfWork = new UnitOfWork())
                 {
