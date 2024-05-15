@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Transparent">
+
+    <UserControl.DataContext>
+        <vm:KundHanteringViewModel/>
+    </UserControl.DataContext>
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,7 +19,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Border Background="#5A6A75"
             CornerRadius="10"
             Padding="20"
@@ -47,7 +53,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Personnummer"/>
+                             Text="{Binding Personnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange personnummer (10 eller 12 siffror)"/>
                     <!-- Förnamn -->
                     <TextBox Grid.Column="1"
                              Margin="0,0,0,10"
@@ -55,7 +62,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Förnamn"/>
+                             Text="{Binding Förnamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange förnamn"/>
                     <!-- Efternamn -->
                     <TextBox Grid.Column="0"
                              Grid.Row="2"
@@ -64,7 +72,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Efternamn"/>
+                             Text="{Binding Efternamn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange efternamn"/>
                     <!-- Gatuadress -->
                     <TextBox Grid.Column="1"
                              Grid.Row="2"
@@ -73,7 +82,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Gatuadress"/>
+                             Text="{Binding Gatuadress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange gatuadress"/>
                     <!-- Postnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="3"
@@ -82,7 +92,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Postnummer"/>
+                             Text="{Binding Postnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange postnummer"/>
                     <!-- Ort -->
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
@@ -91,7 +102,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Ort"/>
+                             Text="{Binding Ort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange ort"/>
                     <!-- Telefonnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="4"
@@ -100,7 +112,8 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Telefonnummer"/>
+                             Text="{Binding Telefonnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange telefonnummer (10 eller 12 siffror)"/>
                     <!-- E-post -->
                     <TextBox Grid.Column="1"
                              Grid.Row="4"
@@ -109,45 +122,48 @@
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="E-post"/>
+                             Text="{Binding Epost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange epost"/>
 
                     <!-- Fordon -->
                     <TextBlock Grid.Column="2"
                            Text="Fordonsinformation"
                            TextAlignment="Center"
-                           Margin="0,0,10,10"
+                           Margin="52,0,0,10"
                            FontWeight="Bold"
                            Foreground="#1B3C51"/>
                     <!-- Registreringsnummer -->
                     <TextBox Grid.Column="2"
                              Grid.Row="2"
-                             Margin="0,0,0,10"
+                             Margin="52,0,0,10"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Registreringsnummer"/>
+                             Text="{Binding RegNr, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange registreringsnummer (6 tecken)"/>
                     <!-- Bilmärke -->
                     <TextBox Grid.Column="2"
                              Grid.Row="3"
-                             Margin="0,0,0,10"
+                             Margin="52,0,0,10"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Bilmärke"/>
+                             Text="{Binding Bilmärke, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange bilmärke"/>
                     <!-- Modell -->
                     <TextBox Grid.Column="2"
                              Grid.Row="4"
-                             Margin="0,0,0,10"
+                             Margin="52,0,0,10"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
-                             Text="Modell"/>
-
+                             Text="{Binding Modell, UpdateSourceTrigger=PropertyChanged}"
+                             ToolTip="Ange bilmodell"/>
                     <!-- Buttons -->
-                    <Button x:Name="LäggTill"
+                    <Button Command="{Binding LäggTillKundCommand}"
                             Content="Lägg till kund"
                             Grid.Column="3"
                             Grid.Row="2"
@@ -157,13 +173,24 @@
                             FontWeight="Bold"
                             BorderBrush="White"
                             BorderThickness="0"
-                            Cursor="Hand" Margin="1,1,0,0"/>
+                            Cursor="Hand" Margin="20,1,0,28" Grid.RowSpan="2"/>
+
+                    <Button Command="{Binding LäggTillFordonPåKundCommand}"
+                            Content="Lägg till fordon på kund"
+                            Grid.Column="3"
+                            Background="#1B3C51"
+                            FontSize="14"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            BorderBrush="White"
+                            BorderThickness="0"
+                            Cursor="Hand" Margin="20,0,0,1"/>
 
                     <Grid Grid.Column="3" Grid.Row="1"/>
 
                     <Button 
-                            x:Name="Ändra"
-                            Content="Ändra"
+                            Command="{Binding UpdateKundCommand}"
+                            Content="Ändra kund"
                             Grid.Column="3"
                             Background="#1B3C51"
                             Foreground="White"
@@ -171,10 +198,10 @@
                             FontSize="14"
                             BorderBrush="#1B3C51"
                             BorderThickness="1"
-                            Cursor="Hand" Margin="1,1,0,0" Grid.Row="3"/>
+                            Cursor="Hand" Margin="20,1,0,28" Grid.Row="3" Grid.RowSpan="2"/>
 
-                    <Button x:Name="TaBort"
-                            Content="Ta bort"
+                    <Button Command="{Binding TaBortKundCommand}"
+                            Content="Ta bort kund"
                             Grid.Column="3"
                             Background="#1B3C51"
                             Foreground="White"
@@ -183,7 +210,7 @@
                             BorderBrush="#1B3C51"
                             BorderThickness="1"
                             Cursor="Hand" 
-                            Margin="1,1,0,0" 
+                            Margin="20,1,0,0" 
                             Grid.Row="4"
                             />
                 </Grid>
@@ -200,13 +227,15 @@
                              Background="White"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
-                             BorderThickness="1"
-                             Text="Sök"/>
+                             BorderThickness="1"                             
+                             Text="{Binding Söktext, UpdateSourceTrigger=PropertyChanged}"/>
 
                     <!-- Data Grid for Customers -->
                     <DataGrid Grid.Row="1" 
                           x:Name="KunderDataGrid"
-                          AutoGenerateColumns="True"
+                          ItemsSource="{Binding KundData}"
+                          SelectedItem="{Binding ValdKund, Mode=TwoWay}"
+                          AutoGenerateColumns="False"
                           Style="{StaticResource DataGridStyle}"
                           BorderBrush="#D7DADD"
                           Height="250"
@@ -214,7 +243,32 @@
                           SelectionMode="Single"
                           SelectionUnit="FullRow"
                           VerticalScrollBarVisibility="Visible"
-                          HorizontalScrollBarVisibility="Visible"/>
+                          HorizontalScrollBarVisibility="Visible">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Kundnummer" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}" />
+                            <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}" />
+                            <DataGridTextColumn Header="Personnummer" Binding="{Binding Personnummer}" />
+                            <DataGridTextColumn Header="Gatuadress" Binding="{Binding Gatuadress}" />
+                            <DataGridTextColumn Header="Postnummer" Binding="{Binding Postnummer}" />
+                            <DataGridTextColumn Header="Ort" Binding="{Binding Ort}" />
+                            <DataGridTextColumn Header="Telefonnummer" Binding="{Binding Telefonnummer}" />
+                            <DataGridTextColumn Header="Epost" Binding="{Binding Epost}" />
+                            <DataGridTemplateColumn Header="Fordon">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Fordon}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding RegNr}" />
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                 </Grid>
 
