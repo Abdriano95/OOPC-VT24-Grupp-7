@@ -128,13 +128,13 @@
                     <TextBlock Grid.Column="2"
                            Text="Fordonsinformation"
                            TextAlignment="Center"
-                           Margin="0,0,10,10"
+                           Margin="52,0,0,10"
                            FontWeight="Bold"
                            Foreground="#1B3C51"/>
                     <!-- Registreringsnummer -->
                     <TextBox Grid.Column="2"
                              Grid.Row="2"
-                             Margin="0,0,0,10"
+                             Margin="52,0,0,10"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -144,7 +144,7 @@
                     <!-- Bilmärke -->
                     <TextBox Grid.Column="2"
                              Grid.Row="3"
-                             Margin="0,0,0,10"
+                             Margin="52,0,0,10"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -154,7 +154,7 @@
                     <!-- Modell -->
                     <TextBox Grid.Column="2"
                              Grid.Row="4"
-                             Margin="0,0,0,10"
+                             Margin="52,0,0,10"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -172,8 +172,8 @@
                             FontWeight="Bold"
                             BorderBrush="White"
                             BorderThickness="0"
-                            Cursor="Hand" Margin="1,1,0,0"/>
-                    
+                            Cursor="Hand" Margin="20,1,0,28" Grid.RowSpan="2"/>
+
                     <Button Command="{Binding LäggTillFordonPåKundCommand}"
                             Content="Lägg till fordon på kund"
                             Grid.Column="3"
@@ -183,7 +183,7 @@
                             FontWeight="Bold"
                             BorderBrush="White"
                             BorderThickness="0"
-                            Cursor="Hand" Margin="1,-9,0,10"/>
+                            Cursor="Hand" Margin="20,0,0,1"/>
 
                     <Grid Grid.Column="3" Grid.Row="1"/>
 
@@ -197,7 +197,7 @@
                             FontSize="14"
                             BorderBrush="#1B3C51"
                             BorderThickness="1"
-                            Cursor="Hand" Margin="1,1,0,0" Grid.Row="3"/>
+                            Cursor="Hand" Margin="20,1,0,28" Grid.Row="3" Grid.RowSpan="2"/>
 
                     <Button Command="{Binding TaBortKundCommand}"
                             Content="Ta bort kund"
@@ -209,7 +209,7 @@
                             BorderBrush="#1B3C51"
                             BorderThickness="1"
                             Cursor="Hand" 
-                            Margin="1,1,0,0" 
+                            Margin="20,1,0,0" 
                             Grid.Row="4"
                             />
                 </Grid>
