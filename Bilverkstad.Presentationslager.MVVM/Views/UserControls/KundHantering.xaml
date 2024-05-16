@@ -214,14 +214,14 @@
                             Grid.Row="4"
                             />
 
-                    <TextBlock HorizontalAlignment="Left" Margin="0,27,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Postnummer" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,27,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Ort" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold"/>
-                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="52,2,0,0" TextWrapping="Wrap" Text="Registreringsnummer*" VerticalAlignment="Top" Height="18" Grid.ColumnSpan="2" FontWeight="Bold"/>
-                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="52,20,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Modell" VerticalAlignment="Top" Height="16" Grid.RowSpan="2" FontWeight="Bold"/>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"><Run Language="sv-se" Text="Epost"/></TextBlock>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="3" FontWeight="Bold"><Run Language="sv-se" Text="Gatuadress"/></TextBlock>
-                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,-16,0,0" TextWrapping="Wrap" Text="Förnamn*" VerticalAlignment="Top" FontWeight="Bold"/>
-                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Grid.Column="2" Grid.Row="2" Margin="52,12,0,0" Grid.RowSpan="2" FontWeight="Bold"><Run Language="sv-se" Text="Bilmärke"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,27,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Postnummer" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,27,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Ort" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="52,2,0,0" TextWrapping="Wrap" Text="Registreringsnummer*" VerticalAlignment="Top" Height="18" Grid.ColumnSpan="2" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="52,20,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Modell" VerticalAlignment="Top" Height="16" Grid.RowSpan="2" FontWeight="Bold" Foreground="White" />
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"><Run Language="sv-se" Text="Epost" Foreground="White"/></TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="3" FontWeight="Bold"><Run Language="sv-se" Text="Gatuadress" Foreground="White"/></TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,-16,0,0" TextWrapping="Wrap" Text="Förnamn*" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Grid.Column="2" Grid.Row="2" Margin="52,12,0,0" Grid.RowSpan="2" FontWeight="Bold"><Run Language="sv-se" Text="Bilmärke" Foreground="White"/></TextBlock>
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="0,0,10,0">
@@ -278,13 +278,13 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <TextBlock HorizontalAlignment="Left" Margin="0,-130,0,0" TextWrapping="Wrap" Text="Personnummer*" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,-130,0,0" TextWrapping="Wrap" Text="Personnummer*" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="0,-92,0,0" TextWrapping="Wrap" Text="Efternamn*" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,-92,0,0" TextWrapping="Wrap" Text="Efternamn*" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="0,-23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"><Run Text="Telefonnummer"/><Run Language="sv-se" Text="*"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,-23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"><Run Text="Telefonnummer"/><Run Language="sv-se" Text="*"/></TextBlock>
 
-                    <TextBlock HorizontalAlignment="Left" Margin="0,19,0,0" TextWrapping="Wrap" Text="Sök:" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,19,0,0" TextWrapping="Wrap" Text="Sök:" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold" Foreground="White"/>
 
                 </Grid>
 
