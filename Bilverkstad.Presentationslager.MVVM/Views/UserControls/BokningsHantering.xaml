@@ -3,13 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:converters="clr-namespace:Bilverkstad.Presentationslager.MVVM.Converters"
-             xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
-
-    <UserControl.DataContext>
-        <vm:BokningsHanteringViewModel/>
-    </UserControl.DataContext>
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -98,7 +93,7 @@
                               Visibility="{Binding IsReceptionist, Converter={StaticResource BooleanToVisibilityConverter}}" Width="298" Height="555">
 
                         <StackPanel Margin="10">
-                            <Button  Width="47" HorizontalAlignment="Right" Style="{StaticResource ButtonStyle}" ToolTip="Resnar alla fält" Command="{Binding RefreshFieldsCommand}">
+                            <Button  Width="28" HorizontalAlignment="Right" Background="#1B3C51" ToolTip="Resnar alla fält" Command="{Binding RefreshFieldsCommand}">
                                 <Image Source="/Views/Resources/refresh.png" Width="20" Height="20" />
                             </Button>
                             <TextBlock Text="Sök och välj kund" Style="{StaticResource LabelStyle}"  HorizontalAlignment="Left" Width="104" />
@@ -119,7 +114,7 @@
                             <ComboBox 
                                      x:Name="KundFordonComboBox"
                                      ItemsSource="{Binding KundFordon}"
-                                     SelectedItem="{Binding SelectedFordon}"
+                                     SelectedItem="{Binding SelectedFordon, UpdateSourceTrigger=PropertyChanged}"
                                      DisplayMemberPath="RegNr"
                                      Background="#1B3C51" 
                                      Foreground="Black" 
@@ -136,7 +131,7 @@
 
                             <TextBlock Text="Specialisering" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
                             <ComboBox ItemsSource="{Binding Specialiseringar}"
-                                      SelectedItem="{Binding SelectedSpecialisering}"
+                                      SelectedItem="{Binding SelectedSpecialisering, UpdateSourceTrigger=PropertyChanged}"
                                       IsSynchronizedWithCurrentItem="True"
                                       Background="#1B3C51" 
                                       Foreground="Black" 
@@ -144,7 +139,7 @@
 
                             <TextBlock Text="Välj mekaniker" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
                             <ComboBox ItemsSource="{Binding Mekanikers, Mode=TwoWay}"
-                                      SelectedItem="{Binding SelectedMekaniker}"
+                                      SelectedItem="{Binding SelectedMekaniker, UpdateSourceTrigger=PropertyChanged}"
                                       IsEnabled="{Binding Mekanikers.Count}"
                                       DisplayMemberPath="FullständigtNamn"
                                       Background="#1B3C51" 
@@ -155,7 +150,7 @@
                                                 Background="#1B3C51"
                                                 Foreground="Black"
                                                 BorderBrush="#D7DADD"
-                                                SelectedDate="{Binding InlämningsDatum, Mode=TwoWay}"/>
+                                                SelectedDate="{Binding InlämningsDatum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <TextBlock Text="Utlämningsdatum" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
                             <DatePicker x:Name="PickUpDatePicker"
@@ -166,7 +161,7 @@
 
                             <TextBlock Text="Bokningsstatus" Style="{StaticResource LabelStyle}" Margin="0,10,0,0"/>
                             <ComboBox     ItemsSource="{Binding BokningStatusar}"
-                                          SelectedItem="{Binding SelectedBokningStatus, Mode=TwoWay}"
+                                          SelectedItem="{Binding SelectedBokningStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Background="#1B3C51"
                                           Foreground="Black"
                                           BorderBrush="#D7DADD"/>
@@ -176,8 +171,8 @@
                             <!-- Add/Edit/Delete Buttons -->
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <Button Content="Skapa" Style="{StaticResource ButtonStyle}" Command="{Binding AddBokningCommand}"/>
-                                <Button Content="Ändra" Style="{StaticResource ButtonStyle}" />
-                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}"  />
+                                <Button Content="Ändra" Style="{StaticResource ButtonStyle}" Command="{Binding UpdateBokningCommand}" />
+                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteBokningCommand}"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -191,29 +186,35 @@
                             <ComboBox x:Name="ReparationsstatusComboBox"
                                       Background="#1B3C51"
                                       Foreground="Black"
-                                      BorderBrush="#D7DADD">
-                                <ComboBoxItem Content="Ej Påbörjad" />
-                                <ComboBoxItem Content="Påbörjad" />
-                                <ComboBoxItem Content="Klar" />
+                                      BorderBrush="#D7DADD"
+                                      SelectedItem="{Binding SelectedBokningStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             </ComboBox>
 
                             <TextBlock Text="Åtgärd" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <TextBox x:Name="ÅtgärdTextBox"
+                            <TextBox Text="{Binding SelectedÅtgärd, UpdateSourceTrigger=PropertyChanged}"
                                      Background="#1B3C51"
                                      Foreground="White"
                                      BorderBrush="#D7DADD"
                                      AcceptsReturn="True" Height="80" />
 
                             <TextBlock Text="Reservdel" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="ReservdelComboBox"
-                                      Background="#1B3C51"
-                                      Foreground="Black"
-                                      BorderBrush="#D7DADD" />
+                            <ComboBox ItemsSource="{Binding ReservdelSuggestions}"
+                                      SelectedItem="{Binding SelectedReservdel, UpdateSourceTrigger=PropertyChanged}"
+                                      DisplayMemberPath="Namn"
+                                      IsTextSearchEnabled="False"
+                                      IsEditable="True"
+                                      Background="Silver"
+                                      Foreground="#1B3C51"
+                                      BorderBrush="#D7DADD"
+                                      Style="{StaticResource SearchBoxStyle}"
+                                      IsDropDownOpen="{Binding IsReservdelDropDownOpen}"
+                                      Text="{Binding SearchReservdelText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
 
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <Button Content="Add" Style="{StaticResource ButtonStyle}"  />
-                                <Button Content="Edit/Update" Style="{StaticResource ButtonStyle}" />
-                                <Button Content="Delete" Style="{StaticResource ButtonStyle}"/>
+                                <Button Content="Lägg till" Style="{StaticResource ButtonStyle}"  />
+                                <Button Content="Ändra" Style="{StaticResource ButtonStyle}" />
+                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}"/>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -221,13 +222,21 @@
                     <!-- Fordonsjournal -->
                     <GroupBox Header="Fordonsjournal" Foreground="#D7DADD" Background="#1B3C51" Width="298">
                         <StackPanel Margin="10">
-                            <TextBlock Text="Registreringsnummer" Style="{StaticResource LabelStyle}" />
-                            <TextBox x:Name="VehicleSearchTextBox" Background="#1B3C51" Foreground="White" BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Resultat" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="VehicleResultsComboBox" Background="#1B3C51" Foreground="White" BorderBrush="#D7DADD" />
+                            <ComboBox ItemsSource="{Binding FordonSuggestions}"
+                                      SelectedItem="{Binding SelectedFordonJournal, UpdateSourceTrigger=PropertyChanged}"
+                                      IsTextSearchEnabled="False"
+                                      DisplayMemberPath="RegNr"  
+                                      Background="Silver"
+                                      Foreground="#1B3C51"
+                                      BorderBrush="#D7DADD"
+                                      IsEditable="True"
+                                      Style="{StaticResource SearchBoxStyle}"
+                                      IsDropDownOpen="{Binding IsFordonDropDownOpen}"
+                                      Text="{Binding SearchJournalText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                            <Button Content="Visa Journal" Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" />
+                                <Button Content="Visa Journal" Command="{Binding VisaJournalCommand}"  Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" IsDefault="True" />
                         </StackPanel>
                     </GroupBox>
 
@@ -274,22 +283,81 @@
                             <DataGridTextColumn Header="Status" Binding="{Binding BokningStatus}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <DataGrid x:Name="ReparationsDataGrid"
-                          Visibility="{Binding IsMekaniker, Converter={StaticResource BooleanToVisibilityConverter}}"
-                          AutoGenerateColumns="True"
-                          Style="{StaticResource DataGridStyle}"
-                          IsReadOnly="True"
-                          SelectionMode="Single"
-                          SelectionUnit="FullRow"
-                          VerticalScrollBarVisibility="Visible" />
+                    <!-- DataGrid for mechanic-->
+                    <DataGrid ItemsSource="{Binding MekanikersBokningar}"
+                              AutoGenerateColumns="False"
+                              Style="{StaticResource DataGridStyle}"
+                              SelectedItem="{Binding SelectedBokningForMekaniker}"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow"
+                              VerticalScrollBarVisibility="Visible"
+                              Visibility="{Binding IsMekaniker, Converter={StaticResource BooleanToVisibilityConverter}}">
+                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Boknings ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="Fordon RegNr" Binding="{Binding Fordon.RegNr}" />
+                            <DataGridTextColumn Header="Syfte med besök" Binding="{Binding SyfteMedBesök}" />
+                            <DataGridTextColumn Header="Inlämningsdatum" Binding="{Binding InlämningsDatum}" />
+                            <DataGridTextColumn Header="Utlämningsdatum" Binding="{Binding UtlämningsDatum}" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding BokningStatus}" />
+                            <DataGridTextColumn Header="Receptionist" Binding="{Binding Receptionist.FullständigtNamn}" />
+                            <DataGridTextColumn Header="Mekaniker" Binding="{Binding Mekaniker.FullständigtNamn}" />
+                            <DataGridTemplateColumn Header="Reparationer">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DataGrid ItemsSource="{Binding Reparation}"
+                                                                AutoGenerateColumns="False" 
+                                                                Style="{StaticResource DataGridStyle}" 
+                                                                SelectionMode="Single"
+                                                                SelectionUnit="FullRow"
+                                                                IsReadOnly="True"
+                                                                SelectedItem="{Binding Path=DataContext.SelectedReparation, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, UpdateSourceTrigger=PropertyChanged}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Reparations ID" Binding="{Binding ReparationsId}" />
+                                                <DataGridTextColumn Header="Åtgärd" Binding="{Binding Åtgärd}" />
+                                                <DataGridTextColumn Header="Status" Binding="{Binding Reparationsstatus}" />
+                                                <DataGridTextColumn Header="Reservdel" Binding="{Binding Reservdelar}" />
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Åtgärd" Binding="{Binding Reparation.Åtgärd}" />
+                        </DataGrid.Columns>                            
+                    </DataGrid>
                     <TextBlock Text="Journal" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" Margin="20,10,0,10" />
-                    <DataGrid x:Name="JournalDataGrid"
-                          AutoGenerateColumns="True"
-                          Style="{StaticResource DataGridStyle}"
-                          IsReadOnly="True"
-                          SelectionMode="Single"
-                          SelectionUnit="FullRow"
-                          VerticalScrollBarVisibility="Visible" />
+                    <ListView ItemsSource="{Binding FordonsJournal}"
+                              >
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Header="Boknings ID" DisplayMemberBinding="{Binding Id}" />
+                                <GridViewColumn Header="Kund" DisplayMemberBinding="{Binding Kund.FullständigtNamn}" />
+                                <GridViewColumn Header="Fordon RegNr" DisplayMemberBinding="{Binding Fordon.RegNr}" />
+                                <GridViewColumn Header="Receptionist" DisplayMemberBinding="{Binding Receptionist.FullständigtNamn}" />
+                                <GridViewColumn Header="Mekaniker" DisplayMemberBinding="{Binding Mekaniker.FullständigtNamn}" />
+                                <GridViewColumn Header="Syfte med besök" DisplayMemberBinding="{Binding SyfteMedBesök}" />
+                                <GridViewColumn Header="Inlämningsdatum" DisplayMemberBinding="{Binding InlämningsDatum}" />
+                                <GridViewColumn Header="Utlämningsdatum" DisplayMemberBinding="{Binding UtlämningsDatum}" />
+                                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding BokningStatus}" />
+                                <GridViewColumn Header="Reparationer">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListView ItemsSource="{Binding Reparation}">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Header="Reparations ID" DisplayMemberBinding="{Binding ReparationsId}" />
+                                                        <GridViewColumn Header="Åtgärd" DisplayMemberBinding="{Binding Åtgärd}" />
+                                                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Reparationsstatus}" />
+                                                        <GridViewColumn Header="Reservdel" DisplayMemberBinding="{Binding Reservdelar}" />
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </StackPanel>
            </ScrollViewer>
         </Grid>

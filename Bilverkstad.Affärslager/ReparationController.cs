@@ -9,9 +9,11 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return (IList<Reparation>)unitOfWork.Reparation.GetAll().ToList();
+                return unitOfWork.Reparation.GetAll().ToList();
             }
         }
+
+
 
         public Reparation GetOneReparation(int ReparationsId)
         {
@@ -27,6 +29,23 @@ namespace Bilverkstad.Affärslager
             {
                 unitOfWork.Reparation.Add(reparation);
                 unitOfWork.SaveChanges();
+            }
+        }
+
+        public void AddReparationTillBokning(int bookingId, Reparation repair)
+        {
+            using (var unitOfWork = new UnitOfWork())
+            {
+                var booking = unitOfWork.Bokning.Find(bookingId);
+                if (booking.MekanikerId == repair.Mekaniker.AnställningsNummer)  
+                {
+                    booking.Reparation.Add(repair);
+                    unitOfWork.SaveChanges();
+                }
+                else
+                {
+                    throw new KeyNotFoundException("MekanikerId matchar inte reparationen.");
+                }
             }
         }
 

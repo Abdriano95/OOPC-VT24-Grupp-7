@@ -55,6 +55,14 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
+        public IList<Reservdel> SearchReservdel(string search)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Reservdel.GetAll().Where(reservdel => reservdel.Namn.Contains(search)).ToList();
+            }
+        }
         public IList<int> GetArtikelnummer()
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())

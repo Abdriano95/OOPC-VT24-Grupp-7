@@ -19,6 +19,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public bool ShowBokningarTab { get; set; } = true;
         public bool ShowReservdelarTab { get; set; } = true;
         public bool ShowPersonalTab { get; set; } = true;
+        public bool ShowReparationerTab { get; set; } = true;
 
         public MainViewModel()
         {
@@ -54,6 +55,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 ShowPersonalTab = false;
                 ShowKunderTab = false;
+                ShowBokningarTab = false;
             }
 
         }
