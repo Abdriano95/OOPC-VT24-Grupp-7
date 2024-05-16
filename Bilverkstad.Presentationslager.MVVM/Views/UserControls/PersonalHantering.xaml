@@ -51,6 +51,16 @@
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
                 <StackPanel Margin="0,0,10,0">
+                    <!-- Search Box -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="Sök:" Style="{StaticResource LabelStyle}" VerticalAlignment="Center" />
+                        <TextBox Text="{Binding Söktext, UpdateSourceTrigger=PropertyChanged}"
+                        Background="White"
+                        Foreground="Black"
+                        BorderBrush="#D7DADD"
+                        Width="150"
+                        Margin="5,0,0,0" />
+                    </StackPanel>
                     <!-- Employee Information -->
                     <GroupBox Header="Employee Information" Foreground="#D7DADD" Background="#1B3C51">
                         <StackPanel Margin="10">
@@ -133,13 +143,6 @@
                         <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}"/>
                         <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}"/>
                         <DataGridTextColumn Header="Lösenord" Binding="{Binding Lösenord}"/>
-                        <DataGridTemplateColumn Header="Typ">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Discriminator}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Specialisering" Binding="{Binding Specialiseringar}" />
                         <DataGridTextColumn Header="Auktoritet" Binding="{Binding Auktoritet}" />
                     </DataGrid.Columns>

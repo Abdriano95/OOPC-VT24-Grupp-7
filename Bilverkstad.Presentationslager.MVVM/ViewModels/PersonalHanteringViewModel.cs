@@ -136,8 +136,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
 
         public ObservableCollection<string> TypList { get; set; }
-       
 
+
+        
 
         // DATAGRID 
 
@@ -217,11 +218,23 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         }
 
 
-        // LÄGG TILL RESERVDEL
+        // LÄGG TILL ANSTÄLLD
+
 
         private ICommand? _läggTillAnställd;
         public ICommand LäggTillAnställdCommand => _läggTillAnställd ??= _läggTillAnställd = new RelayCommand(() =>
         {
+            if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
+            {
+                MessageBox.Show("Lösenordet måste vara minst 8 tecken långt.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
+            {
+                MessageBox.Show("Förnamn och efternamn är obligatoriska fält.");
+                return;
+
+            }
 
             if (Typ == "Mekaniker")
             {
@@ -255,7 +268,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             Lösenord = ""; 
         });
 
+
         // TA BORT ANSTÄLLD
+
 
         public ICommand? _taBortAnställd;
         public ICommand TaBortAnställdCommand => _taBortAnställd ??= _taBortAnställd = new RelayCommand(() =>
@@ -280,18 +295,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         // UPPDATERA ANSTÄLLD
 
         
-
         public ICommand? _updateAnställd;
         public ICommand UpdateAnställdCommand => _updateAnställd ??= _updateAnställd = new RelayCommand(() =>
         {
             if (ValdAnställd != null)
             {
-                
-
                 ValdAnställd.Förnamn = Förnamn.ToLower();
                 ValdAnställd.Efternamn = Efternamn.ToLower();
                 ValdAnställd.Lösenord = Lösenord.ToLower();
-                if(ValdAnställd is Mekaniker mekaniker)
+
+                if (ValdAnställd is Mekaniker mekaniker)
                 {
                     mekaniker.Specialiseringar = SelectedSpecialiseringar;
                 }
@@ -320,10 +333,12 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         // FELHANTERING
 
 
+        private bool IsLösenordValid(string lösenord)
+        {
+            return lösenord.Length >= 8;
+        }
 
         
-
-
-
+     
     }
 }
