@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls"
+             xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <vm:PersonalHanteringViewModel/>
+    </UserControl.DataContext>
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -50,61 +55,61 @@
                     <GroupBox Header="Employee Information" Foreground="#D7DADD" Background="#1B3C51">
                         <StackPanel Margin="10">
                             <TextBlock Text="Förnamn" Style="{StaticResource LabelStyle}" />
-                            <TextBox x:Name="FörnamnTextBox"
+                            <TextBox Text="{Binding Förnamn}"
                                      Background="#1B3C51"
                                      Foreground="White"
                                      BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Efternamn" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <TextBox x:Name="EfternamnTextBox"
+                            <TextBox Text="{Binding Efternamn}"
                                      Background="#1B3C51"
                                      Foreground="White"
                                      BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Lösenord" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <PasswordBox x:Name="LosenordPasswordBox"
-                                         Background="#1B3C51"
-                                         Foreground="White"
-                                         BorderBrush="#D7DADD" />
+                            <TextBox Text="{Binding Lösenord}"
+                                     Background="#1B3C51"
+                                     Foreground="White"
+                                     BorderBrush="#D7DADD" />
 
                             <TextBlock Text="Typ" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
-                            <ComboBox x:Name="TypComboBox"
+                            <ComboBox ItemsSource="{Binding TypList}"
+                                      SelectedItem="{Binding Typ}"
                                       Background="#1B3C51"
                                       Foreground="Black"
-                                      BorderBrush="#D7DADD"
-                                      SelectionChanged="TypComboBox_SelectionChanged">
-                                <ComboBoxItem Content="Mekaniker" />
-                                <ComboBoxItem Content="Receptionist" />
-                            </ComboBox>
+                                      BorderBrush="#D7DADD" />
 
-                            <!-- Specialization or Authority -->
-                            <TextBlock x:Name="SpecializationLabel" Text="Specialization" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" Visibility="Collapsed" />
+                            <!-- Specialization -->
+                            <TextBlock x:Name="SpecializationLabel"
+                                       Text="Specialisering" 
+                                       Style="{StaticResource LabelStyle}" 
+                                       Margin="0,10,0,0" />
+
                             <ComboBox x:Name="SpecializationComboBox"
+                                      ItemsSource="{Binding SpecialiseringarList}"
+                                      SelectedItem="{Binding SelectedSpecialiseringar}"
                                       Background="#1B3C51"
                                       Foreground="Black"
-                                      BorderBrush="#D7DADD"
-                                      Visibility="Collapsed">
-                                <ComboBoxItem Content="Däckbyte" />
-                                <ComboBoxItem Content="Motor" />
-                                <ComboBoxItem Content="Elektronik" />
-                                <ComboBoxItem Content="Kaross" />
-                            </ComboBox>
+                                      BorderBrush="#D7DADD" />
 
-                            <TextBlock x:Name="AuthorityLabel" Text="Authority" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" Visibility="Collapsed" />
+                            <!-- Authority -->
+                            <TextBlock x:Name="AuthorityLabel"
+                                       Text="Auktoritet" 
+                                       Style="{StaticResource LabelStyle}" 
+                                       Margin="0,10,0,0" />
+
                             <ComboBox x:Name="AuthorityComboBox"
+                                      ItemsSource="{Binding AuktoritetList}"
+                                      SelectedItem="{Binding SelectedAuktoritet}"
                                       Background="#1B3C51"
                                       Foreground="Black"
-                                      BorderBrush="#D7DADD"
-                                      Visibility="Collapsed">
-                                <ComboBoxItem Content="NotAdmin" />
-                                <ComboBoxItem Content="Admin" />
-                            </ComboBox>
+                                      BorderBrush="#D7DADD" />
 
                             <!-- Add/Edit/Delete Buttons -->
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                                <Button Content="Add" Style="{StaticResource ButtonStyle}" Click="AddEmployee_Click" />
-                                <Button Content="Edit/Update" Style="{StaticResource ButtonStyle}" Click="EditEmployee_Click" />
-                                <Button Content="Delete" Style="{StaticResource ButtonStyle}" Click="DeleteEmployee_Click" />
+                                <Button Content="Add" Style="{StaticResource ButtonStyle}" Command="{Binding LäggTillAnställdCommand}" />
+                                <Button Content="Edit/Update" Style="{StaticResource ButtonStyle}" Command="{Binding UpdateAnställdCommand}" />
+                                <Button Content="Delete" Style="{StaticResource ButtonStyle}" Command="{Binding TaBortAnställdCommand}" />
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -114,14 +119,31 @@
             <!-- Data Grid Panel (Right) -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Personal DataGrid" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" Margin="0,0,0,10" />
-                <DataGrid x:Name="PersonalDataGrid"
-                          AutoGenerateColumns="True"
+                <DataGrid ItemsSource="{Binding PersonalData}"
+                          AutoGenerateColumns="False"
                           Style="{StaticResource DataGridStyle}"
                           IsReadOnly="True"
                           SelectionMode="Single"
                           SelectionUnit="FullRow"
                           Height="500"
-                          VerticalScrollBarVisibility="Visible" />
+                          VerticalScrollBarVisibility="Visible"
+                          SelectedItem="{Binding ValdAnställd}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Anställningsnummer" Binding="{Binding AnställningsNummer}"/>
+                        <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}"/>
+                        <DataGridTextColumn Header="Efternamn" Binding="{Binding Efternamn}"/>
+                        <DataGridTextColumn Header="Lösenord" Binding="{Binding Lösenord}"/>
+                        <DataGridTemplateColumn Header="Typ">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Discriminator}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Specialisering" Binding="{Binding Specialiseringar}" />
+                        <DataGridTextColumn Header="Auktoritet" Binding="{Binding Auktoritet}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </Grid>
     </Border>
