@@ -22,7 +22,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return (IList<Fordon>)unitOfWork.Fordon.GetAll().ToList();
+                return unitOfWork.Fordon.GetAll().ToList();
             }
 
         }
@@ -106,7 +106,14 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-
+        public List<Fordon> SearchFordon(string searchJournalText)
+        {
+            //searches for a Fordon by registration number
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Fordon.Get(f => f.RegNr.Contains(searchJournalText)).ToList();
+            }
+        }
     }
 
 

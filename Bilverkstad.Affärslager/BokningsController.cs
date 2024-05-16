@@ -1,6 +1,7 @@
 ﻿using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Bilverkstad.Affärslager
 {
@@ -111,6 +112,27 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+        // Fordonsjounral
+        public IList<Bokning> GetBokningarByFordonRegNr(string regNr)
+        {
+            try
+            {
+                using (UnitOfWork unitOfWork = new UnitOfWork())
+                {
+                    return unitOfWork.Bokning.Get(b => b.Fordon.RegNr == regNr,
+                                                 includes: new Expression<Func<Bokning, object>>[] {
+                                                  b => b.Kund,
+                                                  b => b.Fordon,
+                                                  b => b.Receptionist,
+                                                  b => b.Mekaniker,
+                                                  b => b.Reparation}).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw; // Consider handling the exception more gracefully
+            }
+        }
 
         public Bokning GetOneBokning(int id)
         {
@@ -127,13 +149,18 @@ namespace Bilverkstad.Affärslager
                 return bokning;
             }
         }
-        public List<Bokning> GetBokningarByAnställningsnummer(int anställningsnummer)
+        public List<Bokning> GetBokningarByMekaniker(int mechanicId)
         {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
+            using (var bokningar = new UnitOfWork())
             {
-                // Antag att du har en relation mellan Mekaniker och Bokning där MekanikerId i Bokning-tabellen
-                // refererar till ID i Mekaniker-tabellen
-                return unitOfWork.Bokning.Get(b => b.Mekaniker.AnställningsNummer == anställningsnummer).ToList();
+                return bokningar.Bokning.GetAll()
+                                        .Include(b => b.Kund)
+                                        .Include(b => b.Fordon)
+                                        .Include(b => b.Receptionist)
+                                        .Include(b => b.Mekaniker)
+                                        .Include(b => b.Reparation)
+                                        .Where(b => b.MekanikerId == mechanicId)
+                                        .ToList();
             }
         }
 
