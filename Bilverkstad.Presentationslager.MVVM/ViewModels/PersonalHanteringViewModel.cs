@@ -277,89 +277,53 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         }, () => ValdAnställd != null);
 
 
-        //private void AddEmployee_Click(object sender, RoutedEventArgs e)
-        //{
-        //    string förnamn = FörnamnTextBox.Text;
-        //    string efternamn = EfternamnTextBox.Text;
-        //    string lösenord = LosenordPasswordBox.Password;
-        //    string typ = (TypComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+        // UPPDATERA ANSTÄLLD
 
-        //    if (typ == "Mekaniker" && SpecializationComboBox.SelectedItem != null)
-        //    {
-        //        Specialiseringar specialisering = (Specialiseringar)Enum.Parse(typeof(Specialiseringar), (SpecializationComboBox.SelectedItem as ComboBoxItem)?.Content.ToString());
-        //        _allPersonal.Add(new Mekaniker
-        //        {
-        //            AnställningsNummer = _nextAnstallningsNummer++,
-        //            Förnamn = förnamn,
-        //            Efternamn = efternamn,
-        //            Lösenord = lösenord,
-        //            Specialiseringar = specialisering
-        //        });
-        //    }
-        //    else if (typ == "Receptionist" && AuthorityComboBox.SelectedItem != null)
-        //    {
-        //        Auktoritet auktoritet = (Auktoritet)Enum.Parse(typeof(Auktoritet), (AuthorityComboBox.SelectedItem as ComboBoxItem)?.Content.ToString());
-        //        _allPersonal.Add(new Receptionist
-        //        {
-        //            AnställningsNummer = _nextAnstallningsNummer++,
-        //            Förnamn = förnamn,
-        //            Efternamn = efternamn,
-        //            Lösenord = lösenord,
-        //            Auktoritet = auktoritet
-        //        });
-        //    }
+        
 
+        public ICommand? _updateAnställd;
+        public ICommand UpdateAnställdCommand => _updateAnställd ??= _updateAnställd = new RelayCommand(() =>
+        {
+            if (ValdAnställd != null)
+            {
+                
 
-        //    ClearInputFields();
-        //}
+                ValdAnställd.Förnamn = Förnamn.ToLower();
+                ValdAnställd.Efternamn = Efternamn.ToLower();
+                ValdAnställd.Lösenord = Lösenord.ToLower();
+                if(ValdAnställd is Mekaniker mekaniker)
+                {
+                    mekaniker.Specialiseringar = SelectedSpecialiseringar;
+                }
+                else if (ValdAnställd is Receptionist receptionist)
+                {
+                    receptionist.Auktoritet = SelectedAuktoritet;
+                }
 
-        //private void EditEmployee_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (PersonalDataGrid.SelectedItem is Anställd selectedPersonal)
-        //    {
-        //        string förnamn = FörnamnTextBox.Text;
-        //        string efternamn = EfternamnTextBox.Text;
-        //        string lösenord = LosenordPasswordBox.Password;
-        //        string typ = (TypComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+                _anställdcontroller.UpdateAnställd(ValdAnställd);
 
-        //        selectedPersonal.Förnamn = förnamn;
-        //        selectedPersonal.Efternamn = efternamn;
-        //        selectedPersonal.Lösenord = lösenord;
+                LoadPersonal();
+                MessageBox.Show("Anställd uppdaterad.");
 
-        //        if (selectedPersonal is Mekaniker mekaniker && typ == "Mekaniker")
-        //        {
-        //            mekaniker.Specialiseringar = (Specialiseringar)Enum.Parse(typeof(Specialiseringar), (SpecializationComboBox.SelectedItem as ComboBoxItem)?.Content.ToString());
-        //        }
-        //        else if (selectedPersonal is Receptionist receptionist && typ == "Receptionist")
-        //        {
-        //            receptionist.Auktoritet = (Auktoritet)Enum.Parse(typeof(Auktoritet), (AuthorityComboBox.SelectedItem as ComboBoxItem)?.Content.ToString());
-        //        }
+                // Nollställ textbox-värden
+                Förnamn = "";
+                Efternamn = "";
+                Lösenord = "";
+                
+
+                ValdAnställd = null; // Nollställ ValdReservdel efter borttagning
+
+            }
+        }, () => ValdAnställd != null);
 
 
-        //        ClearInputFields();
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Please select an employee to edit.");
-        //    }
-        //}
+        // FELHANTERING
+
+
 
         
 
 
 
-        //private void ClearInputFields()
-        //{
-        //    FörnamnTextBox.Clear();
-        //    EfternamnTextBox.Clear();
-        //    LosenordPasswordBox.Clear();
-        //    TypComboBox.SelectedIndex = -1;
-        //    SpecializationComboBox.Visibility = Visibility.Collapsed;
-        //    SpecializationLabel.Visibility = Visibility.Collapsed;
-        //    AuthorityComboBox.Visibility = Visibility.Collapsed;
-        //    AuthorityLabel.Visibility = Visibility.Collapsed;
-        //}
-
-        
     }
 }
