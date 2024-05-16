@@ -27,16 +27,17 @@
             BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*" />
-                <RowDefinition Height="12*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                <Grid>
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="187*" />
+                        <ColumnDefinition Width="187*" />
+                        <ColumnDefinition Width="151*" />
+                        <ColumnDefinition Width="36*"/>
+                        <ColumnDefinition Width="187*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -46,7 +47,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <!-- Personnummer -->
-                    <TextBlock Text="Personnummer"/>
+                    <TextBlock Grid.Column="0" Text="Personnummer" Margin="0,0,0,5"/>
                     <TextBox Grid.Column="0"
                              Margin="0,0,0,10"
                              Background="Silver"
@@ -67,7 +68,7 @@
                     <!-- Efternamn -->
                     <TextBox Grid.Column="0"
                              Grid.Row="2"
-                             Margin="0,0,0,10"
+                             Margin="0,9,0,1"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -77,7 +78,7 @@
                     <!-- Gatuadress -->
                     <TextBox Grid.Column="1"
                              Grid.Row="2"
-                             Margin="0,0,0,10"
+                             Margin="0,9,0,1"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -87,27 +88,27 @@
                     <!-- Postnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="3"
-                             Margin="0,0,0,10"
+                             Margin="0,15,0,23"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
                              Text="{Binding Postnummer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             ToolTip="Ange postnummer"/>
+                             ToolTip="Ange postnummer" Grid.RowSpan="2"/>
                     <!-- Ort -->
                     <TextBox Grid.Column="1"
                              Grid.Row="3"
-                             Margin="0,0,0,10"
+                             Margin="0,15,0,23"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
                              Text="{Binding Ort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             ToolTip="Ange ort"/>
+                             ToolTip="Ange ort" Grid.RowSpan="2"/>
                     <!-- Telefonnummer -->
                     <TextBox Grid.Column="0"
                              Grid.Row="4"
-                             Margin="0,0,0,10"
+                             Margin="0,23,0,-13"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -117,7 +118,7 @@
                     <!-- E-post -->
                     <TextBox Grid.Column="1"
                              Grid.Row="4"
-                             Margin="0,0,0,10"
+                             Margin="0,23,0,-13"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -129,19 +130,18 @@
                     <TextBlock Grid.Column="2"
                            Text="Fordonsinformation"
                            TextAlignment="Center"
-                           Margin="52,0,0,10"
+                           Margin="52,-20,0,31"
                            FontWeight="Bold"
-                           Foreground="#1B3C51"/>
+                           Foreground="#1B3C51" Grid.ColumnSpan="2"/>
                     <!-- Registreringsnummer -->
                     <TextBox Grid.Column="2"
-                             Grid.Row="2"
-                             Margin="52,0,0,10"
+                             Margin="52,19,0,19"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
                              Text="{Binding RegNr, UpdateSourceTrigger=PropertyChanged}"
-                             ToolTip="Ange registreringsnummer (6 tecken)"/>
+                             ToolTip="Ange registreringsnummer (6 tecken)" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
                     <!-- Bilmärke -->
                     <TextBox Grid.Column="2"
                              Grid.Row="3"
@@ -151,21 +151,21 @@
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
                              Text="{Binding Bilmärke, UpdateSourceTrigger=PropertyChanged}"
-                             ToolTip="Ange bilmärke"/>
+                             ToolTip="Ange bilmärke" Grid.ColumnSpan="2"/>
                     <!-- Modell -->
                     <TextBox Grid.Column="2"
                              Grid.Row="4"
-                             Margin="52,0,0,10"
+                             Margin="52,10,0,0"
                              Background="Silver"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
                              BorderThickness="1"
                              Text="{Binding Modell, UpdateSourceTrigger=PropertyChanged}"
-                             ToolTip="Ange bilmodell"/>
+                             ToolTip="Ange bilmodell" Grid.ColumnSpan="2"/>
                     <!-- Buttons -->
                     <Button Command="{Binding LäggTillKundCommand}"
                             Content="Lägg till kund"
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Grid.Row="2"
                             Background="#1B3C51"
                             FontSize="14"
@@ -177,7 +177,7 @@
 
                     <Button Command="{Binding LäggTillFordonPåKundCommand}"
                             Content="Lägg till fordon på kund"
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Background="#1B3C51"
                             FontSize="14"
                             Foreground="White"
@@ -186,12 +186,12 @@
                             BorderThickness="0"
                             Cursor="Hand" Margin="20,0,0,1"/>
 
-                    <Grid Grid.Column="3" Grid.Row="1"/>
+                    <Grid Grid.Column="4" Grid.Row="2" Margin="0,0,0,28"/>
 
                     <Button 
                             Command="{Binding UpdateKundCommand}"
                             Content="Ändra kund"
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Background="#1B3C51"
                             Foreground="White"
                             FontWeight="Bold"
@@ -202,7 +202,7 @@
 
                     <Button Command="{Binding TaBortKundCommand}"
                             Content="Ta bort kund"
-                            Grid.Column="3"
+                            Grid.Column="4"
                             Background="#1B3C51"
                             Foreground="White"
                             FontWeight="Bold"
@@ -213,17 +213,26 @@
                             Margin="20,1,0,0" 
                             Grid.Row="4"
                             />
+
+                    <TextBlock HorizontalAlignment="Left" Margin="0,27,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Postnummer" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,27,0,0" Grid.Row="2" TextWrapping="Wrap" Text="Ort" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="52,2,0,0" TextWrapping="Wrap" Text="Registreringsnummer*" VerticalAlignment="Top" Height="18" Grid.ColumnSpan="2" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="2" HorizontalAlignment="Left" Margin="52,20,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Modell" VerticalAlignment="Top" Height="16" Grid.RowSpan="2" FontWeight="Bold"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" FontWeight="Bold"><Run Language="sv-se" Text="Epost"/></TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.RowSpan="3" FontWeight="Bold"><Run Language="sv-se" Text="Gatuadress"/></TextBlock>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="0,-16,0,0" TextWrapping="Wrap" Text="Förnamn*" VerticalAlignment="Top" FontWeight="Bold"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="16" Grid.Column="2" Grid.Row="2" Margin="52,12,0,0" Grid.RowSpan="2" FontWeight="Bold"><Run Language="sv-se" Text="Bilmärke"/></TextBlock>
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="0,0,10,0">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="250" />
                     </Grid.RowDefinitions>
                     <!-- Sök -->
-                    <TextBox Grid.Row="0"
-                             Margin="0,0,561,10"
+                    <TextBox Grid.Row="1"
+                             Margin="0,5,561,225"
                              Background="White"
                              Foreground="Black"
                              BorderBrush="#D7DADD"
@@ -243,7 +252,7 @@
                           SelectionMode="Single"
                           SelectionUnit="FullRow"
                           VerticalScrollBarVisibility="Visible"
-                          HorizontalScrollBarVisibility="Visible">
+                          HorizontalScrollBarVisibility="Visible" Margin="0,30,0,-30">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Kundnummer" Binding="{Binding Id}" />
                             <DataGridTextColumn Header="Förnamn" Binding="{Binding Förnamn}" />
@@ -269,6 +278,13 @@
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
+                    <TextBlock HorizontalAlignment="Left" Margin="0,-130,0,0" TextWrapping="Wrap" Text="Personnummer*" VerticalAlignment="Top" FontWeight="Bold"/>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="0,-92,0,0" TextWrapping="Wrap" Text="Efternamn*" VerticalAlignment="Top" FontWeight="Bold"/>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="0,-23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontWeight="Bold"><Run Text="Telefonnummer"/><Run Language="sv-se" Text="*"/></TextBlock>
+
+                    <TextBlock HorizontalAlignment="Left" Margin="0,19,0,0" TextWrapping="Wrap" Text="Sök:" VerticalAlignment="Top" Grid.RowSpan="2" FontWeight="Bold"/>
 
                 </Grid>
 
