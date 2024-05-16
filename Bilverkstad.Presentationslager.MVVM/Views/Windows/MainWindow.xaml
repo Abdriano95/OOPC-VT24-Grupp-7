@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls" 
-        xmlns:vm="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels"
         mc:Ignorable="d"
         Title="Bilverkstadsystem"
         Height="829"
@@ -15,10 +14,6 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
-
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
 
 
     <Grid Margin="10">
@@ -107,6 +102,10 @@
             <!-- Personal Tab -->
             <TabItem Header="Personal" Visibility="{Binding ShowPersonalTab, Converter={StaticResource BooleanToVisibility}}">
                 <userControl:PersonalHantering/>
+            </TabItem>
+            <!-- Reparations Tab-->
+            <TabItem Header="Reparationer" Visibility="{Binding ShowReparationerTab, Converter={StaticResource BooleanToVisibility}}">
+                <userControl:ReparationsHantering/>
             </TabItem>
         </TabControl>
     </Grid>

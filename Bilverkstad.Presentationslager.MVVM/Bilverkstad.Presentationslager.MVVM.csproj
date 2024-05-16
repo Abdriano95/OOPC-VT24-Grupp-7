@@ -8,6 +8,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Views\Resources\refresh.png" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
@@ -15,6 +19,7 @@
 
 	<ItemGroup>
 		<Resource Include="Views\Resources\BilverkstadLogo.png" />
+		<Resource Include="Views\Resources\refresh.png" />
 	</ItemGroup>
 
   <ItemGroup>
