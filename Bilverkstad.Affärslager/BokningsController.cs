@@ -135,6 +135,8 @@ namespace Bilverkstad.Affärslager
             }
         }
 
+
+
         public Bokning GetOneBokning(int id)
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
@@ -221,8 +223,13 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-
-
+        public bool KundHarBokning(int id)
+        {
+            using (var unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Bokning.Get(b => b.KundId == id).Any();
+            }
+        }
     }
 
 }
