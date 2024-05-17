@@ -7,9 +7,7 @@ using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
+    
     public partial class App : Application
     {
         private IServiceProvider? _serviceProvider;
