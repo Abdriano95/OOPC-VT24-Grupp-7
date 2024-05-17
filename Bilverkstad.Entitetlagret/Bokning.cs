@@ -18,7 +18,7 @@ public class Bokning
 
 
     [NotMapped]
-    public string MekanikerFullName { get; set; } // För att kunna visa namn på mekaniker i vyn
+    public string MekanikerFullName { get; set; } // För att kunna visa namn på mekaniker i vyn av bokningar
 
     [ForeignKey("KundId")]
     public virtual Kund? Kund { get; set; }
