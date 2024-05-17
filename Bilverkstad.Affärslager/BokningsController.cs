@@ -150,7 +150,7 @@ namespace Bilverkstad.Affärslager
                 return bokning;
             }
         }
-        public List<Bokning> GetBokningarByMekaniker(int mechanicId) //TA BORT?
+        public List<Bokning> GetBokningarByMekaniker(int mechanicId) 
         {
             using (var bokningar = new UnitOfWork())
             {
@@ -166,25 +166,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public bool IsMekanikerAvailable(int mekanikerId, DateTime inlämningsDatum, DateTime utlämningsDatum) // Ta bort?
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                var bokningar = unitOfWork.Bokning.Get(b => b.MekanikerId == mekanikerId).ToList();
-                foreach (var bokning in bokningar)
-                {
-                    if (inlämningsDatum >= bokning.InlämningsDatum && inlämningsDatum <= bokning.UtlämningsDatum)
-                    {
-                        return false;
-                    }
-                    if (utlämningsDatum >= bokning.InlämningsDatum && utlämningsDatum <= bokning.UtlämningsDatum)
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
+        
 
         public IList<Mekaniker> GetMekanikerBySpecialisering(Specialiseringar specialisering)
         {

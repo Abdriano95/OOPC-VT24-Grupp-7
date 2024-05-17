@@ -48,19 +48,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public IList<Kund> GetKund() // Metod för att lägga alla kunder i en lisa
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                var kundRepository = unitOfWork.Kund;
-                if (kundRepository == null)
-                {
-
-                    return new List<Kund>();
-                }
-                return kundRepository.GetAll().ToList();
-            }
-        }
+        
 
         public Kund GetOneKund(int id)
         {
@@ -130,23 +118,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void AddOrUpdateKund(Kund kund)
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                var existingKund = unitOfWork.Kund.Find(kund.Id);
-                if (existingKund == null)
-                {
-                    unitOfWork.Kund.Add(kund);
-                }
-                else
-                {
-
-                    unitOfWork.Kund.Update(existingKund, kund);
-                }
-                unitOfWork.SaveChanges();
-            }
-        }
+        
 
 
     }
