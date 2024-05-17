@@ -9,7 +9,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return (IList<Reservdel>)unitOfWork.Reservdel.GetAll().ToList();
+                return unitOfWork.Reservdel.GetAll().ToList();
             }
         }
 
@@ -63,13 +63,6 @@ namespace Bilverkstad.Affärslager
                 return unitOfWork.Reservdel.GetAll().Where(reservdel => reservdel.Namn.Contains(search)).ToList();
             }
         }
-        public IList<int> GetArtikelnummer()
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                var artikelnummerList = unitOfWork.Reservdel.GetAll().Select(reservdel => reservdel.Artikelnummer).ToList();
-                return artikelnummerList;
-            }
-        }
+        
     }
 }

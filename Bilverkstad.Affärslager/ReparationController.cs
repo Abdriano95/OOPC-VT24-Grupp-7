@@ -33,22 +33,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void AddReparationTillBokning(int bookingId, Reparation repair)
-        {
-            using (var unitOfWork = new UnitOfWork())
-            {
-                var booking = unitOfWork.Bokning.Find(bookingId);
-                if (booking.MekanikerId == repair.Mekaniker.AnställningsNummer)
-                {
-                    booking.Reparation.Add(repair);
-                    unitOfWork.SaveChanges();
-                }
-                else
-                {
-                    throw new KeyNotFoundException("MekanikerId matchar inte reparationen.");
-                }
-            }
-        }
+        
 
         public void DeleteReparation(Reparation reparation)
         {
@@ -69,24 +54,6 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void CreateOrUpdateReparation(Reparation reparation, int Id)
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-
-                if (reparation.ReparationsId == 0)
-                {
-                    unitOfWork.Reparation.Add(reparation);
-                }
-                else
-                {
-                    unitOfWork.Reparation.Update(reparation);
-                }
-                unitOfWork.SaveChanges();
-            }
-
-
-        }
 
         public IList<Reparation> GetReparationerByBokning(int bokningId)
         {
