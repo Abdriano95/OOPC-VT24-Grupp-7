@@ -6,8 +6,8 @@
         xmlns:userControl="clr-namespace:Bilverkstad.Presentationslager.MVVM.Views.UserControls" 
         mc:Ignorable="d"
         Title="Bilverkstadsystem"
-        Height="829"
-        Width="1642"
+        Height="915"
+        Width="1733"
         WindowStartupLocation="CenterScreen"
         Background="#1B3C51">
 

@@ -14,8 +14,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private readonly KundController _kundController;
         private readonly BokningsController _bokningsController;
         private readonly FordonController _fordonController;
-        private readonly ReparationController _reparationController;
-        private readonly ReservdelController _reservdelController;
         private readonly IUserMessageService _messageService;
 
         // Konstruktor
@@ -26,19 +24,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             _kundController = new KundController();
             _bokningsController = new BokningsController();
             _fordonController = new FordonController();
-            _reparationController = new ReparationController();
             KundSuggestions = new ObservableCollection<Kund>();
             Bokningar = new ObservableCollection<Bokning>();
             Mekanikers = new ObservableCollection<Mekaniker>();
             Specialiseringar = new ObservableCollection<Specialiseringar>(Enum.GetValues(typeof(Specialiseringar)).Cast<Specialiseringar>());
-            MekanikersBokningar = new ObservableCollection<Bokning>(_bokningsController.GetBokningarByMekaniker(AnställningsNummer));
-            _reservdelController = new ReservdelController();
             LoadBokningarForReceptionist();
-            LoadMekanikersBokningar();
             DetermineUserType();
         }
-        // Properties för Användare och visar relvanta GroupBoxar för användaren (Mekaniker får en vy, Receptionist får en annan)
-        public string AnvändarNamn => AnvändarSession.InloggadAnvändare.AnvändarNamn;
         public int AnställningsNummer => AnvändarSession.InloggadAnvändare.AnställningsNummer;
 
         Anställd _nuvarandeAnvändare = new Anställd();
@@ -151,7 +143,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             get => _selectedFordonJournal;
             set
             {
-                if (SetProperty(ref _selectedFordon, value))
+                if (SetProperty(ref _selectedFordonJournal, value))
                 {
                     _updatingFromSelectionJournal = true;
                     if (value != null)
@@ -242,15 +234,11 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                         SearchText = value.FullständigtNamn; // Uppdaterar sökfältet med den valda kundens namn
                         UpdateKundFordon(value); // Uppdaterar fordonen som tillhör kunden
                     }
-                    else
-                    {
-                        KundFordon.Clear();
-                    }
                     _updatingFromSelection = false;
                 }
             }
         }
-        public List<string> BokningStatusar => Enum.GetNames(typeof(Status)).ToList();
+        public List<string> BokningStatusStatusar => Enum.GetNames(typeof(Status)).ToList();
 
         private Specialiseringar _selectedSpecialisering;
         public Specialiseringar SelectedSpecialisering
@@ -348,119 +336,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     _selectedBokningStatus = value;
                     OnPropertyChanged(nameof(SelectedBokningStatus));
                 }
-            }
-        }
-
-        // Properties för reparation
-        private Reparation _selectedReparation;
-        public Reparation SelectedReparation
-        {
-            get => _selectedReparation;
-            set => SetProperty(ref _selectedReparation, value);
-        }
-        private Bokning _selectedBokningForMekaniker;
-        public Bokning SelectedBokningForMekaniker
-        {
-            get => _selectedBokningForMekaniker;
-            set => SetProperty(ref _selectedBokningForMekaniker, value);
-        }
-
-        private Reparationsstatus _selectedReparationsStatus;
-        public Reparationsstatus SelectedReparationsStatus
-        {
-            get => _selectedReparationsStatus;
-            set => SetProperty(ref _selectedReparationsStatus, value);
-        }
-
-        private string _selectedÅtgärd;
-        public string SelectedÅtgärd
-        {
-            get => _selectedÅtgärd;
-            set => SetProperty(ref _selectedÅtgärd, value);
-        }
-
-        // Sökfunktioner för reservdelar
-        private ObservableCollection<Reservdel> _reservdelSuggestions;
-        public ObservableCollection<Reservdel> ReservdelSuggestions
-        {
-            get => _reservdelSuggestions;
-            private set => SetProperty(ref _reservdelSuggestions, value);
-        }
-
-        private Reservdel _selectedReservdel;
-        public Reservdel SelectedReservdel
-        {
-            get => _selectedReservdel;
-            set 
-            {
-                if(SetProperty(ref _selectedReservdel, value))
-                {
-                    _updatingFromSelectionReservdel = true;
-                    if (value != null)
-                    {
-                        SearchReservdelText = value.Namn;
-                    }
-                    else
-                    {
-                        ReservdelSuggestions.Clear();
-                    }
-                    _updatingFromSelectionReservdel = false;
-                }
-            }
-        }
-
-        private bool _isReservdelDropDownOpen;
-        public bool IsReservdelDropDownOpen
-        {
-            get => _isReservdelDropDownOpen;
-            set => SetProperty(ref _isReservdelDropDownOpen, value);
-        }
-
-        private bool _updatingFromSelectionReservdel = false;
-        private string _searchReservdelText;
-        public string SearchReservdelText
-        {
-            get => _searchReservdelText;
-            set
-            {
-                if (SetProperty(ref _searchReservdelText, value))
-                {
-                    if (!_updatingFromSelectionReservdel)
-                    {
-                        UpdateReservdelSuggestions();
-                        IsReservdelDropDownOpen = !string.IsNullOrEmpty(value);
-                        CheckAndResetSearchReservdelText(value);
-                    }
-                }
-            }
-        }
-
-        private void CheckAndResetSearchReservdelText(string value)
-        {
-            if (SelectedReservdel != null && !_updatingFromSelectionReservdel)
-            {
-                if (value != SelectedReservdel.Namn)
-                {
-                    if (!SelectedReservdel.Namn.StartsWith(value))
-                    {
-                        _updatingFromSelectionReservdel = true;
-                        SearchReservdelText = SelectedReservdel.Namn;
-                        _updatingFromSelectionReservdel = false;
-                    }
-                }
-            }
-        }
-
-        private void UpdateReservdelSuggestions()
-        {
-            if (string.IsNullOrEmpty(SearchReservdelText))
-            {
-                ReservdelSuggestions.Clear();
-            }
-            else
-            {
-                var searchResults = _reservdelController.SearchReservdel(SearchReservdelText);
-                ReservdelSuggestions = new ObservableCollection<Reservdel>(searchResults);
             }
         }
 
@@ -599,16 +474,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Bokningar.Add(booking);
             }
 
-        }
-
-        private void LoadMekanikersBokningar()
-        {
-            MekanikersBokningar.Clear();
-            var mekanikerBokningar = _bokningsController.GetBokningarByMekaniker(AnställningsNummer);
-            foreach (var bokning in mekanikerBokningar)
-            {
-                MekanikersBokningar.Add(bokning);
-            }
         }
 
 

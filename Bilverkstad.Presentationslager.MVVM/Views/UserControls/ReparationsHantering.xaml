@@ -3,12 +3,312 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="259,196,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+             xmlns:converters="clr-namespace:Bilverkstad.Presentationslager.MVVM.Converters" 
+             xmlns:viewmodels="clr-namespace:Bilverkstad.Presentationslager.MVVM.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ReparationsHanteringViewModel}"
+             mc:Ignorable="d"  
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Transparent">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/DataGridStyles.xaml" />
+                <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/ListViewStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <!-- General Styles -->
+            <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+                <Setter Property="Foreground" Value="#D7DADD" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#1B3C51" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Width" Value="80" />
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="5,0" />
+                <Setter Property="Cursor" Value="Hand" />
+            </Style>
+
+            <Style x:Key="SearchBoxStyle" TargetType="{x:Type ComboBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBox}">
+                            <Grid>
+                                <ToggleButton Name="ToggleButton" 
+                                  Focusable="false"
+                                  IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                  ClickMode="Press"
+                                  Visibility="Collapsed"/>
+
+                                <TextBox x:Name="PART_EditableTextBox"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="Center"
+                                     Margin="3"
+                                     Focusable="True"
+                                     Background="Silver"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                     Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Popup Name="Popup"
+                                               Placement="Bottom"
+                                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                                               AllowsTransparency="True"
+                                               Focusable="False"
+                                               PopupAnimation="Slide">
+                                    <Border x:Name="DropDownBorder"
+                                                 Background="White"
+                                                 BorderBrush="#D7DADD"
+                                                 BorderThickness="1">
+                                        <ScrollViewer Margin="4,6,4,6">
+                                            <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <converters:EmptyCollectionToBoolConverter x:Key="EmptyCollectionToBoolConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <viewmodels:ReparationsHanteringViewModel/>
+    </UserControl.DataContext>
+
+    <Border Background="#5A6A75"
+         CornerRadius="10"
+         Padding="20"
+         BorderBrush="#1B3C51"
+         BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="503*"/>
+                    <ColumnDefinition Width="115*"/>
+                    <ColumnDefinition Width="140*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="2">
+                    <!-- Reparationsdetaljer-->
+                    <GroupBox Header="Reparationsdetaljer" Foreground="#D7DADD" Background="#1B3C51">
+                        
+                        <StackPanel Margin="10">
+                            <Button  Width="28" HorizontalAlignment="Right" Background="#1B3C51" ToolTip="Resnar alla fält" Command="{Binding RefreshCommand}">
+                                <Image Source="/Views/Resources/refresh.png" Width="20" Height="20" />
+                            </Button>
+                            <TextBlock Text="Reparations Status" Style="{StaticResource LabelStyle}" />
+                            <ComboBox x:Name="ReparationsstatusComboBox"
+                                              ItemsSource="{Binding Reparationsstatusar}"   
+                                              Background="#1B3C51"
+                                              Foreground="Black"
+                                              BorderBrush="#D7DADD"
+                                              SelectedItem="{Binding SelectedReparationsstatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
+
+                            <TextBlock Text="Åtgärd" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
+                            <TextBox Text="{Binding SelectedÅtgärd, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="#1B3C51"
+                                     Foreground="White"
+                                     BorderBrush="#D7DADD"
+                                     AcceptsReturn="True" Height="80" />
+
+                            <TextBlock Text="Reservdel" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
+                            <ComboBox  ItemsSource="{Binding ReservdelSuggestions}"
+                                       SelectedItem="{Binding SelectedReservdel, UpdateSourceTrigger=PropertyChanged}"
+                                       DisplayMemberPath="Namn"
+                                       IsTextSearchEnabled="False"
+                                       IsEditable="True"
+                                       Background="Silver"
+                                       Foreground="#1B3C51"
+                                       BorderBrush="#D7DADD"
+                                       Style="{StaticResource SearchBoxStyle}"
+                                       IsDropDownOpen="{Binding IsReservdelDropDownOpen}"
+                                       Text="{Binding ReservdelSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </ComboBox>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                <Button Content="Lägg till" Style="{StaticResource ButtonStyle}" Command="{Binding AddReparationCommand}" />
+                                <Button Content="Ändra" Style="{StaticResource ButtonStyle}" Command="{Binding UpdateReparationCommand}"/>
+                                <Button Content="Ta bort" Style="{StaticResource ButtonStyle}" Command="{Binding DeleteReparationCommand}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+                <!-- Reparationslista-->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <TextBlock Text="Hantera bokningens reparationer här" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" />
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <ListView ItemsSource="{Binding Reparationer}"
+                                  SelectedItem="{Binding SelectedReparation}"
+                                  SelectionMode="Single">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Åtgärd}" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding Reparationsstatus}" FontStyle="Italic" />
+                                        <TextBlock Text="{Binding Reservdelar.Namn}" />
+                                        <TextBlock Text="{Binding Reservdelar.Pris}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </Grid>
+                </Grid>
+                <!-- Mekanikers bokningar-->
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <TextBlock Text="Dina bokningar" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" />
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <DataGrid  ItemsSource="{Binding Bokningar}"
+                                   AutoGenerateColumns="False"
+                                   Style="{StaticResource DataGridStyle}"
+                                   SelectedItem="{Binding SelectedBokning, UpdateSourceTrigger=PropertyChanged}"
+                                   IsReadOnly="True"
+                                   SelectionMode="Single"
+                                   SelectionUnit="FullRow"
+                                   VerticalScrollBarVisibility="Visible">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Boknings ID" Binding="{Binding Id}" />
+                                <DataGridTextColumn Header="Fordon RegNr" Binding="{Binding Fordon.RegNr}" />
+                                <DataGridTextColumn Header="Syfte med besök" Binding="{Binding SyfteMedBesök}" />
+                                <DataGridTextColumn Header="Inlämningsdatum" Binding="{Binding InlämningsDatum}" />
+                                <DataGridTextColumn Header="Utlämningsdatum" Binding="{Binding UtlämningsDatum}" />
+                                <DataGridTextColumn Header="Status" Binding="{Binding BokningStatus}" />
+                                <DataGridTextColumn Header="Receptionist" Binding="{Binding Receptionist.FullständigtNamn}" />
+                                <DataGridTextColumn Header="Mekaniker" Binding="{Binding Mekaniker.FullständigtNamn}" />
+                                <DataGridTemplateColumn Header="Reparationer">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <DataGrid ItemsSource="{Binding Reparation}" AutoGenerateColumns="False" Style="{StaticResource DataGridStyle}" IsReadOnly="True">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Reparations ID" Binding="{Binding ReparationsId}" />
+                                                    <DataGridTextColumn Header="Åtgärd" Binding="{Binding Åtgärd}" />
+                                                    <DataGridTextColumn Header="Status" Binding="{Binding Reparationsstatus}" />
+                                                    <DataGridTextColumn Header="Reservdel" Binding="{Binding Reservdelar.Namn}" />
+                                                    <DataGridTextColumn Header="Pris" Binding="{Binding Reservdelar.Pris}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Åtgärd" Binding="{Binding Reparation.Åtgärd}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="198*" />
+                    <ColumnDefinition Width="69*" />
+ 
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <GroupBox Header="Fordonsjournal" Foreground="#D7DADD" Background="#1B3C51" Width="298" HorizontalAlignment="Left" Margin="0,0,0,71">
+                        <StackPanel Margin="10">
+
+                            <TextBlock Text="Resultat" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
+                            <ComboBox  ItemsSource="{Binding FordonSuggestions}"
+                                       SelectedItem="{Binding SelectedFordonJournal, UpdateSourceTrigger=PropertyChanged}"
+                                       IsTextSearchEnabled="False"
+                                       DisplayMemberPath="RegNr"  
+                                       Background="Silver"
+                                       Foreground="#1B3C51"
+                                       BorderBrush="#D7DADD"
+                                       IsEditable="True"
+                                       Style="{StaticResource SearchBoxStyle}"
+                                       IsDropDownOpen="{Binding IsFordonDropDownOpen}"
+                                       Text="{Binding SearchJournalText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Content="Visa Journal" Command="{Binding VisaJournalCommand}"  Style="{StaticResource ButtonStyle}" Margin="0,10,0,0" IsDefault="True" />
+                            <Button  Width="28" HorizontalAlignment="Right" Background="#1B3C51" ToolTip="Resnar alla fält" Command="{Binding RefreshCommand}">
+                                <Image Source="/Views/Resources/refresh.png" Width="20" Height="20" />
+                            </Button>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock Text="Fordonsjournal" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <!-- Jounral view-->
+                        <ListView ItemsSource="{Binding FordonsJournal}" 
+                                  Style="{StaticResource ListViewStyle}"
+                                  IsHitTestVisible="True"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource ListViewHeaderStyle}" />
+                                    </GridView.ColumnHeaderContainerStyle>
+                                    <GridViewColumn Header="Boknings ID" DisplayMemberBinding="{Binding Id}"/>
+                                    <GridViewColumn Header="Kund" DisplayMemberBinding="{Binding Kund.FullständigtNamn}" />
+                                    <GridViewColumn Header="Fordon RegNr" DisplayMemberBinding="{Binding Fordon.RegNr}" />
+                                    <GridViewColumn Header="Receptionist" DisplayMemberBinding="{Binding Receptionist.FullständigtNamn}" />
+                                    <GridViewColumn Header="Mekaniker" DisplayMemberBinding="{Binding Mekaniker.FullständigtNamn}" />
+                                    <GridViewColumn Header="Syfte med besök" DisplayMemberBinding="{Binding SyfteMedBesök}" />
+                                    <GridViewColumn Header="Inlämningsdatum" DisplayMemberBinding="{Binding InlämningsDatum}" />
+                                    <GridViewColumn Header="Utlämningsdatum" DisplayMemberBinding="{Binding UtlämningsDatum}" />
+                                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding BokningStatus}" />
+                                    <GridViewColumn Header="Reparationer">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <ListView ItemsSource="{Binding Reparation}" Style="{StaticResource ListViewStyle}">
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridView.ColumnHeaderContainerStyle>
+                                                                <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource ListViewHeaderStyle}"/>
+                                                            </GridView.ColumnHeaderContainerStyle>
+                                                            <GridViewColumn Header="Reparations ID" DisplayMemberBinding="{Binding ReparationsId}" />
+                                                            <GridViewColumn Header="Åtgärd" DisplayMemberBinding="{Binding Åtgärd}" />
+                                                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Reparationsstatus}" />
+                                                            <GridViewColumn Header="Reservdel" DisplayMemberBinding="{Binding Reservdelar}" />
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+
+                </Grid>
+                
 
 
-    </Grid>
+            </Grid>
+
+        </Grid>
+    </Border>
 </UserControl>
