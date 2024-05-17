@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/ListViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            
+
             <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="#D7DADD" />
                 <Setter Property="FontWeight" Value="Bold" />
@@ -80,8 +80,8 @@
             BorderThickness="1" >
         <Grid Margin="0,0,10,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="321*"/>
-                <ColumnDefinition Width="1438*" />
+                <ColumnDefinition Width="295*"/>
+                <ColumnDefinition Width="839*" />
             </Grid.ColumnDefinitions>
 
             <!-- vänstra panelen-->

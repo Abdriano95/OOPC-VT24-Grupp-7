@@ -53,8 +53,8 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set
             {
                 _söktext = value;
-                OnPropertyChanged(nameof(Söktext));
                 FiltreraReservdelar();
+                OnPropertyChanged(nameof(Söktext));
             }
         }
 
