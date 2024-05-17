@@ -70,7 +70,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 return;
             }
 
-            // lyckad inlog
+            // lyckad inloggning
             AnvändarSession.InloggadAnvändare = new Användare
             {
                 AnvändarNamn = anställd.Förnamn + " " + anställd.Efternamn,
