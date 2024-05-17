@@ -13,6 +13,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
     {
         private KundController _kundcontroller;
         private FordonController _fordoncontroller;
+        private BokningsController _bokningscontroller;
         private readonly IUserMessageService _messageService;
 
 
@@ -24,6 +25,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             _messageService = new UserMessageService();
             _kundcontroller = new KundController();
             _fordoncontroller = new FordonController();
+            _bokningscontroller = new BokningsController();
             LoadKunder();
             KundData = new ObservableCollection<Kund>(_kundcontroller.GetKundWithFordon());
             FiltreradeKunder = CollectionViewSource.GetDefaultView(KundData);
@@ -286,6 +288,11 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public ICommand? _taBortKund;
         public ICommand TaBortKundCommand => _taBortKund ??= _taBortKund = new RelayCommand(() =>
         {
+            if (_bokningscontroller.KundHarBokning(ValdKund.Id)) // Kontrollera om kunden har en bokning
+            {
+                _messageService.ShowMessage("Kunden har en bokning och kan inte tas bort.");
+                return;
+            }
             if (ValdKund != null)
             {
                 _kundcontroller.DeleteKund(ValdKund);

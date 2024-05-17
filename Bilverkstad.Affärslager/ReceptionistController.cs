@@ -9,7 +9,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return (unitOfWork.Receptionist.GetAll().ToList());
+                return unitOfWork.Receptionist.GetAll().ToList();
             }
 
         }
@@ -50,7 +50,29 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        
+        public void AddOrUpdateReceptionist(Receptionist receptionist)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                var existingReceptionist = unitOfWork.Receptionist.Find(receptionist.AnställningsNummer);
+                if (existingReceptionist == null)
+                {
+                    unitOfWork.Receptionist.Add(receptionist);
+                }
+                else
+                {
+                    unitOfWork.Receptionist.Update(existingReceptionist, receptionist);
+                }
+                unitOfWork.SaveChanges();
+            }
+        }
 
+        public bool HarReceptionistBokning(int anställningsNummer)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Bokning.Get(r => r.ReceptionistId == anställningsNummer).Any();
+            }
+        }
     }
 }

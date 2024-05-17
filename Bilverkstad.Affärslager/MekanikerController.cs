@@ -49,5 +49,13 @@ namespace Bilverkstad.Affärslager
                 uow.SaveChanges();
             }
         }
+
+        public bool HarMekanikerBokning(int anställningsNummer)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Bokning.Get(m => m.MekanikerId == anställningsNummer).Any();
+            }
+        }
     }
 }
