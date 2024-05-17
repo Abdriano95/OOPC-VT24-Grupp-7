@@ -88,7 +88,8 @@ namespace Bilverkstad.Affärslager
                         .Include(b => b.Fordon)
                         .Include(b => b.Receptionist)
                         .Include(b => b.Mekaniker)
-                        .Include(b => b.Reparation)  // Försäkrar att alla relevanta navigations properties är inkluderade
+                        .Include(b => b.Reparation)
+                        .ThenInclude(b => b.Reservdelar)// Försäkrar att alla relevanta navigations properties är inkluderade
                         .ToList();
                     foreach (var bokning in bokningar)
                     {
@@ -159,6 +160,7 @@ namespace Bilverkstad.Affärslager
                                         .Include(b => b.Receptionist)
                                         .Include(b => b.Mekaniker)
                                         .Include(b => b.Reparation)
+                                        .ThenInclude(r => r.Reservdelar)
                                         .Where(b => b.MekanikerId == mechanicId)
                                         .ToList();
             }
@@ -229,7 +231,6 @@ namespace Bilverkstad.Affärslager
                     (b.Kund.Efternamn != null && b.Kund.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Fordon.RegNr != null && b.Fordon.RegNr.ToLower().Contains(searchTerm)) ||
                     (b.SyfteMedBesök != null && b.SyfteMedBesök.ToLower().Contains(searchTerm)) ||
-
                     (b.Receptionist.Förnamn != null && b.Receptionist.Förnamn.ToLower().Contains(searchTerm)) ||
                     (b.Receptionist.Efternamn != null && b.Receptionist.Efternamn.ToLower().Contains(searchTerm)) ||
                     (b.Mekaniker.Förnamn != null && b.Mekaniker.Förnamn.ToLower().Contains(searchTerm)) ||
