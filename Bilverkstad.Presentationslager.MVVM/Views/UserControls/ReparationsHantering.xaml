@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/ListViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            
+
             <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="#D7DADD" />
                 <Setter Property="FontWeight" Value="Bold" />
@@ -91,14 +91,14 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="503*"/>
-                    <ColumnDefinition Width="115*"/>
-                    <ColumnDefinition Width="140*"/>
+                    <ColumnDefinition Width="398*"/>
+                    <ColumnDefinition Width="163*"/>
+                    <ColumnDefinition Width="197*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="2">
                     <!-- Reparationsdetaljer-->
                     <GroupBox Header="Reparationsdetaljer" Foreground="#D7DADD" Background="#1B3C51">
-                        
+
                         <StackPanel Margin="10">
                             <Button  Width="28" HorizontalAlignment="Right" Background="#1B3C51" ToolTip="Resnar alla fält" Command="{Binding RefreshCommand}">
                                 <Image Source="/Views/Resources/refresh.png" Width="20" Height="20" />
@@ -225,7 +225,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="198*" />
                     <ColumnDefinition Width="69*" />
- 
+
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="1">
                     <GroupBox Header="Fordonsjournal" Foreground="#D7DADD" Background="#1B3C51" Width="298" HorizontalAlignment="Left" Margin="0,0,0,71">
@@ -304,7 +304,7 @@
                     </Grid>
 
                 </Grid>
-                
+
 
 
             </Grid>
