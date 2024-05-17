@@ -271,6 +271,23 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public ICommand? _taBortAnställd;
         public ICommand TaBortAnställdCommand => _taBortAnställd ??= _taBortAnställd = new RelayCommand(() =>
         {
+            // Kontrollerar om en anställd har en bokning
+            if (ValdAnställd is Mekaniker mekaniker)
+            {
+                if (_mekanikercontroller.HarMekanikerBokning(mekaniker.AnställningsNummer))
+                {
+                    _messageService.ShowMessage("Mekaniker har en bokning och kan inte tas bort.");
+                    return;
+                }
+            }
+            else if (ValdAnställd is Receptionist receptionist)
+            {
+                if (_receptionistcontroller.HarReceptionistBokning(receptionist.AnställningsNummer))
+                {
+                    _messageService.ShowMessage("Receptionist har en bokning och kan inte tas bort.");
+                    return;
+                }
+            }
             if (ValdAnställd != null)
             {
                 _anställdcontroller.DeleteAnställd(ValdAnställd);

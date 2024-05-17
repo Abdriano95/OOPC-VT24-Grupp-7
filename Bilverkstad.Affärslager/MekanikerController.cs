@@ -9,7 +9,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return unitOfWork.Mekaniker.GetAll().ToList();
+                return (IList<Mekaniker>)unitOfWork.Mekaniker.GetAll().ToList();
             }
 
         }
@@ -47,6 +47,14 @@ namespace Bilverkstad.Affärslager
                 Mekaniker benfintligMekaniker = uow.Mekaniker.Find(mekaniker.AnställningsNummer);
                 uow.Mekaniker.Update(benfintligMekaniker, mekaniker);
                 uow.SaveChanges();
+            }
+        }
+
+        public bool HarMekanikerBokning(int anställningsNummer)
+        {
+            using (UnitOfWork unitOfWork = new UnitOfWork())
+            {
+                return unitOfWork.Bokning.Get(m => m.MekanikerId == anställningsNummer).Any();
             }
         }
     }
