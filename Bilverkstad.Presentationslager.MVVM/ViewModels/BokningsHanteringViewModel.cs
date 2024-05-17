@@ -64,9 +64,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 if (SetProperty(ref _searchText, value))
                 {
-                    if (!_updatingFromSelection) // Only update suggestions and check text if not updating from selection
+                    if (!_updatingFromSelection) 
                     {
-                        UpdateKundSuggestions(); // Refreshes the customers list shown in the dropdown
+                        UpdateKundSuggestions(); 
                         IsDropDownOpen = !string.IsNullOrEmpty(value);
                         CheckAndResetSearchText(value);
                     }
