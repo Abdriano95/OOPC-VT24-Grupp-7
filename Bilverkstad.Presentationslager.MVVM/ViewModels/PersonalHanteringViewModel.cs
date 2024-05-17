@@ -2,8 +2,6 @@
 using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Query;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
@@ -26,7 +24,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             _mekanikercontroller = new MekanikerController();
             _anställdcontroller = new AnställdController();
 
-            LoadPersonal();            
+            LoadPersonal();
             FiltreradePersonal = CollectionViewSource.GetDefaultView(PersonalData);
             FiltreradePersonal.Filter = PersonalFilter;
 
@@ -138,7 +136,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public ObservableCollection<string> TypList { get; set; }
 
 
-        
+
 
         // DATAGRID 
 
@@ -147,7 +145,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             PersonalData = new ObservableCollection<Anställd>(_anställdcontroller.GetAnställd());
         }
 
-       
+
 
         private Anställd _valdAnställd;
         public Anställd ValdAnställd
@@ -162,7 +160,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     Förnamn = value.Förnamn;
                     Efternamn = value.Efternamn;
                     Lösenord = value.Lösenord;
-                    
+
 
                     if (value is Mekaniker mekaniker)
                     {
@@ -265,7 +263,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             // Nollställ textbox-värden
             Förnamn = "";
             Efternamn = "";
-            Lösenord = ""; 
+            Lösenord = "";
         });
 
 
@@ -294,7 +292,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         // UPPDATERA ANSTÄLLD
 
-        
+
         public ICommand? _updateAnställd;
         public ICommand UpdateAnställdCommand => _updateAnställd ??= _updateAnställd = new RelayCommand(() =>
         {
@@ -322,7 +320,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Förnamn = "";
                 Efternamn = "";
                 Lösenord = "";
-                
+
 
                 ValdAnställd = null; // Nollställ ValdReservdel efter borttagning
 
@@ -338,7 +336,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             return lösenord.Length >= 8;
         }
 
-        
-     
+
+
     }
 }

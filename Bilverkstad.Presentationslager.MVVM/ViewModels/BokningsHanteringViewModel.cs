@@ -148,7 +148,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     _updatingFromSelectionJournal = true;
                     if (value != null)
                     {
-                        SearchJournalText = value.RegNr; 
+                        SearchJournalText = value.RegNr;
                     }
                     else
                     {
@@ -157,7 +157,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     _updatingFromSelectionJournal = false;
 
                 }
-              
+
             }
         }
 
@@ -177,7 +177,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 if (SetProperty(ref _searchJournalText, value))
                 {
-                    if(!_updatingFromSelectionJournal)
+                    if (!_updatingFromSelectionJournal)
                     {
                         UpdateJournalSuggestions();
                         IsFordonDropDownOpen = !string.IsNullOrEmpty(value);
@@ -189,7 +189,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         private void CheckAndResetSearchJournalText(string newText)
         {
-            if(SelectedFordonJournal != null && !_updatingFromSelectionJournal)
+            if (SelectedFordonJournal != null && !_updatingFromSelectionJournal)
             {
                 if (newText != SelectedFordonJournal.RegNr)
                 {
