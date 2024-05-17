@@ -28,6 +28,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             Bokningar = new ObservableCollection<Bokning>();
             Mekanikers = new ObservableCollection<Mekaniker>();
             Specialiseringar = new ObservableCollection<Specialiseringar>(Enum.GetValues(typeof(Specialiseringar)).Cast<Specialiseringar>());
+            BokningStatus = new ObservableCollection<Status>(Enum.GetValues(typeof(Status)).Cast<Status>());
             LoadBokningarForReceptionist();
             DetermineUserType();
         }
@@ -74,6 +75,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
         // Collections
+
+        private ObservableCollection<Status> _bokningStatus;
+        public ObservableCollection<Status> BokningStatus
+        {
+            get => _bokningStatus;
+            set => SetProperty(ref _bokningStatus, value);
+        }
         private ObservableCollection<Bokning> _bokningar;
         public ObservableCollection<Bokning> Bokningar
         {
@@ -116,13 +124,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         public void LoadVehicleJournal()
         {
-            if (SelectedFordon != null)
+            if (SelectedFordonJournal != null)
             {
-                FordonsJournal = new ObservableCollection<Bokning>(_bokningsController.GetBokningarByFordonRegNr(SelectedFordon.RegNr));
+                FordonsJournal = new ObservableCollection<Bokning>(_bokningsController.GetBokningarByFordonRegNr(SelectedFordonJournal.RegNr));
             }
             else
             {
-                _messageService.ShowMessage("No vehicle selected.");
+                _messageService.ShowMessage("Inga fordon hittade.");
             }
         }
 
@@ -238,7 +246,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 }
             }
         }
-        public List<string> BokningStatusStatusar => Enum.GetNames(typeof(Status)).ToList();
+        
 
         private Specialiseringar _selectedSpecialisering;
         public Specialiseringar SelectedSpecialisering
@@ -329,14 +337,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public Status SelectedBokningStatus
         {
             get => _selectedBokningStatus;
-            set
-            {
-                if (_selectedBokningStatus != value)
-                {
-                    _selectedBokningStatus = value;
-                    OnPropertyChanged(nameof(SelectedBokningStatus));
-                }
-            }
+            set { SetProperty(ref _selectedBokningStatus, value); }
         }
 
 
@@ -420,7 +421,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             SelectedBokningForReceptionist.FordonRegNr = SelectedFordon.RegNr;
             SelectedBokningForReceptionist.ReceptionistId = AnställningsNummer;
             SelectedBokningForReceptionist.MekanikerId = SelectedMekaniker?.AnställningsNummer;
-            SelectedBokningForReceptionist.InlämningsDatum = InlämningsDatum ?? DateTime.Now;
+            SelectedBokningForReceptionist.InlämningsDatum = (DateTime)InlämningsDatum;
             SelectedBokningForReceptionist.UtlämningsDatum = UtlämningsDatum;
             SelectedBokningForReceptionist.SyfteMedBesök = SelectedSyfteMedBesök;
             SelectedBokningForReceptionist.BokningStatus = SelectedBokningStatus;
