@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Bilverkstad.Presentationslager.MVVM.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 
 
@@ -12,12 +13,8 @@ namespace Bilverkstad.Presentationslager.MVVM.Views.UserControls
         public ReparationsHantering()
         {
             InitializeComponent();
+            DataContext = new ReparationsHanteringViewModel();
 
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Reparationen är nu bokad!");
         }
     }
 }
