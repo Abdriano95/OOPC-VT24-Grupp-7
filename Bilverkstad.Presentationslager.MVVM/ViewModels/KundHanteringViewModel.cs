@@ -209,7 +209,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
             if (!IsPersonnummerValid(Personnummer))
             {
-                _messageService.ShowMessage("Personnummer måste vara 10 eller 12 tecken långt.");
+                _messageService.ShowMessage("Personnummer måste vara 10 eller 12 tecken långt och det ska inte innehålla någora siffror.");
                 return;
             }
 
@@ -221,7 +221,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
             if (!IsTelefonnummerValid(Telefonnummer))
             {
-                _messageService.ShowMessage("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                _messageService.ShowMessage("Telefonnumret måste vara 10 eller 12 tecken långt och inga bokstäver.");
                 return;
             }
 
@@ -324,13 +324,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
                 if (!IsPersonnummerValid(Personnummer))
                 {
-                    _messageService.ShowMessage("Personnummer måste vara 10 eller 12 tecken långt.");
+                    _messageService.ShowMessage("Personnummer måste vara 10 eller 12 tecken långt och inga bokstäver");
                     return;
                 }
 
                 if (!IsTelefonnummerValid(Telefonnummer))
                 {
-                    _messageService.ShowMessage("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                    _messageService.ShowMessage("Telefonnumret måste vara 10 eller 12 tecken långt och inga bokstäver.");
                     return;
                 }
 
@@ -418,12 +418,28 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         private bool IsPersonnummerValid(string personnummer)
         {
-            return personnummer.Length == 10 || personnummer.Length == 12;
+
+            if (personnummer.Length == 10 || personnummer.Length == 12 && personnummer.Any(char.IsDigit)) 
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+
         }
 
         private bool IsTelefonnummerValid(string telefonnummer)
         {
-            return telefonnummer.Length == 10 || telefonnummer.Length == 12;
+            if (telefonnummer.Length == 10 || telefonnummer.Length == 12 && telefonnummer.Any(char.IsDigit))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private bool IsRegNrValid(string regNr)

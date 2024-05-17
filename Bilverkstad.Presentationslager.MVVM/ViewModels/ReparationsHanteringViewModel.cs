@@ -117,8 +117,8 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
 
         // Properties
-        private Bokning _selectedBokning;
-        public Bokning SelectedBokning
+        private Bokning? _selectedBokning;
+        public Bokning? SelectedBokning
         {
             get { return _selectedBokning; }
             set
@@ -273,6 +273,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 SelectedReparation.ReservdelId = SelectedReservdel.Artikelnummer;
                 _reparationController.UpdateReparation(SelectedReparation);
                 _bokningController.UpdateBokning(SelectedBokning);
+           
                 RefreshCommand.Execute(null);
                 LoadBokningarForMekaniker();
         });
@@ -294,7 +295,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
 
                 _reparationController.DeleteReparation(SelectedReparation);
-                SelectedBokning.Reparation.Remove(SelectedReparation);
+                SelectedBokning?.Reparation?.Remove(SelectedReparation);
                 _bokningController.UpdateBokning(SelectedBokning);
                 Reparationer.Remove(SelectedReparation);
                 RefreshCommand.Execute(null);
