@@ -34,11 +34,6 @@ namespace Bilverkstad.Entitetlagret
         }
 
 
-        public override string ToString()
-        {
-
-            return string.Concat(Id, Förnamn, Efternamn, Personnummer);
-
-        }
+        
     }
 }

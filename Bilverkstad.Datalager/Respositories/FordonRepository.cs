@@ -11,20 +11,6 @@ namespace Bilverkstad.Datalager.Respositories
         {
         }
 
-        public void AddOrUpdate(Fordon fordon)
-        {
-            var existingFordon = FindStringID(fordon.RegNr);
-            if (existingFordon != null)
-            {
-                existingFordon.Bilmärke = fordon.Bilmärke;
-                existingFordon.Modell = fordon.Modell;
-
-                Update(existingFordon);
-            }
-            else
-            {
-                Add(fordon);
-            }
-        }
+        
     }
 }

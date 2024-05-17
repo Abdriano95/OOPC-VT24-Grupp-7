@@ -9,7 +9,7 @@ namespace Bilverkstad.Affärslager
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
-                return (IList<Mekaniker>)unitOfWork.Mekaniker.GetAll().ToList();
+                return unitOfWork.Mekaniker.GetAll().ToList();
             }
 
         }

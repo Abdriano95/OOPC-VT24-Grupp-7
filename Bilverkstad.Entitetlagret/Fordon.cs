@@ -13,9 +13,6 @@ public class Fordon
 
 
 
-    public override string ToString()
-    {
-        return String.Concat(RegNr, Bilmärke, Modell, Kund);
-    }
+    
 
 }

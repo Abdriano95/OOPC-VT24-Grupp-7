@@ -13,41 +13,41 @@ namespace Bilverkstad.Datalager
         protected BilverkstadContext Context { get; }
         private IKundRepository kund = null!;
         public IKundRepository? Kund => kund ??= new KundRepository(Context);
-        public IKundRepository Kunder => throw new NotImplementedException();
+        
 
         private IFordonRepository fordon = null!;
         public IFordonRepository Fordon => fordon ??= new FordonRepository(Context);
-        public IFordonRepository? Fordons => throw new NotImplementedException();
+        
 
         private IAnställdRepository anställd = null!;
         public IAnställdRepository? Anställd => anställd ??= new AnställdRepository(Context);
 
-        public IAnställdRepository? Anställda => throw new NotImplementedException();
+        
 
         private IMekanikerRepository mekaniker = null!;
         public IMekanikerRepository? Mekaniker => mekaniker ??= new MekanikerRepository(Context);
 
-        public IMekanikerRepository? Mekanikers => throw new NotImplementedException();
+        
 
         private IReceptionistRepository receptionist = null!;
         public IReceptionistRepository? Receptionist => receptionist ??= new ReceptionistRepository(Context);
 
-        public IReceptionistRepository? Receptionists => throw new NotImplementedException();
+        
 
 
         private IBokningRepository bokning = null!;
         public IBokningRepository Bokning => bokning ??= new BokningRepository(Context);
-        public IBokningRepository Boknings => throw new NotImplementedException();
+        
 
         private IReservdelRepository reservdel = null!;
         public IReservdelRepository? Reservdel => reservdel ??= new ReservdelRepository(Context);
 
-        public IReservdelRepository? Reservdelar => throw new NotImplementedException();
+        
 
         private IReparationRepository reparation = null!;
         public IReparationRepository? Reparation => reparation ??= new ReparationRepository(Context);
 
-        public IReparationRepository? Reparationer => throw new NotImplementedException();
+        
 
 
 

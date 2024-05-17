@@ -50,22 +50,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void AddOrUpdateReceptionist(Receptionist receptionist)
-        {
-            using (UnitOfWork unitOfWork = new UnitOfWork())
-            {
-                var existingReceptionist = unitOfWork.Receptionist.Find(receptionist.AnställningsNummer);
-                if (existingReceptionist == null)
-                {
-                    unitOfWork.Receptionist.Add(receptionist);
-                }
-                else
-                {
-                    unitOfWork.Receptionist.Update(existingReceptionist, receptionist);
-                }
-                unitOfWork.SaveChanges();
-            }
-        }
+        
 
     }
 }
