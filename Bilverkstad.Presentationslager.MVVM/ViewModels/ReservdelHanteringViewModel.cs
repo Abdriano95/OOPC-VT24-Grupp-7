@@ -1,9 +1,9 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
+using Bilverkstad.Presentationslager.MVVM.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -11,11 +11,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
     public class ReservdelHanteringViewModel : BaseViewModel
     {
-        private ReservdelController _reservdelcontroller;    
+        private ReservdelController _reservdelcontroller;
+        private readonly IUserMessageService _messageService;
+
 
         // KONSTRUKTOR
+
+
         public ReservdelHanteringViewModel()
         {
+            _messageService = new UserMessageService();
             _reservdelcontroller = new ReservdelController();
             LoadReservdelar();
             ReservdelData = new ObservableCollection<Reservdel>(_reservdelcontroller.GetReservdel());
@@ -23,8 +28,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             FiltreradeReservdelar.Filter = ReservdelFilter;
         }
 
+
         // PROPERTIES
-        
+  
 
         private string _namn = "";
         public string Namn
@@ -52,7 +58,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // DATAGRID
+
 
         private void LoadReservdelar()
         {
@@ -72,7 +80,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 {
                     Namn = _valdReservdel.Namn;
                     Pris = _valdReservdel.Pris;
-                    
+
                 }
                 OnPropertyChanged(nameof(ValdReservdel));
             }
@@ -96,7 +104,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // SÖKFUNKTION
+
 
         private bool ReservdelFilter(object obj)
         {
@@ -106,7 +116,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 return string.IsNullOrEmpty(Söktext) ||
                        reservdel.Artikelnummer.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        reservdel.Namn.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
-                       reservdel.Pris.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase);      
+                       reservdel.Pris.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase);
             }
 
             return false;
@@ -117,7 +127,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             FiltreradeReservdelar.Refresh(); // Uppdatera CollectionView när söktexten ändras
         }
 
+
         // LÄGG TILL RESERVDEL
+
 
         private ICommand? _läggTillReservdel;
         public ICommand LäggTillReservdelCommand => _läggTillReservdel ??= _läggTillReservdel = new RelayCommand(() =>
@@ -125,32 +137,32 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
             var reservdel = new Reservdel();
             reservdel = new Reservdel
-            { 
+            {
                 Namn = Namn,
                 Pris = Pris
-                
+
             };
 
             if (string.IsNullOrWhiteSpace(Namn))
             {
-                MessageBox.Show("Namn och pris är obligatoriska fält.");
+                _messageService.ShowMessage("Namn och pris är obligatoriska fält.");
                 return;
             }
             if (Pris == 0 || float.IsNegative(Pris))
             {
-                MessageBox.Show("Pris måste vara ett positivt värde.");
+                _messageService.ShowMessage("Pris måste vara ett positivt värde.");
                 return;
             }
 
             if (IsDuplicateReservdel(Namn))
             {
-                MessageBox.Show("En reservdel med detta namn finns redan.");
+                _messageService.ShowMessage("En reservdel med detta namn finns redan.");
                 return;
             }
 
             _reservdelcontroller.AddReservdel(reservdel);
             LoadReservdelar();
-            MessageBox.Show("Reservdel tillagd.");
+            _messageService.ShowMessage("Reservdel tillagd.");
 
             // Nollställ textbox-värden
             Namn = "";
@@ -159,6 +171,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
 
         // TA BORT RESERVDEL
+
 
         public ICommand? _taBortReservdel;
         public ICommand TaBortReservdelCommand => _taBortReservdel ??= _taBortReservdel = new RelayCommand(() =>
@@ -169,17 +182,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 ReservdelData.Remove(ValdReservdel); // Ta bort reservdelen från IList för att uppdatera datagriden
                 ValdReservdel = null; // Nollställ ValdReservdel efter borttagning
                 LoadReservdelar();
-                MessageBox.Show("Reservdel borttagen.");
+                _messageService.ShowMessage("Reservdel borttagen.");
 
                 // Nollställ textbox-värden
                 Namn = "";
                 Pris = 0;
-                
+
             }
         }, () => ValdReservdel != null);
 
 
         // UPPDATERA RESERVDEL
+
 
         public ICommand? _updateReservdel;
 
@@ -189,34 +203,41 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(Namn))
                 {
-                    MessageBox.Show("Namn och pris är obligatoriska fält.");
+                    _messageService.ShowMessage("Namn och pris är obligatoriska fält.");
                     return;
                 }
                 if (Pris == 0 || float.IsNegative(Pris))
                 {
-                    MessageBox.Show("Pris måste vara ett positivt värde.");
+                    _messageService.ShowMessage("Pris måste vara ett positivt värde.");
                     return;
                 }
-                
+                if (IsDuplicateReservdel(Namn))
+                {
+                    _messageService.ShowMessage("En reservdel med detta namn finns redan.");
+                    return;
+                }
+
 
                 ValdReservdel.Namn = Namn.ToLower();
                 ValdReservdel.Pris = Pris;
-                
+
                 _reservdelcontroller.UpdateReservdel(ValdReservdel);
 
                 LoadReservdelar();
-                MessageBox.Show("Reservdel uppdaterad.");
+                _messageService.ShowMessage("Reservdel uppdaterad.");
 
                 // Nollställ textbox-värden
                 Namn = "";
                 Pris = 0;
-                
+
                 ValdReservdel = null; // Nollställ ValdReservdel efter borttagning
 
             }
         }, () => ValdReservdel != null);
 
+
         // FELHANTERING 
+
 
         private bool IsDuplicateReservdel(string namn)
         {

@@ -1,19 +1,8 @@
-﻿using Bilverkstad.Affärslager;
-using Bilverkstad.Entitetlagret;
-using Bilverkstad.Presentationslager.MVVM.Commands;
-using Bilverkstad.Presentationslager.MVVM.Services;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace Bilverkstad.Presentationslager.MVVM.ViewModels
+﻿namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
     public class ReparationsHanteringViewModel : BaseViewModel
     {
+
         // Services och kontroller
         private readonly ReparationController _reparationController;
         private readonly BokningsController _bokningController;
@@ -445,5 +434,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Reparationer.Add(reparation);
             }
         }
+
     }
 }

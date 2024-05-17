@@ -18,7 +18,7 @@ namespace Bilverkstad.Presentationslager.MVVM.Services
                 case UserMessageButtons.JaNej:
                     result = MessageBox.Show(message, caption, MessageBoxButton.YesNo);
                     break;
-                    // Add more cases if needed for different button types
+                    
             }
 
             return result == MessageBoxResult.Yes ? UserMessageResult.Ja : UserMessageResult.Nej;
