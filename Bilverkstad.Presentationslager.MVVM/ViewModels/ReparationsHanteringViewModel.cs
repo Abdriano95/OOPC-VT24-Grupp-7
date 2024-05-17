@@ -147,6 +147,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                         SelectedÅtgärd = value.Åtgärd;
                         SelectedReservdel = value.Reservdelar;
                     }
+                    OnPropertyChanged(nameof(SelectedReparation));
                 }
             }
 
@@ -199,12 +200,12 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private ICommand _refreshCommand = null!;
         public ICommand RefreshCommand => _refreshCommand ??= _refreshCommand = new RelayCommand(() =>
         {
-            SelectedBokning = SelectedBokning;
+            LoadBokningarForMekaniker();
+            LoadReparationerForBokning();
+            SelectedBokning = null;
             SelectedReparationsstatus = Reparationsstatus.EjPåbörjad;
             SelectedÅtgärd = "";
             SelectedReservdel = null;
-            LoadBokningarForMekaniker();
-            LoadReparationerForBokning();
         });
 
 
@@ -244,9 +245,10 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 _reparationController.AddReparation(reparation);
                 SelectedBokning.Reparation.Add(reparation);
                 _bokningController.UpdateBokning(SelectedBokning);
-                Reparationer.Add(reparation);
+                Reparationer.Clear();
                 RefreshCommand.Execute(null);
-            
+                _userMessageService.ShowMessage("Reparation tillagd");
+
         });
 
         private ICommand _updateReparationCommand = null!;
@@ -273,9 +275,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 SelectedReparation.ReservdelId = SelectedReservdel.Artikelnummer;
                 _reparationController.UpdateReparation(SelectedReparation);
                 _bokningController.UpdateBokning(SelectedBokning);
-           
+                Reparationer.Clear();
                 RefreshCommand.Execute(null);
-                LoadBokningarForMekaniker();
+                 _userMessageService.ShowMessage("Reparation uppdaterad");
         });
 
 
@@ -297,10 +299,10 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 _reparationController.DeleteReparation(SelectedReparation);
                 SelectedBokning?.Reparation?.Remove(SelectedReparation);
                 _bokningController.UpdateBokning(SelectedBokning);
-                Reparationer.Remove(SelectedReparation);
+                Reparationer.Clear();
                 RefreshCommand.Execute(null);
                 LoadBokningarForMekaniker();
-
+                _userMessageService.ShowMessage("Reparation borttagen");
         });
 
         // Sökfunktion för fordonsjournal
