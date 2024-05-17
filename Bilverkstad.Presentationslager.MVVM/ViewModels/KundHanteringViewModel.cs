@@ -1,9 +1,9 @@
 ﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
+using Bilverkstad.Presentationslager.MVVM.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -13,10 +13,15 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
     {
         private KundController _kundcontroller;
         private FordonController _fordoncontroller;
+        private readonly IUserMessageService _messageService;
+
 
         // KONSTRUKTOR
+
+
         public KundHanteringViewModel()
         {
+            _messageService = new UserMessageService();
             _kundcontroller = new KundController();
             _fordoncontroller = new FordonController();
             LoadKunder();
@@ -38,7 +43,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             set
             {
                 _valdKund = value;
-                // När en kund väljs, kopiera dess attributvärden till egenskaperna
+                // kopiera attribut 
                 if (_valdKund != null)
                 {
                     Personnummer = _valdKund.Personnummer;
@@ -54,7 +59,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // PROPERTIES
+
 
         private string _personnummer = "";
         public string Personnummer
@@ -159,7 +166,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // SÖKFUNKTION
+
 
         private bool KundFilter(object obj)
         {
@@ -173,9 +182,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                        kund.Telefonnummer.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        kund.Epost.Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
                        kund.Id.ToString().Contains(Söktext, StringComparison.OrdinalIgnoreCase) ||
-                       kund.Fordon.Any(f => f.RegNr.Contains(Söktext, StringComparison.OrdinalIgnoreCase)); 
+                       kund.Fordon.Any(f => f.RegNr.Contains(Söktext, StringComparison.OrdinalIgnoreCase));
             }
-            
+
             return false;
         }
 
@@ -185,8 +194,8 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         }
 
 
-
         // LÄGG TILL KUND MED FORDON
+
 
         private ICommand? _läggTillKund;
         public ICommand LäggTillKundCommand => _läggTillKund ??= _läggTillKund = new RelayCommand(() =>
@@ -194,25 +203,37 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
             if (string.IsNullOrWhiteSpace(Personnummer) || string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
             {
-                MessageBox.Show("Personnummer, förnamn och efternamn är obligatoriska fält.");
+                _messageService.ShowMessage("Personnummer, förnamn och efternamn är obligatoriska fält.");
                 return;
             }
 
             if (!IsPersonnummerValid(Personnummer))
             {
-                MessageBox.Show("Personnummer måste vara 10 eller 12 tecken långt.");
+                _messageService.ShowMessage("Personnummer måste vara 10 eller 12 tecken långt.");
                 return;
             }
 
             if (IsDuplicateKund(Personnummer))
             {
-                MessageBox.Show("En kund med detta personnummer finns redan.");
+                _messageService.ShowMessage("En kund med detta personnummer finns redan.");
                 return;
             }
 
             if (!IsTelefonnummerValid(Telefonnummer))
             {
-                MessageBox.Show("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                _messageService.ShowMessage("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                return;
+            }
+
+            if (!IsRegNrValid(RegNr))
+            {
+                _messageService.ShowMessage("Registreringsnumret måste vara 6 tecken långt.");
+                return;
+            }
+
+            if (IsDuplicateRegNr(RegNr))
+            {
+                _messageService.ShowMessage("Ett fordon med detta registreringsnummer finns redan.");
                 return;
             }
 
@@ -230,50 +251,37 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 Epost = Epost
             };
 
-            if (!string.IsNullOrWhiteSpace(RegNr))
+            var fordon = new Fordon
             {
-                if (!IsRegNrValid(RegNr))
-                {
-                    MessageBox.Show("Registreringsnumret måste vara 6 tecken långt.");
-                    return;
-                }
+                RegNr = RegNr,
+                Bilmärke = Bilmärke,
+                Modell = Modell
+            };
 
-                if (IsDuplicateRegNr(RegNr))
-                {
-                    MessageBox.Show("Ett fordon med detta registreringsnummer finns redan.");
-                    return;
-                }
+            // Lägg till det nya fordonet på den valda kunden
+            kund.Fordon.Add(fordon);
+            _kundcontroller.AddKund(kund);
+            LoadKunder();
+            _messageService.ShowMessage("Kund tillagd.");
 
-                var fordon = new Fordon
-                {
-                    RegNr = RegNr,
-                    Bilmärke = Bilmärke,
-                    Modell = Modell
-                };
+            // Nollställ textbox-värden
+            Personnummer = "";
+            Förnamn = "";
+            Efternamn = "";
+            Gatuadress = "";
+            Postnummer = "";
+            Ort = "";
+            Telefonnummer = "";
+            Epost = "";
+            RegNr = "";
+            Bilmärke = "";
+            Modell = "";
 
-                // Lägg till det nya fordonet på den valda kunden
-                kund.Fordon.Add(fordon);
-                _kundcontroller.AddKund(kund);
-                LoadKunder();
-                MessageBox.Show("Kund tillagd.");
-
-                // Nollställ textbox-värden
-                Personnummer = "";
-                Förnamn = "";
-                Efternamn = "";
-                Gatuadress = "";
-                Postnummer = "";
-                Ort = "";
-                Telefonnummer = "";
-                Epost = "";
-                RegNr = "";
-                Bilmärke = "";
-                Modell = "";
-
-            }
         });
 
+
         // TA BORT KUND
+
 
         public ICommand? _taBortKund;
         public ICommand TaBortKundCommand => _taBortKund ??= _taBortKund = new RelayCommand(() =>
@@ -284,7 +292,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 KundData.Remove(ValdKund); // Ta bort kunden från IList för att uppdatera datagriden
                 ValdKund = null; // Nollställ ValdKund efter borttagning
                 LoadKunder();
-                MessageBox.Show("Kund borttagen.");
+                _messageService.ShowMessage("Kund borttagen.");
 
                 // Nollställ textbox-värden
                 Personnummer = "";
@@ -298,7 +306,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }, () => ValdKund != null);
 
+
         // UPPDATERA KUND
+
 
         public ICommand? _updateKund;
 
@@ -308,19 +318,19 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(Personnummer) || string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
                 {
-                    MessageBox.Show("Personnummer, förnamn och efternamn är obligatoriska fält.");
+                    _messageService.ShowMessage("Personnummer, förnamn och efternamn är obligatoriska fält.");
                     return;
                 }
 
                 if (!IsPersonnummerValid(Personnummer))
                 {
-                    MessageBox.Show("Personnummer måste vara 10 eller 12 tecken långt.");
+                    _messageService.ShowMessage("Personnummer måste vara 10 eller 12 tecken långt.");
                     return;
                 }
 
                 if (!IsTelefonnummerValid(Telefonnummer))
                 {
-                    MessageBox.Show("Telefonnumret måste vara 10 eller 12 tecken långt.");
+                    _messageService.ShowMessage("Telefonnumret måste vara 10 eller 12 tecken långt.");
                     return;
                 }
 
@@ -335,7 +345,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 _kundcontroller.UpdateKund(ValdKund);
 
                 LoadKunder();
-                MessageBox.Show("Kund uppdaterad.");
+                _messageService.ShowMessage("Kund uppdaterad.");
 
                 // Nollställ textbox-värden
                 Personnummer = "";
@@ -352,8 +362,8 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         }, () => ValdKund != null);
 
 
-
         // LÄGG TILL ETT NYTT FORDON PÅ KUND
+
 
         public ICommand? _läggTillFordonPåKundCommand;
 
@@ -361,25 +371,25 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         {
             if (ValdKund == null)
             {
-                MessageBox.Show("Vänligen välj en kund innan du lägger till ett fordon.");
+                _messageService.ShowMessage("Vänligen välj en kund innan du lägger till ett fordon.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(RegNr))
             {
-                MessageBox.Show("Registreringsnummer är obligatoriskt.");
+                _messageService.ShowMessage("Registreringsnummer är obligatoriskt.");
                 return;
             }
 
             if (!IsRegNrValid(RegNr))
             {
-                MessageBox.Show("Registreringsnumret måste vara 6 tecken långt.");
+                _messageService.ShowMessage("Registreringsnumret måste vara 6 tecken långt.");
                 return;
             }
 
             if (IsDuplicateRegNr(RegNr))
             {
-                MessageBox.Show("Ett fordon med detta registreringsnummer finns redan.");
+                _messageService.ShowMessage("Ett fordon med detta registreringsnummer finns redan.");
                 return;
             }
 
@@ -398,11 +408,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             // Uppdatera kunden i databasen med det nya fordonet
             _kundcontroller.UpdateKund(ValdKund);
             LoadKunder();
-            MessageBox.Show("Fordon tillagd.");
+            _messageService.ShowMessage("Fordon tillagd.");
 
         }, () => ValdKund != null);
 
+
         // FELHANTERING 
+
 
         private bool IsPersonnummerValid(string personnummer)
         {

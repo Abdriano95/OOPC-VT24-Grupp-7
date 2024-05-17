@@ -150,7 +150,7 @@ namespace Bilverkstad.Affärslager
                 return bokning;
             }
         }
-        public List<Bokning> GetBokningarByMekaniker(int mechanicId)
+        public List<Bokning> GetBokningarByMekaniker(int mechanicId) //TA BORT?
         {
             using (var bokningar = new UnitOfWork())
             {
@@ -166,7 +166,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public bool IsMekanikerAvailable(int mekanikerId, DateTime inlämningsDatum, DateTime utlämningsDatum)
+        public bool IsMekanikerAvailable(int mekanikerId, DateTime inlämningsDatum, DateTime utlämningsDatum) // Ta bort?
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {

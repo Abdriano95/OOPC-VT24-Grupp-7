@@ -1,12 +1,9 @@
-﻿
-using Bilverkstad.Affärslager;
+﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Query;
+using Bilverkstad.Presentationslager.MVVM.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -17,16 +14,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private AnställdController _anställdcontroller;
         private ReceptionistController _receptionistcontroller;
         private MekanikerController _mekanikercontroller;
+        private readonly IUserMessageService _messageService;
 
         // KONSTRUKTOR
 
         public PersonalHanteringViewModel()
         {
+            _messageService = new UserMessageService();
             _receptionistcontroller = new ReceptionistController();
             _mekanikercontroller = new MekanikerController();
             _anställdcontroller = new AnställdController();
 
-            LoadPersonal();            
+            LoadPersonal();
             FiltreradePersonal = CollectionViewSource.GetDefaultView(PersonalData);
             FiltreradePersonal.Filter = PersonalFilter;
 
@@ -134,20 +133,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
-
         public ObservableCollection<string> TypList { get; set; }
 
 
-        
-
         // DATAGRID 
+
 
         private void LoadPersonal()
         {
             PersonalData = new ObservableCollection<Anställd>(_anställdcontroller.GetAnställd());
         }
-
-       
 
         private Anställd _valdAnställd;
         public Anställd ValdAnställd
@@ -155,14 +150,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             get => _valdAnställd;
             set
             {
-                _valdAnställd = value;
-                OnPropertyChanged();
+                _valdAnställd = value;                
                 if (value != null)
                 {
                     Förnamn = value.Förnamn;
                     Efternamn = value.Efternamn;
                     Lösenord = value.Lösenord;
-                    
+
 
                     if (value is Mekaniker mekaniker)
                     {
@@ -172,6 +166,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     {
                         SelectedAuktoritet = receptionist.Auktoritet;
                     }
+                    OnPropertyChanged();
                 }
             }
         }
@@ -196,7 +191,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // SÖKFUNKTION
+
 
         private bool PersonalFilter(object obj)
         {
@@ -224,16 +221,15 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private ICommand? _läggTillAnställd;
         public ICommand LäggTillAnställdCommand => _läggTillAnställd ??= _läggTillAnställd = new RelayCommand(() =>
         {
-            if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
-            {
-                MessageBox.Show("Lösenordet måste vara minst 8 tecken långt.");
-                return;
-            }
             if (string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
             {
-                MessageBox.Show("Förnamn och efternamn är obligatoriska fält.");
+                _messageService.ShowMessage("Förnamn och efternamn är obligatoriska fält.");
                 return;
-
+            }
+            if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
+            {
+                _messageService.ShowMessage("Lösenordet måste vara minst 8 tecken långt.");
+                return;
             }
 
             if (Typ == "Mekaniker")
@@ -247,7 +243,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 };
                 _anställdcontroller.AddAnställd(mekaniker);
                 PersonalData.Add(mekaniker);
-                MessageBox.Show("Mekaniker tillagd.");
+                _messageService.ShowMessage("Mekaniker tillagd.");
             }
             else if (Typ == "Receptionist")
             {
@@ -260,12 +256,12 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 };
                 _anställdcontroller.AddAnställd(receptionist);
                 PersonalData.Add(receptionist);
-                MessageBox.Show("Receptionist tillagd.");
+                _messageService.ShowMessage("Receptionist tillagd.");
             }
             // Nollställ textbox-värden
             Förnamn = "";
             Efternamn = "";
-            Lösenord = ""; 
+            Lösenord = "";
         });
 
 
@@ -281,7 +277,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 PersonalData.Remove(ValdAnställd); // Ta bort reservdelen från IList för att uppdatera datagriden
                 ValdAnställd = null; // Nollställ ValdReservdel efter borttagning
                 LoadPersonal();
-                MessageBox.Show("Anställd borttagen.");
+                _messageService.ShowMessage("Anställd borttagen.");
 
                 // Nollställ textbox-värden
                 Förnamn = "";
@@ -294,12 +290,23 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         // UPPDATERA ANSTÄLLD
 
-        
+
         public ICommand? _updateAnställd;
         public ICommand UpdateAnställdCommand => _updateAnställd ??= _updateAnställd = new RelayCommand(() =>
         {
             if (ValdAnställd != null)
             {
+                if (string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
+                {
+                    _messageService.ShowMessage("Förnamn och efternamn är obligatoriska fält.");
+                    return;
+                }
+                if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
+                {
+                    _messageService.ShowMessage("Lösenordet måste vara minst 8 tecken långt.");
+                    return;
+                }                
+
                 ValdAnställd.Förnamn = Förnamn.ToLower();
                 ValdAnställd.Efternamn = Efternamn.ToLower();
                 ValdAnställd.Lösenord = Lösenord.ToLower();
@@ -316,13 +323,13 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 _anställdcontroller.UpdateAnställd(ValdAnställd);
 
                 LoadPersonal();
-                MessageBox.Show("Anställd uppdaterad.");
+                _messageService.ShowMessage("Anställd uppdaterad.");
 
                 // Nollställ textbox-värden
                 Förnamn = "";
                 Efternamn = "";
                 Lösenord = "";
-                
+
 
                 ValdAnställd = null; // Nollställ ValdReservdel efter borttagning
 
@@ -337,8 +344,5 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         {
             return lösenord.Length >= 8;
         }
-
-        
-     
     }
 }

@@ -18,7 +18,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public IList<Fordon> GetFordon()
+        public IList<Fordon> GetFordon() // ta bort?
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -26,7 +26,7 @@ namespace Bilverkstad.Affärslager
             }
 
         }
-        public Fordon GetOneFordon(string regNr)
+        public Fordon GetOneFordon(string regNr) // ta bort?
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -42,7 +42,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public IList<Kund> GetKundWithFordon()
+        public IList<Kund> GetKundWithFordon() // ANVÄNDS TA EJ BORT!
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -50,7 +50,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public Kund? GetKundWithFordonById(int kundId)
+        public Kund? GetKundWithFordonById(int kundId) // ta bort?
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {
@@ -61,7 +61,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void UpdateFordon(Fordon fordon)
+        public void UpdateFordon(Fordon fordon) // ta bort
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
@@ -87,7 +87,7 @@ namespace Bilverkstad.Affärslager
             }
         }
 
-        public void AddOrUpdateFordon(Fordon fordon)
+        public void AddOrUpdateFordon(Fordon fordon) // ta bort?
         {
             using (UnitOfWork unitOfWork = new UnitOfWork())
             {

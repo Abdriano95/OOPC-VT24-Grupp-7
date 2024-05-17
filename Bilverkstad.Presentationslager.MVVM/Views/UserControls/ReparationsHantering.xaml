@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/ListViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <!-- General Styles -->
+            
             <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="#D7DADD" />
                 <Setter Property="FontWeight" Value="Bold" />
@@ -259,7 +259,7 @@
                         <TextBlock Text="Fordonsjournal" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" />
                     </Grid>
                     <Grid Grid.Row="1">
-                        <!-- Jounral view-->
+                        <!-- Jounral -->
                         <ListView ItemsSource="{Binding FordonsJournal}" 
                                   Style="{StaticResource ListViewStyle}"
                                   IsHitTestVisible="True"

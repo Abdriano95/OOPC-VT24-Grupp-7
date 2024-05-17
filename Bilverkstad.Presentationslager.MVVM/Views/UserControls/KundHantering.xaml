@@ -162,9 +162,9 @@
                              BorderThickness="1"
                              Text="{Binding Modell, UpdateSourceTrigger=PropertyChanged}"
                              ToolTip="Ange bilmodell" Grid.ColumnSpan="2"/>
-                    <!-- Buttons -->
+                    <!-- Knappar -->
                     <Button Command="{Binding LäggTillKundCommand}"
-                            Content="Lägg till kund"
+                            Content="Lägg till kund och fordon"
                             Grid.Column="4"
                             Grid.Row="2"
                             Background="#1B3C51"
@@ -239,7 +239,7 @@
                              BorderThickness="1"                             
                              Text="{Binding Söktext, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <!-- Data Grid for Customers -->
+                    <!-- Datagridden -->
                     <DataGrid Grid.Row="1" 
                           x:Name="KunderDataGrid"
                           ItemsSource="{Binding KundData}"
