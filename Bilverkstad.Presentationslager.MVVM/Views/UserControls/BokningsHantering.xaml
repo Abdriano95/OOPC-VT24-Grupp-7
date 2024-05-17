@@ -161,7 +161,7 @@
                                                 SelectedDate="{Binding UtlämningsDatum, Mode=TwoWay}"/>
 
                             <TextBlock Text="Bokningsstatus" Style="{StaticResource LabelStyle}" Margin="0,10,0,0"/>
-                            <ComboBox     ItemsSource="{Binding BokningStatusar}"
+                            <ComboBox     ItemsSource="{Binding BokningStatus}"
                                           SelectedItem="{Binding SelectedBokningStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           Background="#1B3C51"
                                           Foreground="Black"
@@ -184,7 +184,7 @@
                     <GroupBox Header="Fordonsjournal" Foreground="#D7DADD" Background="#1B3C51" Width="298">
                         <StackPanel Margin="10">
 
-                            <TextBlock Text="Resultat" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
+                            <TextBlock Text="Sök efter registreringsnummer" Style="{StaticResource LabelStyle}" Margin="0,10,0,0" />
                             <ComboBox ItemsSource="{Binding FordonSuggestions}"
                                       SelectedItem="{Binding SelectedFordonJournal, UpdateSourceTrigger=PropertyChanged}"
                                       IsTextSearchEnabled="False"
@@ -246,7 +246,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <TextBlock Text="Journal" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center"/>
-                    <ListView ItemsSource="{Binding FordonsJournal}" Style="{StaticResource ListViewStyle}"  IsHitTestVisible="False">
+                    <ListView ItemsSource="{Binding FordonsJournal}" Style="{StaticResource ListViewStyle}"  IsHitTestVisible="True">
                         <ListView.View>
                             <GridView>
                                 <GridView.ColumnHeaderContainerStyle>
