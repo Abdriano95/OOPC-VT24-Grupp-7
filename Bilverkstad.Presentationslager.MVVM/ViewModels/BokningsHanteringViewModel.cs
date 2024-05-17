@@ -443,10 +443,18 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 return;
             }
 
-            _bokningsController.DeleteBokning(SelectedBokningForReceptionist.Id);
-            RefreshFieldsCommand.Execute(null);
-            LoadBokningarForReceptionist();
-            _messageService.ShowMessage("Bokningen är borttagen.");
+            if(SelectedBokningForReceptionist.Reparation.Count <= 0)
+            {
+                _bokningsController.DeleteBokning(SelectedBokningForReceptionist.Id);
+                RefreshFieldsCommand.Execute(null);
+                LoadBokningarForReceptionist();
+                _messageService.ShowMessage("Bokningen är borttagen.");
+            } else
+            {
+                _messageService.ShowMessage("Bokningen kan inte tas bort eftersom det finns reparationer kopplade till den.");
+            }
+
+            
         });
 
         // Metoder för att uppdatera, hämta data och validera om användaren är mekaniker eller receptionist
