@@ -4,5 +4,6 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
     public class BaseViewModel : ObservableObject
     {
+
     }
 }
