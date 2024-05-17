@@ -4,7 +4,6 @@ using Bilverkstad.Presentationslager.MVVM.Commands;
 using Bilverkstad.Presentationslager.MVVM.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -15,7 +14,10 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private ReservdelController _reservdelcontroller;
         private readonly IUserMessageService _messageService;
 
+
         // KONSTRUKTOR
+
+
         public ReservdelHanteringViewModel()
         {
             _messageService = new UserMessageService();
@@ -26,8 +28,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             FiltreradeReservdelar.Filter = ReservdelFilter;
         }
 
+
         // PROPERTIES
-        // test
+  
 
         private string _namn = "";
         public string Namn
@@ -55,7 +58,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // DATAGRID
+
 
         private void LoadReservdelar()
         {
@@ -99,7 +104,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // SÖKFUNKTION
+
 
         private bool ReservdelFilter(object obj)
         {
@@ -120,7 +127,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             FiltreradeReservdelar.Refresh(); // Uppdatera CollectionView när söktexten ändras
         }
 
+
         // LÄGG TILL RESERVDEL
+
 
         private ICommand? _läggTillReservdel;
         public ICommand LäggTillReservdelCommand => _läggTillReservdel ??= _läggTillReservdel = new RelayCommand(() =>
@@ -163,6 +172,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         // TA BORT RESERVDEL
 
+
         public ICommand? _taBortReservdel;
         public ICommand TaBortReservdelCommand => _taBortReservdel ??= _taBortReservdel = new RelayCommand(() =>
         {
@@ -184,6 +194,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         // UPPDATERA RESERVDEL
 
+
         public ICommand? _updateReservdel;
 
         public ICommand UpdateReservdelCommand => _updateReservdel ??= _updateReservdel = new RelayCommand(() =>
@@ -198,6 +209,11 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                 if (Pris == 0 || float.IsNegative(Pris))
                 {
                     _messageService.ShowMessage("Pris måste vara ett positivt värde.");
+                    return;
+                }
+                if (IsDuplicateReservdel(Namn))
+                {
+                    _messageService.ShowMessage("En reservdel med detta namn finns redan.");
                     return;
                 }
 
@@ -219,7 +235,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }, () => ValdReservdel != null);
 
+
         // FELHANTERING 
+
 
         private bool IsDuplicateReservdel(string namn)
         {

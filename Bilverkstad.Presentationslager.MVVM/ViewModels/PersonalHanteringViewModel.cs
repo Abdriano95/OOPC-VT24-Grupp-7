@@ -1,11 +1,9 @@
-﻿
-using Bilverkstad.Affärslager;
+﻿using Bilverkstad.Affärslager;
 using Bilverkstad.Entitetlagret;
 using Bilverkstad.Presentationslager.MVVM.Commands;
 using Bilverkstad.Presentationslager.MVVM.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -140,6 +138,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         // DATAGRID 
 
+
         private void LoadPersonal()
         {
             PersonalData = new ObservableCollection<Anställd>(_anställdcontroller.GetAnställd());
@@ -151,8 +150,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             get => _valdAnställd;
             set
             {
-                _valdAnställd = value;
-                OnPropertyChanged();
+                _valdAnställd = value;                
                 if (value != null)
                 {
                     Förnamn = value.Förnamn;
@@ -168,6 +166,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     {
                         SelectedAuktoritet = receptionist.Auktoritet;
                     }
+                    OnPropertyChanged();
                 }
             }
         }
@@ -192,7 +191,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+
         // SÖKFUNKTION
+
 
         private bool PersonalFilter(object obj)
         {
@@ -220,14 +221,14 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         private ICommand? _läggTillAnställd;
         public ICommand LäggTillAnställdCommand => _läggTillAnställd ??= _läggTillAnställd = new RelayCommand(() =>
         {
-            if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
-            {
-                _messageService.ShowMessage("Lösenordet måste vara minst 8 tecken långt.");
-                return;
-            }
             if (string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
             {
                 _messageService.ShowMessage("Förnamn och efternamn är obligatoriska fält.");
+                return;
+            }
+            if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
+            {
+                _messageService.ShowMessage("Lösenordet måste vara minst 8 tecken långt.");
                 return;
             }
 
@@ -295,16 +296,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         {
             if (ValdAnställd != null)
             {
-                if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
-                {
-                    _messageService.ShowMessage("Lösenordet måste vara minst 8 tecken långt.");
-                    return;
-                }
                 if (string.IsNullOrWhiteSpace(Förnamn) || string.IsNullOrWhiteSpace(Efternamn))
                 {
                     _messageService.ShowMessage("Förnamn och efternamn är obligatoriska fält.");
                     return;
                 }
+                if (!IsLösenordValid(Lösenord) || string.IsNullOrWhiteSpace(Lösenord))
+                {
+                    _messageService.ShowMessage("Lösenordet måste vara minst 8 tecken långt.");
+                    return;
+                }                
 
                 ValdAnställd.Förnamn = Förnamn.ToLower();
                 ValdAnställd.Efternamn = Efternamn.ToLower();
@@ -343,8 +344,5 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         {
             return lösenord.Length >= 8;
         }
-
-
-
     }
 }
