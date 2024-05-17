@@ -17,7 +17,7 @@
 
 
     <Grid Margin="10">
-        <!-- Top Grid Row for Title Bar and Custom Close Button -->
+       
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
@@ -71,7 +71,7 @@
             <Image Source="/Views/Resources/BilverkstadLogo.png" Grid.Column="2" HorizontalAlignment="Center" Height="52" VerticalAlignment="Center" Width="112"/>
         </Grid>
 
-        <!-- Tab Control with Pages -->
+        <!-- Tab Control -->
         <TabControl     
                         Grid.Row="1"
                         Background="Silver"

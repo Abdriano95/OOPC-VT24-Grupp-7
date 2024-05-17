@@ -17,7 +17,7 @@
                 <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/DataGridStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- General Styles -->
+            
             <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="#D7DADD" />
                 <Setter Property="FontWeight" Value="Bold" />
@@ -46,12 +46,12 @@
                 <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Form Panel (Left) -->
+            <!-- Vänstra panelen -->
             <ScrollViewer Grid.Column="0"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
                 <StackPanel Margin="0,0,10,0">
-                    <!-- Search Box -->
+                    <!-- sökfält -->
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                         <TextBlock Text="Sök:" Style="{StaticResource LabelStyle}" VerticalAlignment="Center" />
                         <TextBox Text="{Binding Söktext, UpdateSourceTrigger=PropertyChanged}"
@@ -61,7 +61,7 @@
                         Width="150"
                         Margin="5,0,0,0" />
                     </StackPanel>
-                    <!-- Employee Information -->
+                    <!-- anställd info -->
                     <GroupBox Header="Employee Information" Foreground="#D7DADD" Background="#1B3C51">
                         <StackPanel Margin="10">
                             <TextBlock Text="Förnamn" Style="{StaticResource LabelStyle}" />
@@ -89,7 +89,7 @@
                                       Foreground="Black"
                                       BorderBrush="#D7DADD" />
 
-                            <!-- Specialization -->
+                            <!-- mekaniker enums -->
                             <TextBlock x:Name="SpecializationLabel"
                                        Text="Specialisering" 
                                        Style="{StaticResource LabelStyle}" 
@@ -102,7 +102,7 @@
                                       Foreground="Black"
                                       BorderBrush="#D7DADD" />
 
-                            <!-- Authority -->
+                            <!-- receptionist enums -->
                             <TextBlock x:Name="AuthorityLabel"
                                        Text="Auktoritet" 
                                        Style="{StaticResource LabelStyle}" 
@@ -115,7 +115,7 @@
                                       Foreground="Black"
                                       BorderBrush="#D7DADD" />
 
-                            <!-- Add/Edit/Delete Buttons -->
+                            <!-- Knappar -->
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <Button Content="Lägg till" Style="{StaticResource ButtonStyle}" Command="{Binding LäggTillAnställdCommand}" />
                                 <Button Content="Ändra" Style="{StaticResource ButtonStyle}" Command="{Binding UpdateAnställdCommand}" />
@@ -126,7 +126,7 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <!-- Data Grid Panel (Right) -->
+            <!-- datagridden -->
             <StackPanel Grid.Column="1">
                 <TextBlock Text="Personal DataGrid" Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" Margin="0,0,0,10" />
                 <DataGrid ItemsSource="{Binding PersonalData}"

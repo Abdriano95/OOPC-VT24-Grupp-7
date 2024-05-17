@@ -64,9 +64,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 if (SetProperty(ref _searchText, value))
                 {
-                    if (!_updatingFromSelection) // Only update suggestions and check text if not updating from selection
+                    if (!_updatingFromSelection) 
                     {
-                        UpdateKundSuggestions(); // Refreshes the customers list shown in the dropdown
+                        UpdateKundSuggestions(); 
                         IsDropDownOpen = !string.IsNullOrEmpty(value);
                         CheckAndResetSearchText(value);
                     }
@@ -148,7 +148,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     _updatingFromSelectionJournal = true;
                     if (value != null)
                     {
-                        SearchJournalText = value.RegNr; 
+                        SearchJournalText = value.RegNr;
                     }
                     else
                     {
@@ -157,7 +157,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
                     _updatingFromSelectionJournal = false;
 
                 }
-              
+
             }
         }
 
@@ -177,7 +177,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             {
                 if (SetProperty(ref _searchJournalText, value))
                 {
-                    if(!_updatingFromSelectionJournal)
+                    if (!_updatingFromSelectionJournal)
                     {
                         UpdateJournalSuggestions();
                         IsFordonDropDownOpen = !string.IsNullOrEmpty(value);
@@ -189,7 +189,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         private void CheckAndResetSearchJournalText(string newText)
         {
-            if(SelectedFordonJournal != null && !_updatingFromSelectionJournal)
+            if (SelectedFordonJournal != null && !_updatingFromSelectionJournal)
             {
                 if (newText != SelectedFordonJournal.RegNr)
                 {

@@ -1,6 +1,4 @@
-﻿
-
-namespace Bilverkstad.Presentationslager.MVVM.Commands
+﻿namespace Bilverkstad.Presentationslager.MVVM.Commands
 {
     public class RelayCommand : CommandBase
     {

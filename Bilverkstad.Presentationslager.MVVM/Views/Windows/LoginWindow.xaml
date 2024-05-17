@@ -17,15 +17,15 @@
 
     <Grid Margin="10,2,10,10">
             
-            <!-- Main Grid Layout -->
+            <!-- Huvud Grid-->
             <Grid Grid.Row="1" Margin="0,8,2,0">
-                <!-- Grid with two columns -->
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Logo Section -->
+                
                 <Border Background="GhostWhite"
                         CornerRadius="10"
                         Margin="0,0,10,0">
@@ -35,14 +35,14 @@
                            HorizontalAlignment="Center"/>
                 </Border>
 
-                <!-- Form Section -->
+                
                 <Border Grid.Column="1"
                         Background="GhostWhite"
                         CornerRadius="10"
                         Padding="20"
                         Margin="10,0,0,0">
                     <StackPanel>
-                        <!-- Username Field -->
+                        <!-- anställningsnummer-->
                         <TextBlock Text="AnställningsID"
                                    Margin="0,0,0,10"
                                    FontWeight="SemiBold"
@@ -59,7 +59,7 @@
                                  Margin="0,0,0,20"
                                  ToolTip="Ange AnställningsID"/>
 
-                        <!-- Password Field -->
+                        <!-- lösenord -->
                         <TextBlock Text="Lösenord"
                                    Margin="0,0,0,10"
                                    FontWeight="SemiBold"
@@ -69,7 +69,7 @@
                                                         Margin="0,0,0,20"
                                                         ToolTip="Ange ditt lösenord"/>
 
-                        <!-- Login Button  -->
+                        <!-- knapp -->
                         <Button x:Name="LoginButton"
                                 Command="{Binding LoginCommand}"
                                 Content="Logga in"

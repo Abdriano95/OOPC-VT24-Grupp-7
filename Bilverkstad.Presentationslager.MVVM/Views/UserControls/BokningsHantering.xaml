@@ -13,7 +13,7 @@
                 <ResourceDictionary Source="/Bilverkstad.Presentationslager.MVVM;component/Views/Resources/ListViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <!-- General Styles -->
+            
             <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="#D7DADD" />
                 <Setter Property="FontWeight" Value="Bold" />
@@ -84,7 +84,7 @@
                 <ColumnDefinition Width="1438*" />
             </Grid.ColumnDefinitions>
 
-            <!-- Form Panel (Left) -->
+            <!-- vänstra panelen-->
             <ScrollViewer Grid.Column="0"
                           VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Disabled">
@@ -169,7 +169,7 @@
 
 
 
-                            <!-- Add/Edit/Delete Buttons -->
+                            <!-- knappar-->
                             <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                                 <Button Content="Skapa" Style="{StaticResource ButtonStyle}" Command="{Binding AddBokningCommand}"/>
                                 <Button Content="Ändra" Style="{StaticResource ButtonStyle}" Command="{Binding UpdateBokningCommand}" />
