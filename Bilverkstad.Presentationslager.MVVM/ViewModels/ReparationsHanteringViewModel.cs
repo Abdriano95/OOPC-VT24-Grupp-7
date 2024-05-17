@@ -306,7 +306,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         });
 
-        // Sökfunktion för fordonsjournal
+        // Sökfunktion för fordonsjournal((
 
        
         public ObservableCollection<Bokning> _fordonsJournal;
