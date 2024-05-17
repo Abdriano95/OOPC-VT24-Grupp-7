@@ -1,4 +1,11 @@
-﻿namespace Bilverkstad.Presentationslager.MVVM.ViewModels
+﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Entitetlagret;
+using Bilverkstad.Presentationslager.MVVM.Commands;
+using Bilverkstad.Presentationslager.MVVM.Services;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+
+namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 {
     public class ReparationsHanteringViewModel : BaseViewModel
     {

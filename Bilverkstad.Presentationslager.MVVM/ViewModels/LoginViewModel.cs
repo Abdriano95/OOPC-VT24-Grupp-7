@@ -15,6 +15,8 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
 
         public ObservableCollection<Anställd> Anställda { get; } = new ObservableCollection<Anställd>();
 
+        // PROPERTIES
+
         private string _userId = "";
         public string UserId
         {
@@ -28,6 +30,9 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             get => _password;
             set => SetProperty(ref _password, value);
         }
+
+        // KONSTRUKTOR
+
         public LoginViewModel()
         {
             _anställdController = new AnställdController();
@@ -46,6 +51,7 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             }
         }
 
+        // LOGGA IN
 
         private ICommand _loginCommand = null!;
         public ICommand LoginCommand => _loginCommand ??= _loginCommand = new RelayCommand(() =>

@@ -1,5 +1,6 @@
 ﻿using Bilverkstad.Datalager;
 using Bilverkstad.Entitetlagret;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bilverkstad.Affärslager
 {
@@ -85,6 +86,25 @@ namespace Bilverkstad.Affärslager
             }
 
 
+        }
+
+        public IList<Reparation> GetReparationerByBokning(int bokningId)
+        {
+            try
+            {
+                using (UnitOfWork unitOfWork = new UnitOfWork())
+                {
+                    // Directly use the context to include related entities
+                    var bokning = unitOfWork.Bokning.GetAll().Include(b => b.Reparation).ThenInclude(r => r.Reservdelar).FirstOrDefault(b => b.Id == bokningId);
+
+                    // Return the list of reparations or an empty list if the booking is not found
+                    return bokning?.Reparation?.ToList() ?? new List<Reparation>();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to retrieve reparations with reservdelar", ex);
+            }
         }
     }
 }

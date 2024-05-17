@@ -21,12 +21,16 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
         public bool ShowPersonalTab { get; set; } = true;
         public bool ShowReparationerTab { get; set; } = true;
 
+        // KONSTRUKTOR
+
         public MainViewModel()
         {
             _anställdController = new AnställdController();
             _windowService = new WindowService();
             DetermineVisabilityTab();
         }
+
+        // LOGGA UT
 
         private ICommand? _logoutCommand;
         public ICommand LogoutCommand => _logoutCommand ??= new RelayCommand(() =>
@@ -37,6 +41,8 @@ namespace Bilverkstad.Presentationslager.MVVM.ViewModels
             AnvändarSession.Logout();
 
         });
+
+        // VISA TABS BEROENDE PÅ ANVÄNDARE
 
         public void DetermineVisabilityTab()
         {
