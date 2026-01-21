@@ -1,7 +1,9 @@
 ﻿using Bilverkstad.Affärslager;
+using Bilverkstad.Datalager;
 using Bilverkstad.Presentationslager.MVVM.Services;
 using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using Bilverkstad.Presentationslager.MVVM.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -15,6 +17,10 @@ namespace Bilverkstad.Presentationslager.MVVM
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
+            // Initialize database
+            InitializeDatabase();
+            
             var services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
@@ -26,6 +32,26 @@ namespace Bilverkstad.Presentationslager.MVVM
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while starting the application: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Current.Shutdown();
+            }
+        }
+
+        private void InitializeDatabase()
+        {
+            try
+            {
+                using var context = new BilverkstadContext();
+                
+                // Ensure database is created and apply migrations
+                context.Database.Migrate();
+                
+                // Seed the database with initial data
+                BilverkstadSeed.Populate(context);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while initializing the database: {ex.Message}\n\nInner Exception: {ex.InnerException?.Message}", 
+                    "Database Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Current.Shutdown();
             }
         }

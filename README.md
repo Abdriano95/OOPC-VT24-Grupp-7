@@ -41,6 +41,40 @@ The application implements **two separate presentation layers** - one using trad
 
 ---
 
+## 📸 Screenshots
+
+### Login Screen
+Secure employee authentication with role-based access control.
+
+![Login Screen](docs/screenshots/login.png)
+
+### Customer Management (Kunder)
+Full CRUD operations for customers with associated vehicles. Admin receptionists have full access to manage customer data.
+
+![Customer Management](docs/screenshots/customer-management.png)
+
+### Booking Management (Bokningar)
+Create and manage service bookings, assign mechanics by specialization, and track booking status. Includes vehicle service journal lookup.
+
+![Booking Management](docs/screenshots/booking-management.png)
+
+### Staff Management (Personal)
+Admin view for managing employees - receptionists and mechanics with their specializations and authority levels.
+
+![Staff Management](docs/screenshots/staff-management.png)
+
+### Spare Parts Inventory (Reservdelar)
+Manage spare parts catalog with article numbers and pricing. Available to mechanics and admin receptionists.
+
+![Spare Parts](docs/screenshots/spare-parts.png)
+
+### Repair Management (Reparationer)
+Mechanics can view their assigned bookings, manage repairs, track status, and access the complete vehicle service journal.
+
+![Repair Management](docs/screenshots/repair-management.png)
+
+---
+
 ## ✨ Key Features
 
 ### Authentication & Authorization

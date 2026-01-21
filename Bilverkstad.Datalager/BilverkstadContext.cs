@@ -16,7 +16,7 @@ namespace Bilverkstad.Datalager
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=sqlutb2-db.hb.se,56077;Database=oopc2407;Trusted_Connection=True;User Id=oopc2407;Password=VNW786;Integrated Security=False;Encrypt=False");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Bilverkstad;Trusted_Connection=True;");
             base.OnConfiguring(optionsBuilder);
         }
 
