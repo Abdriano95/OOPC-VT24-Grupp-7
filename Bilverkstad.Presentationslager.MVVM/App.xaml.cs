@@ -4,7 +4,9 @@ using Bilverkstad.Presentationslager.MVVM.Services;
 using Bilverkstad.Presentationslager.MVVM.ViewModels;
 using Bilverkstad.Presentationslager.MVVM.Views.Windows;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 using System.Windows;
 
 namespace Bilverkstad.Presentationslager.MVVM
@@ -13,10 +15,14 @@ namespace Bilverkstad.Presentationslager.MVVM
     public partial class App : Application
     {
         private IServiceProvider? _serviceProvider;
+        private IConfiguration? _configuration;
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            
+            // Load configuration
+            LoadConfiguration();
             
             // Initialize database
             InitializeDatabase();
@@ -36,11 +42,36 @@ namespace Bilverkstad.Presentationslager.MVVM
             }
         }
 
+        private void LoadConfiguration()
+        {
+            try
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+                _configuration = builder.Build();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while loading configuration: {ex.Message}\n\nMake sure appsettings.json exists in the application directory.", 
+                    "Configuration Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Current.Shutdown();
+            }
+        }
+
         private void InitializeDatabase()
         {
             try
             {
-                using var context = new BilverkstadContext();
+                var connectionString = _configuration?.GetConnectionString("BilverkstadDatabase");
+                
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    throw new InvalidOperationException("Connection string 'BilverkstadDatabase' not found in appsettings.json");
+                }
+
+                using var context = new BilverkstadContext(connectionString);
                 
                 // Ensure database is created and apply migrations
                 context.Database.Migrate();
