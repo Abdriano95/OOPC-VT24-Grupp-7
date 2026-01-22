@@ -559,7 +559,7 @@ This project was developed as a group assignment for the Object-Oriented Program
 | Contributor | Commits | Focus Areas |
 |-------------|---------|-------------|
 | **Abdriano** | 270 | Initital setup, Entity models, Architecture, MVVM implementation, Business logic |
-| **joakimolssonn** | 231 | Initital setup, Entity Models, Features, Code reviews, Error handling |
+| **joakimolssonn** | 231 | Initital setup, Entity Models, Features, Code reviews, Error handling, Business logic, Security |
 
 ---
 
