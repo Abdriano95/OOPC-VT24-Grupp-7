@@ -556,9 +556,9 @@ erDiagram
 
 This project was developed as a group assignment for the Object-Oriented Programming course (OOPC) at Högskolan i Borås, Spring 2024.
 
-| Contributor | Commits | Focus Areas |
-|-------------|---------|-------------|
-| **Abdriano** | 270 | Initital setup, Entity models, Architecture, MVVM implementation, Business logic |
+| Contributor | Focus Areas |
+|-------------|-------------|
+| **Abdriano** |  | Initital setup, Entity models, Architecture, MVVM implementation, Business logic |
 | **joakimolssonn** | 231 | Initital setup, Entity Models, Features, Code reviews, Error handling, Business logic, Security |
 
 ---
